@@ -9,6 +9,8 @@ A Simple E-Commerce Application for the People of Papua New Guinea
 ## Installation
 
 Run `composer install` to install dependencies locally  
+Run `php artisan key:generate --show` to generate a key  
+Rename .env.example to .env and add the newly generated key  
 Run `php artisan serve` to run the webapp
 
 ### License
