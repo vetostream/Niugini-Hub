@@ -17,7 +17,7 @@ class UserController extends Controller
     }
 
     /**
-     * Show the application dashboard.
+     * Show the index.
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
