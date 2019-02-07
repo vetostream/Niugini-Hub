@@ -58,13 +58,35 @@ return [
             'engine' => null,
         ],
 
+        /**
+         * For Production:
+         * Uncomment below lines
+         * Rename pgsql_prod
+         */
+        'pgsql_prod' => [
+            'driver' => 'pgsql',
+            // 'host' => $dbopts["host"],
+            // 'port' => $dbopts["port"],
+            // 'database' => ltrim($dbopts["path"], "/"),
+            // 'username' => $dbopts["user"],
+            // 'password' => $dbopts["pass"],
+            'charset' => 'utf8',
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'schema' => 'public',
+            'sslmode' => 'prefer',
+        ],
+
+        /**
+         * For Local
+         */
         'pgsql' => [
             'driver' => 'pgsql',
-            'host' => $dbopts["host"],
-            'port' => $dbopts["port"],
-            'database' => ltrim($dbopts["path"], "/"),
-            'username' => $dbopts["user"],
-            'password' => $dbopts["pass"],
+            'host' => env('DB_HOST', '127.0.0.1'),
+            'port' => env('DB_PORT', '3306'),
+            'database' => env('DB_DATABASE', 'forge'),
+            'username' => env('DB_USERNAME', 'forge'),
+            'password' => env('DB_PASSWORD', ''),
             'charset' => 'utf8',
             'prefix' => '',
             'prefix_indexes' => true,
