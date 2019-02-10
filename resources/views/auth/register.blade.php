@@ -4,6 +4,7 @@
 <div class="section">
   <div class="container">
     <div class="row justify-content-center">
+
       <div class="col-sm-12">
         <div class="section-title">
           <h3 class="title">{{ __('Register') }}</h3>
@@ -57,16 +58,18 @@
             </div>
           </div>
 
-          <div class="form-group row mb-0">
-            <div class="col-md-6 offset-md-4">
+          <div class="form-group row text-right">
+            <div class="col-md-10">
               <button type="submit" class="btn btn-primary">
                 {{ __('Register') }}
               </button>
             </div>
+            <div class="col-md-2"></div>
           </div>
 
         </form>
       </div>
+
     </div>
   </div>
 </div>
