@@ -7,7 +7,7 @@
 
       <div class="col-sm-12">
         <div class="section-title">
-          <h3 class="title">{{ __('Register') }}</h3>
+          <h3 class="title">{{ __('Registration Form') }}</h3>
         </div>
       </div>
 
@@ -22,6 +22,18 @@
               @if ($errors->has('name'))
                 <span class="invalid-feedback" role="alert">
                   <strong>{{ $errors->first('name') }}</strong>
+                </span>
+              @endif
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="username" class="col-md-4 col-form-label text-md-right">{{ __('Username') }}</label>
+            <div class="col-md-6">
+              <input id="username" type="text" class="form-control{{ $errors->has('username') ? ' is-invalid' : '' }}" name="username" value="{{ old('username') }}" required autofocus>
+              @if ($errors->has('username'))
+                <span class="invalid-feedback" role="alert">
+                  <strong>{{ $errors->first('username') }}</strong>
                 </span>
               @endif
             </div>
@@ -55,6 +67,43 @@
             <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
             <div class="col-md-6">
               <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="bday" class="col-md-4 col-form-label text-md-right">{{ __('Date of Birth') }}</label>
+            <div class="col-md-6">
+              <input id="bday" type="date" class="form-control" name="bday">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="gender" class="col-md-4 col-form-label text-md-right">{{ __('Gender') }}</label>
+            <div class="col-md-6">
+              <select id="gender" class="form-control" name="gender">
+                <option selected></option>
+                <option>Male</option>
+                <option>Female</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="phone_number" class="col-md-4 col-form-label text-md-right">{{ __('Phone Number') }}</label>
+            <div class="col-md-6">
+              <input id="phone_number" type="number" class="form-control{{ $errors->has('phone_number') ? ' is-invalid' : '' }}" name="phone_number" value="{{ old('phone_number') }}" required autofocus>
+              @if ($errors->has('phone_number'))
+                <span class="invalid-feedback" role="alert">
+                  <strong>{{ $errors->first('phone_number') }}</strong>
+                </span>
+              @endif
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="address" class="col-md-4 col-form-label text-md-right">{{ __('Address') }}</label>
+            <div class="col-md-6">
+              <input id="address" type="text" class="form-control" name="address">
             </div>
           </div>
 
