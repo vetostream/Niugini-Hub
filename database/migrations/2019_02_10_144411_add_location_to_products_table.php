@@ -15,7 +15,7 @@ class AddLocationToProductsTable extends Migration
     {
         Schema::table('products', function (Blueprint $table) {
             $table->string('location');
-            $table->text('image');
+            $table->text('image')->nullable();
         });
     }
 
