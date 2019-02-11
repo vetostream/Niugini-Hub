@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class ProductsController extends Controller
+class CategoriesController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -22,7 +22,7 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        return view('products.list');
+        return view('categories.list');
     }
 
 }
