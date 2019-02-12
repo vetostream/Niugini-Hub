@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Categories as Categories;
+
 class CategoriesController extends Controller
 {
     /**
@@ -22,7 +24,9 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        return view('categories.list');
+        $categories = Categories::paginate(10);
+
+        return view('categories.list', ['categories' => $categories]);
     }
 
 }
