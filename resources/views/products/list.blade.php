@@ -9,10 +9,8 @@
     <div class="row">
       <div class="col-md-12">
         <ul class="breadcrumb-tree">
-          <li><a href="#">Home</a></li>
-          <li><a href="#">All Categories</a></li>
-          <li><a href="#">Accessories</a></li>
-          <li class="active">Headphones</li>
+          <li><a href="{{ route('home') }}">All Categories</a></li>
+          <li><a href="{{ route('home') }}">{{ $product->category['name'] }}</a></li>
         </ul>
       </div>
     </div>
@@ -39,37 +37,32 @@
       <!-- Product details -->
       <div class="col-md-7">
         <div class="product-details">
-          <h2 class="product-name">product name</h2>
+          <h2 class="product-name">{{ $product->name }}</h2>
           <div>
-            <h3 class="product-price">K980.00</h3>
+            <h3 class="product-price">K{{ $product->price }}</h3>
           </div>
-          <p>Product Description</p>
-          <p>Product Location</p>
+          <p>{{ $product->desc }}</p>
 
           <div class="product-options">
-            <label>
-              Size
-              <select class="input-select">
-                <option value="0">X</option>
-              </select>
-            </label>
           </div>
 
           <div class="add-to-cart">
             <div class="qty-label">
               Qty
               <div class="input-number">
-                <input type="number" min="1">
+                <input type="number" min="1" value="1">
                 <span class="qty-up">+</span>
                 <span class="qty-down">-</span>
               </div>
             </div>
-            <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+            <a href="{{ route('home') }}">
+              <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+            </a>
           </div>
 
           <ul class="product-links">
             <li>Category:</li>
-            <li><a href="#">Headphones</a></li>
+            <li><a href="{{ route('home') }}">{{ $product->category['name'] }}</a></li>
           </ul>
 
         </div>

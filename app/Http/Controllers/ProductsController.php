@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Products as Products;
+
 class ProductsController extends Controller
 {
     /**
@@ -20,9 +22,11 @@ class ProductsController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index($id)
     {
-        return view('products.list');
+        $product = Products::findOrFail($id);
+
+        return view('products.list', ['product' => $product]);
     }
 
 }
