@@ -29,4 +29,16 @@ class CategoriesController extends Controller
         return view('categories.list', ['categories' => $categories]);
     }
 
+    /**
+     * Show the single result from id
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function viewCategory($id)
+    {
+        $category = Categories::findOrFail($id);
+
+        return view('categories.list-by-products', ['category' => $category]);
+    }
+
 }
