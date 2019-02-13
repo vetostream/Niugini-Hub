@@ -1,24 +1,66 @@
 @extends('layouts.base')
 
 @section('content')
-<!-- BREADCRUMB -->
-<div id="breadcrumb" class="section">
+
+<!-- MAIN HEADER -->
+<div id="header">
   <!-- container -->
   <div class="container">
     <!-- row -->
     <div class="row">
-      <div class="col-md-12">
-        <ul class="breadcrumb-tree">
-          <li><a href="{{ route('home') }}">All Categories</a></li>
-          <li><a href="{{ route('home') }}">{{ $product->category['name'] }}</a></li>
-        </ul>
+
+      <!-- SEARCH BAR -->
+      <div class="col-md-9">
+        <div class="header-search">
+          <form method="POST" action="/search">
+            @csrf
+            <input class="input" placeholder="Search here">
+            <button class="search-btn">Search</button>
+          </form>
+        </div>
       </div>
+      <!-- /SEARCH BAR -->
+
+      <!-- ACCOUNT -->
+      <div class="col-md-3 clearfix">
+        <div class="header-ctn">
+        @if (Auth::check())
+          <!-- Wishlist -->
+          <div>
+            <a href="{{ route('home') }}">
+              <i class="fa fa-heart-o"></i>
+              <span>Your Wishlist</span>
+            </a>
+          </div>
+          <!-- /Wishlist -->
+
+          <!-- Cart -->
+          <div>
+            <a href="{{ route('home') }}">
+              <i class="fa fa-shopping-cart"></i>
+              <span>Your Cart</span>
+            </a>
+          </div>
+          <!-- /Cart -->
+        @endif
+          <!-- Menu Toogle -->
+          <div class="menu-toggle">
+            <a href="#">
+              <i class="fa fa-bars"></i>
+              <span>Menu</span>
+            </a>
+          </div>
+          <!-- /Menu Toogle -->
+        </div>
+      </div>
+      <!-- /ACCOUNT -->
+
     </div>
-    <!-- /row -->
+    <!-- row -->
   </div>
-  <!-- /container -->
+  <!-- container -->
 </div>
-<!-- /BREADCRUMB -->
+<!-- /MAIN HEADER -->
 
 <!-- SECTION -->
 <div class="section">
@@ -26,48 +68,51 @@
   <div class="container">
     <!-- row -->
     <div class="row">
-      <!-- Product main img -->
-      <div class="col-md-5">
-        <div id="product-main-img">
-          <img src="{{ asset('img/blank.png') }}" alt="">
+
+      <!-- section title -->
+      <div class="col-md-12">
+        <div class="section-title">
+          <h3 class="title">Products</h3>
         </div>
       </div>
-      <!-- /Product main img -->
+      <!-- /section title -->
 
-      <!-- Product details -->
-      <div class="col-md-7">
-        <div class="product-details">
-          <h2 class="product-name">{{ $product->name }}</h2>
-          <div>
-            <h3 class="product-price">K{{ $product->price }}</h3>
-          </div>
-          <p>{{ $product->desc }}</p>
+      <!-- STORE -->
+      <div id="store" class="col-md-12">
 
-          <div class="product-options">
-          </div>
-
-          <div class="add-to-cart">
-            <div class="qty-label">
-              Qty
-              <div class="input-number">
-                <input type="number" min="1" value="1">
-                <span class="qty-up">+</span>
-                <span class="qty-down">-</span>
+        <!-- store products -->
+        <div class="row">
+          @foreach ($products as $product)
+          <!-- product -->
+          <div class="col-md-4 col-xs-6">
+            <div class="product">
+              <div class="product-img">
+                <img src="{{ asset('img/blank.png') }}" alt="">
+              </div>
+              <div class="product-body">
+                <p class="product-category">{{ $product->category['name'] }}</p>
+                <h3 class="product-name"><a href="{{ url('/products/'.$product->id) }}">{{ $product->name }}</a></h3>
+                <h4 class="product-price">K{{ $product->price }}</h4>
+              </div>
+              <div class="add-to-cart">
+                <a href="{{ route('home') }}">
+                  <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+                </a>
               </div>
             </div>
-            <a href="{{ route('home') }}">
-              <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-            </a>
           </div>
-
-          <ul class="product-links">
-            <li>Category:</li>
-            <li><a href="{{ route('home') }}">{{ $product->category['name'] }}</a></li>
-          </ul>
-
+          <!-- /product -->
+          @endforeach
         </div>
+        <!-- /store products -->
+
+        <!-- Next and Previous links -->
+        <div class="row text-center">
+          {{ $products->links() }}
+        </div>
+
       </div>
-      <!-- /Product details -->
+      <!-- /STORE -->
 
     </div>
     <!-- /row -->
@@ -75,4 +120,5 @@
   <!-- /container -->
 </div>
 <!-- /SECTION -->
+
 @endsection

@@ -31,16 +31,16 @@ class CategoriesController extends Controller
     }
 
     /**
-     * Show the single result from id
+     * Show the details from id
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function viewCategory($id)
+    public function details($id)
     {
         $category = Categories::findOrFail($id);
         $products = Products::where('category_id', $category->id)->paginate(10);
 
-        return view('categories.list-by-products', [
+        return view('categories.details', [
             'category' => $category,
             'products' => $products
         ]);

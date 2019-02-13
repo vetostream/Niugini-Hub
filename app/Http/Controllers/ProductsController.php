@@ -18,15 +18,27 @@ class ProductsController extends Controller
     }
 
     /**
-     * Show the index.
+     * Show the application dashboard.
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index($id)
+    public function index()
+    {
+        $products = Products::paginate(10);
+
+        return view('products.list', ['products' => $products]);
+    }
+
+    /**
+     * Show the details from id
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function details($id)
     {
         $product = Products::findOrFail($id);
 
-        return view('products.list', ['product' => $product]);
+        return view('products.details', ['product' => $product]);
     }
 
 }
