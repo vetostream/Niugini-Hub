@@ -9,10 +9,8 @@
     <div class="row">
       <div class="col-md-12">
         <ul class="breadcrumb-tree">
-          <li><a href="#">Home</a></li>
-          <li><a href="#">All Categories</a></li>
-          <li><a href="#">Accessories</a></li>
-          <li class="active">Headphones</li>
+          <li><a href="{{ route('home') }}">Home</a></li>
+          <li class="active">All Categories</li>
         </ul>
       </div>
     </div>
@@ -42,7 +40,7 @@
                 <img src="{{ asset('img/blank.png') }}" alt="">
               </div>
               <div class="product-body">
-                <h3 class="product-name"><a href="{{ route('home') }}">{{ $category->name }}</a></h3>
+                <h3 class="product-name"><a href="{{ url('/categories/'.$category->id) }}">{{ $category->name }}</a></h3>
                 <p class="product-category">{{ $category->desc }}</p>
               </div>
             </div>

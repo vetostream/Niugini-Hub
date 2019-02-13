@@ -70,6 +70,7 @@
     <div id="responsive-nav">
       <!-- NAV -->
       <ul class="main-nav nav navbar-nav">
+        <li><a href="{{ route('categories') }}">Categories</a></li>
         <li><a href="{{ route('home') }}">About Us</a></li>
         <li><a href="{{ route('home') }}">Contact</a></li>
         <li><a href="{{ route('home') }}">Profile</a></li>
@@ -112,7 +113,7 @@
               </div>
               <div class="product-body">
                 <p class="product-category">{{ $product->category['name'] }}</p>
-                <h3 class="product-name"><a href="#">{{ $product->name }}</a></h3>
+                <h3 class="product-name"><a href="{{ url('/products/'.$product->id) }}">{{ $product->name }}</a></h3>
                 <h4 class="product-price">K{{ $product->price }}</h4>
               </div>
               <div class="add-to-cart">
@@ -134,6 +135,7 @@
 
       </div>
       <!-- /STORE -->
+
     </div>
     <!-- /row -->
   </div>

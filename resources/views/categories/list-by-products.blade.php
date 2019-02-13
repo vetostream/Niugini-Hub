@@ -9,10 +9,9 @@
     <div class="row">
       <div class="col-md-12">
         <ul class="breadcrumb-tree">
-          <li><a href="#">Home</a></li>
-          <li><a href="#">All Categories</a></li>
-          <li><a href="#">Accessories</a></li>
-          <li class="active">Headphones</li>
+          <li><a href="{{ route('home') }}">Home</a></li>
+          <li><a href="{{ route('categories') }}">All Categories</a></li>
+          <li class="active">{{ $category->name }}</li>
         </ul>
       </div>
     </div>
@@ -28,33 +27,13 @@
   <div class="container">
     <!-- row -->
     <div class="row">
-      <!-- ASIDE -->
-      <div id="aside" class="col-md-3">
-        <!-- aside Widget -->
-        <div class="aside">
-          <h3 class="aside-title">Categories</h3>
-          <div class="checkbox-filter">
-
-            <div class="input-checkbox">
-              <input type="checkbox" id="category-1">
-              <label for="category-1">
-                <span></span>
-                Laptops
-                <small></small>
-              </label>
-            </div>
-
-          </div>
-        </div>
-        <!-- /aside Widget -->
-      </div>
-      <!-- /ASIDE -->
 
       <!-- STORE -->
-      <div id="store" class="col-sm">
+      <div id="store" class="col-md-12">
 
         <!-- store products -->
         <div class="row">
+          @foreach ($products as $product)
           <!-- product -->
           <div class="col-md-4 col-xs-6">
             <div class="product">
@@ -62,8 +41,9 @@
                 <img src="{{ asset('img/blank.png') }}" alt="">
               </div>
               <div class="product-body">
-                <h3 class="product-name"><a href="#">Product name</a></h3>
-                <h4 class="product-price">K</h4>
+                <p class="product-category">{{ $product->category['name'] }}</p>
+                <h3 class="product-name"><a href="{{ url('/products/'.$product->id) }}">{{ $product->name }}</a></h3>
+                <h4 class="product-price">K{{ $product->price }}</h4>
               </div>
               <div class="add-to-cart">
                 <a href="{{ route('home') }}">
@@ -72,11 +52,14 @@
               </div>
             </div>
           </div>
-          <!-- /products -->
+          <!-- /product -->
+          @endforeach
         </div>
+        <!-- /store products -->
 
         <!-- Next and Previous links -->
         <div class="row text-center">
+          {{ $products->links() }}
         </div>
 
       </div>
