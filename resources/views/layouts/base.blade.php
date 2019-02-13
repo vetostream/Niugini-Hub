@@ -47,7 +47,22 @@
           <li><a href="{{ route('register') }}">Register</a></li>
           @endif
         @else
-          <li><a href="{{ route('profile') }}"><i class="fa fa-user-o"></i>My Account</a></li>
+          <li class="nav-item dropdown">
+            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+              <i class="fa fa-user-o"></i>My Account<span class="caret"></span>
+            </a>
+
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="{{ route('logout') }}" style="padding-left: 1rem; padding-right: 1rem;"
+                onclick="event.preventDefault();
+                document.getElementById('logout-form').submit();">
+                {{ __('Logout') }}
+              </a>
+              <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                @csrf
+              </form>
+            </div>
+          </li>
         @endguest
         </ul>
       </div>

@@ -43,7 +43,8 @@
           <div>
             <h3 class="product-price">K980.00</h3>
           </div>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+          <p>Product Description</p>
+          <p>Product Location</p>
 
           <div class="product-options">
             <label>
