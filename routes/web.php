@@ -25,3 +25,5 @@ Route::get('/stocks', 'StocksController@index');
 Route::get('/orders', 'OrdersController@index');
 Route::get('/profile', 'UserController@index');
 Route::get('/admin', 'AdminController@index');
+
+Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
