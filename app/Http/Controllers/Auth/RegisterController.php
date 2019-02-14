@@ -104,6 +104,6 @@ class RegisterController extends Controller
 
         $user->cart()->save(new Cart());
 
-        return redirect('/')->with('message', 'Please try logging in to your account');
+        return redirect('/login')->with('message', 'Please try logging in to your account');
     }
 }

@@ -149,5 +149,6 @@
   <script src="{{ asset('js/nouislider.min.js') }}"></script>
   <script src="{{ asset('js/jquery.zoom.min.js') }}"></script>
   <script src="{{ asset('js/main.js') }}"></script>
+  <script src="{{ asset('js/login.js') }}"></script>
 </body>
 </html>

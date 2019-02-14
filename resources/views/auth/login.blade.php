@@ -4,7 +4,11 @@
 <div class="section">
   <div class="container">
     <div class="row justify-content-center">
-
+      @if(session()->has('message'))
+        <div class="alert alert-success" id="success-message">
+            {{ session()->get('message') }}
+        </div>
+      @endif
       <div class="col-sm-12">
         <div class="section-title">
           <h3 class="title">{{ __('Login') }}</h3>

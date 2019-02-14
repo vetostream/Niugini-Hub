@@ -8,11 +8,6 @@
   <div class="container">
     <!-- row -->
     <div class="row">
-      @if(session()->has('message'))
-        <div class="alert alert-success">
-            {{ session()->get('message') }}
-        </div>
-      @endif
       <!-- SEARCH BAR -->
       <div class="col-md-9">
         <div class="header-search">
