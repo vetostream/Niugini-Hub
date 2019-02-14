@@ -71,7 +71,8 @@
       <div class="col-md-12">
         <ul class="breadcrumb-tree">
           <li><a href="{{ route('home') }}">Home</a></li>
-          <li class="active">All Categories</li>
+          <li><a href="{{ route('categories') }}">All Categories</a></li>
+          <li class="active">{{ $category->name }}</li>
         </ul>
       </div>
     </div>
@@ -89,11 +90,11 @@
     <div class="row">
 
       <!-- STORE -->
-      <div id="store" class="col-sm">
+      <div id="store" class="col-md-12">
 
-        <!-- store categories -->
+        <!-- store products -->
         <div class="row">
-          @foreach ($categories as $category)
+          @foreach ($products as $product)
           <!-- product -->
           <div class="col-md-4 col-xs-6">
             <div class="product">
@@ -101,22 +102,30 @@
                 <img src="{{ asset('img/blank.png') }}" alt="">
               </div>
               <div class="product-body">
-                <h3 class="product-name"><a href="{{ url('/categories/'.$category->id) }}">{{ $category->name }}</a></h3>
-                <p class="product-category">{{ $category->desc }}</p>
+                <p class="product-category">{{ $product->category['name'] }}</p>
+                <h3 class="product-name"><a href="{{ url('/products/'.$product->id) }}">{{ $product->name }}</a></h3>
+                <h4 class="product-price">K{{ $product->price }}</h4>
+              </div>
+              <div class="add-to-cart">
+                <a href="{{ route('home') }}">
+                  <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+                </a>
               </div>
             </div>
           </div>
-          <!-- /categories -->
+          <!-- /product -->
           @endforeach
         </div>
+        <!-- /store products -->
 
         <!-- Next and Previous links -->
         <div class="row text-center">
-          {{ $categories->links() }}
+          {{ $products->links() }}
         </div>
 
       </div>
       <!-- /STORE -->
+
     </div>
     <!-- /row -->
   </div>
