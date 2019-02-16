@@ -41,7 +41,7 @@
                 <img src="{{ asset('img/blank.png') }}" alt="">
               </div>
               <div class="product-body">
-                <h3 class="product-name"><a href="{{ url('/categories/'.$category->id) }}">{{ $category->name }}</a></h3>
+                <h3 class="product-name"><a href="{{ url('/admin/categories/'.$category->id) }}">{{ $category->name }}</a></h3>
                 <p class="product-category">{{ $category->desc }}</p>
               </div>
             </div>

@@ -36,4 +36,13 @@ class AdminController extends Controller
         return view('admin.categories.list', ['categories' => $categories]);
     }
 
+    public function categoriesDetails($id)
+    {
+        $category = Categories::findOrFail($id);
+
+        return view('admin.categories.details', [
+            'category' => $category
+        ]);
+    }
+
 }
