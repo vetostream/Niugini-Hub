@@ -52,7 +52,7 @@
               <i class="fa fa-user-o"></i>My Account<span class="caret"></span>
             </a>
 
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown" style="background-color: #15161D;">
               <a class="dropdown-item" href="{{ route('logout') }}" style="padding-left: 1rem; padding-right: 1rem;"
                 onclick="event.preventDefault();
                 document.getElementById('logout-form').submit();">

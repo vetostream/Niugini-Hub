@@ -25,4 +25,4 @@ Route::get('/stocks', 'StocksController@index');
 Route::get('/orders', 'OrdersController@index');
 Route::get('/profile', 'UserController@index');
 
-Route::get('/admin', 'AdminController@index')->middleware('is_admin');
+Route::get('/admin', 'AdminController@index')->middleware('is_admin')->name('admin');
