@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Categories as Categories;
+
 class AdminController extends Controller
 {
 
@@ -25,6 +27,13 @@ class AdminController extends Controller
     public function index()
     {
         return view('admin.profile');
+    }
+
+    public function categoriesList()
+    {
+        $categories = Categories::paginate(10);
+
+        return view('admin.categories.list', ['categories' => $categories]);
     }
 
 }

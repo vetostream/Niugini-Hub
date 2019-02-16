@@ -21,7 +21,7 @@
         <div class="row">
           <div class="col-md-4 col-xs-6">
             <div class="">
-              <h4 class=""><a href="{{ route('home') }}">Categories</a></h4>
+              <h4 class=""><a href="{{ route('adminCategoriesList') }}">Categories</a></h4>
               <h4 class=""><a href="{{ route('home') }}">Seller Approval</a></h4>
               <h4 class=""><a href="{{ route('home') }}">Product Review</a></h4>
             </div>
