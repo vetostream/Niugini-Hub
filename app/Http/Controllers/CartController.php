@@ -26,9 +26,24 @@ class CartController extends Controller
      * @return void
      */
     public function add(Request $request){
-        $product = Products::findOrFail($request->product_id);
-        $cart = \Auth::user()->cart;
-        $cart->products()->attach($product);
-        return response()->json(['success'=>'Data is successfully added']);
+        try {
+            $product = Products::findOrFail($request->product_id);
+            $cart = \Auth::user()->cart;
+
+            if ($cart->products()->where('products_id', $product->id)->count() == 0){
+                $cart->products()->attach($product);
+                $product_count = $cart->products()->count();
+                return response()->json(['success'=>'Data is successfully added',
+                    'product_count' => $product_count]);
+            } else {
+                $product_count = $cart->products()->count();
+                return response()->json(['success'=>'Data is already in cart added',
+                    'product_count' => $product_count]);
+            }
+        } catch(Exception $exception) {
+            return response()->json(['error'=>$exception->getMessage()]);
+        }
     }
+
+
 }
