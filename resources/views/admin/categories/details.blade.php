@@ -26,6 +26,13 @@
 <div class="section">
   <!-- container -->
   <div class="container">
+
+    <div class="row">
+      <div class="col-sm">
+        <h3 class="title">Category</h3>
+      </div>
+    </div>
+
     <!-- row -->
     <div class="row">
       <div class="col-md-2"></div>

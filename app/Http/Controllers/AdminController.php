@@ -45,4 +45,18 @@ class AdminController extends Controller
         ]);
     }
 
+    /**
+     * Show the create category form.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function categoriesCreateForm()
+    {
+        return view('admin.categories.create');
+    }
+
+    public function categoriesCreateResponse(Request $request)
+    {
+    }
+
 }

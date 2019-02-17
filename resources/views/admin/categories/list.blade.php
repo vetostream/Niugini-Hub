@@ -25,6 +25,19 @@
 <div class="section">
   <!-- container -->
   <div class="container">
+
+    <div class="row">
+      <div class="col-sm">
+        <h3 class="title">Categories</h3>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm">
+        <a class="btn btn-primary" href="{{ route('adminCategoriesCreateForm') }}" role="button">Create Category</a>
+      </div>
+    </div>
+
     <!-- row -->
     <div class="row">
 

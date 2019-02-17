@@ -28,3 +28,5 @@ Route::get('/profile', 'UserController@index');
 Route::get('/admin', 'AdminController@index')->middleware('is_admin')->name('admin');
 Route::get('/admin/categories', 'AdminController@categoriesList')->middleware('is_admin')->name('adminCategoriesList');
 Route::get('/admin/categories/{id}', ['uses' => 'AdminController@categoriesDetails']);
+Route::get('/admin/create/categories', 'AdminController@categoriesCreateForm')->middleware('is_admin')->name('adminCategoriesCreateForm');
+Route::post('/admin/create/categories', 'AdminController@categoriesCreateResponse')->middleware('is_admin')->name('adminCategoriesCreateResponse');
