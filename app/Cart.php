@@ -20,5 +20,9 @@ class Cart extends Model
     {
         return $this->belongsTo('App\User');
     }
-    
+
+    public function products()
+    {
+        return $this->belongsToMany('App\Products');
+    }
 }

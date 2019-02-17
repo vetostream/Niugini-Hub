@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
+  <meta name="_token" content="{{csrf_token()}}" />
   <!-- Google font -->
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
 
@@ -150,5 +150,6 @@
   <script src="{{ asset('js/jquery.zoom.min.js') }}"></script>
   <script src="{{ asset('js/main.js') }}"></script>
   <script src="{{ asset('js/login.js') }}"></script>
+  <script src="{{ asset('js/product.js') }}"></script>
 </body>
 </html>

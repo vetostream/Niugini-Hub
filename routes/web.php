@@ -27,3 +27,4 @@ Route::get('/profile', 'UserController@index');
 Route::get('/admin', 'AdminController@index');
 
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
+Route::post('/cart/post', 'CartController@add');

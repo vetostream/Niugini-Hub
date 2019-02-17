@@ -75,10 +75,6 @@ class RegisterController extends Controller
             'phone_number' => $data['phone_number'],
             'address' => $data['address'],
         ]);
-
-        $this->guard()->login($user);
-        $user->cart()->save(new Cart());
-        return $user;
     }
 
     /**

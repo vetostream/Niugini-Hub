@@ -116,9 +116,10 @@
                 <h4 class="product-price">K{{ $product->price }}</h4>
               </div>
               <div class="add-to-cart">
-                <a href="{{ route('home') }}">
-                  <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-                </a>
+                    <button class="add-to-cart-btn" onclick="add_cart({{ $product->id }})">
+                        <i class="fa fa-shopping-cart"></i>
+                        add to cart
+                    </button>
               </div>
             </div>
           </div>
