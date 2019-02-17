@@ -1,4 +1,4 @@
-function add_cart(id)
+function add_cart(id, qty)
 {
     $.ajaxSetup({
         headers: {
@@ -7,10 +7,12 @@ function add_cart(id)
     });
 
     $.ajax({
-        url: 'cart/post',
+        url: '/cart/post',
         method: 'post',
         data: {
-            product_id : id
+            product_id : id,
+            product_qty : qty
+
         },
         success: function(result){
             update_cart();
@@ -21,6 +23,30 @@ function add_cart(id)
         }});
 }
 
+function add_cart_detail(id)
+{
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+        }
+    });
+    var qty = $('#product-qty').val();
+    $.ajax({
+        url: '/cart/post',
+        method: 'post',
+        data: {
+            product_id : id,
+            product_qty : qty
+
+        },
+        success: function(result){
+            update_cart();
+        },
+        error: function (data) {
+            console.log("Error: ", data);
+            console.log("Errors->", data.errors);
+        }});
+}
 function delete_cart_item(id)
 {
     $.ajaxSetup({
@@ -30,7 +56,7 @@ function delete_cart_item(id)
     });
 
     $.ajax({
-        url: 'cart/delete',
+        url: '/cart/delete',
         method: 'post',
         data: {
             product_id : id
@@ -48,7 +74,7 @@ function update_cart() {
     $('#cart-list').empty();
     $.ajax({
         type:'get',
-        url:'cart/retrieve',
+        url:'/cart/retrieve',
         success:function(result) {
         //document.getElementById("total_items").value=response;
            $("#cart-qty").text(result["product_count"]);

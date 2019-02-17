@@ -29,9 +29,10 @@ class CartController extends Controller
         try {
             $product = Products::findOrFail($request->product_id);
             $cart = \Auth::user()->cart;
+            $qty = (int)$request->product_qty;
 
             if ($cart->products()->where('products_id', $product->id)->count() == 0){
-                $cart->products()->attach($product, ['qty' => 1]);
+                $cart->products()->attach($product, ['qty' => $qty]);
                 $product_count = $cart->products()->count();
                 return response()->json(['success'=>'Data is successfully added']);
             } else {
