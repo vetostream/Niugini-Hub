@@ -37,9 +37,20 @@ class CartController extends Controller
                     'product_count' => $product_count]);
             } else {
                 $product_count = $cart->products()->count();
-                return response()->json(['success'=>'Data is already in cart added',
+                return response()->json(['success'=>'Data is already in cart',
                     'product_count' => $product_count]);
             }
+        } catch(Exception $exception) {
+            return response()->json(['error'=>$exception->getMessage()]);
+        }
+    }
+
+    public function count(Request $request) {
+        try {
+            $cart = \Auth::user()->cart;
+            $product_count = $cart->products()->count();
+            return response()->json(['success'=>'Successfully retrieved product count',
+                'product_count' => $product_count]);
         } catch(Exception $exception) {
             return response()->json(['error'=>$exception->getMessage()]);
         }
