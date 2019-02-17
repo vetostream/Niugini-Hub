@@ -34,12 +34,25 @@
           <!-- /Wishlist -->
 
           <!-- Cart -->
-          <div>
-            <a href="{{ route('home') }}">
-              <i class="fa fa-shopping-cart"></i>
-              <span>Your Cart</span>
-            </a>
-          </div>
+          <div class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                    <i class="fa fa-shopping-cart"></i>
+                    <span>Your Cart</span>
+                    <div class="qty" id="cart-qty"></div>
+                </a>
+                <div class="cart-dropdown">
+                    <div class="cart-list" id="cart-list">
+                    </div>
+                    <div class="cart-summary">
+                        <small><span id="cart-summary-qty"></span> Item(s) selected</small>
+                        <h5>SUBTOTAL: K <span id="cart-subtotal"></span></h5>
+                    </div>
+                    <div class="cart-btns">
+                        <a href="#">View Cart</a>
+                        <a href="#">Checkout  <i class="fa fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+            </div>
           <!-- /Cart -->
         @endif
           <!-- Menu Toogle -->

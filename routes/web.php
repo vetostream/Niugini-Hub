@@ -30,3 +30,5 @@ Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
 Route::post('/cart/post', 'CartController@add');
 Route::get('/cart/count', 'CartController@count');
+Route::get('/cart/retrieve', 'CartController@retrieve');
+Route::post('/cart/delete', 'CartController@delete');
