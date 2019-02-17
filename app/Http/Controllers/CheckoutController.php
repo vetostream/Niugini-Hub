@@ -25,8 +25,22 @@ class CheckoutController extends Controller
      */
     public function index()
     {
+        $cart = \Auth::user()->cart;
+        $products = $cart->products;
+        $product_subtotal = 0.00;
+        $product_total = [];
 
-        return view('checkout.checkout');
+        foreach($products as $product) {
+            $product_subtotal += $product->pivot->qty * $product->price;
+            array_push($product_total,
+                ($product->pivot->qty * $product->price));
+        }
+
+        return view('checkout.checkout', [
+            'products' => $products,
+            'product_subtotal' => $product_subtotal,
+            'product_total' => $product_total
+        ]);
     }
 
 }
