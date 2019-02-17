@@ -62,27 +62,24 @@
 </div>
 <!-- /MAIN HEADER -->
 
-<!-- NAVIGATION -->
-<nav id="navigation">
+<!-- BREADCRUMB -->
+<div id="breadcrumb" class="section">
   <!-- container -->
   <div class="container">
-    <!-- responsive-nav -->
-    <div id="responsive-nav">
-      <!-- NAV -->
-      <ul class="main-nav nav navbar-nav">
-        <li><a href="{{ route('categories') }}">Categories</a></li>
-        <li><a href="{{ route('home') }}">About Us</a></li>
-        <li><a href="{{ route('home') }}">Contact</a></li>
-        <li><a href="{{ route('home') }}">Profile</a></li>
-        <li><a href="{{ route('home') }}">Sell an Item</a></li>
-      </ul>
-      <!-- /NAV -->
+    <!-- row -->
+    <div class="row">
+      <div class="col-md-12">
+        <ul class="breadcrumb-tree">
+          <li><a href="{{ route('home') }}">Home</a></li>
+          <li class="active">All Categories</li>
+        </ul>
+      </div>
     </div>
-    <!-- /responsive-nav -->
+    <!-- /row -->
   </div>
   <!-- /container -->
-</nav>
-<!-- /NAVIGATION -->
+</div>
+<!-- /BREADCRUMB -->
 
 <!-- SECTION -->
 <div class="section">
@@ -91,20 +88,12 @@
     <!-- row -->
     <div class="row">
 
-      <!-- section title -->
-      <div class="col-md-12">
-        <div class="section-title">
-          <h3 class="title">Products</h3>
-        </div>
-      </div>
-      <!-- /section title -->
-
       <!-- STORE -->
-      <div id="store" class="col-md-12">
+      <div id="store" class="col-sm">
 
-        <!-- store products -->
+        <!-- store categories -->
         <div class="row">
-          @foreach ($products as $product)
+          @foreach ($categories as $category)
           <!-- product -->
           <div class="col-md-4 col-xs-6">
             <div class="product">
@@ -112,35 +101,26 @@
                 <img src="{{ asset('img/blank.png') }}" alt="">
               </div>
               <div class="product-body">
-                <p class="product-category">{{ $product->category['name'] }}</p>
-                <h3 class="product-name"><a href="{{ url('/products/'.$product->id) }}">{{ $product->name }}</a></h3>
-                <h4 class="product-price">K{{ $product->price }}</h4>
-              </div>
-              <div class="add-to-cart">
-                <a href="{{ route('home') }}">
-                  <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-                </a>
+                <h3 class="product-name"><a href="{{ url('/categories/'.$category->id) }}">{{ $category->name }}</a></h3>
+                <p class="product-category">{{ $category->desc }}</p>
               </div>
             </div>
           </div>
-          <!-- /product -->
+          <!-- /categories -->
           @endforeach
         </div>
-        <!-- /store products -->
 
         <!-- Next and Previous links -->
         <div class="row text-center">
-          {{ $products->links() }}
+          {{ $categories->links() }}
         </div>
 
       </div>
       <!-- /STORE -->
-
     </div>
     <!-- /row -->
   </div>
   <!-- /container -->
 </div>
 <!-- /SECTION -->
-
 @endsection

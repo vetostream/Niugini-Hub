@@ -4,9 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Products as Products;
-
-class HomeController extends Controller
+class StocksController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -15,18 +13,17 @@ class HomeController extends Controller
      */
     public function __construct()
     {
+        $this->middleware('auth');
     }
 
     /**
-     * Show the application dashboard.
+     * Show the index.
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
     {
-        $products = Products::paginate(10);
-
-        return view('home', ['products' => $products]);
+        return view('stocks.list');
     }
 
 }

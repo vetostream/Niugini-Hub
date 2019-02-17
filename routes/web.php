@@ -11,10 +11,17 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@index')->name('home');
+
+Route::get('/products', 'ProductsController@index')->name('products');
+Route::get('/products/{id}', ['uses' => 'ProductsController@details']);
+
+Route::get('/categories', 'CategoriesController@index')->name('categories');
+Route::get('/categories/{id}', ['uses' => 'CategoriesController@details']);
+
+Route::get('/stocks', 'StocksController@index');
+Route::get('/orders', 'OrdersController@index');
+Route::get('/profile', 'UserController@index');
+Route::get('/admin', 'AdminController@index');

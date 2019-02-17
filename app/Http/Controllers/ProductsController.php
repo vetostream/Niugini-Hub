@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Products as Products;
 
-class HomeController extends Controller
+class ProductsController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -26,7 +26,19 @@ class HomeController extends Controller
     {
         $products = Products::paginate(10);
 
-        return view('home', ['products' => $products]);
+        return view('products.list', ['products' => $products]);
+    }
+
+    /**
+     * Show the details from id
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function details($id)
+    {
+        $product = Products::findOrFail($id);
+
+        return view('products.details', ['product' => $product]);
     }
 
 }

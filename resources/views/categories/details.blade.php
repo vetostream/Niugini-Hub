@@ -62,27 +62,25 @@
 </div>
 <!-- /MAIN HEADER -->
 
-<!-- NAVIGATION -->
-<nav id="navigation">
+<!-- BREADCRUMB -->
+<div id="breadcrumb" class="section">
   <!-- container -->
   <div class="container">
-    <!-- responsive-nav -->
-    <div id="responsive-nav">
-      <!-- NAV -->
-      <ul class="main-nav nav navbar-nav">
-        <li><a href="{{ route('categories') }}">Categories</a></li>
-        <li><a href="{{ route('home') }}">About Us</a></li>
-        <li><a href="{{ route('home') }}">Contact</a></li>
-        <li><a href="{{ route('home') }}">Profile</a></li>
-        <li><a href="{{ route('home') }}">Sell an Item</a></li>
-      </ul>
-      <!-- /NAV -->
+    <!-- row -->
+    <div class="row">
+      <div class="col-md-12">
+        <ul class="breadcrumb-tree">
+          <li><a href="{{ route('home') }}">Home</a></li>
+          <li><a href="{{ route('categories') }}">All Categories</a></li>
+          <li class="active">{{ $category->name }}</li>
+        </ul>
+      </div>
     </div>
-    <!-- /responsive-nav -->
+    <!-- /row -->
   </div>
   <!-- /container -->
-</nav>
-<!-- /NAVIGATION -->
+</div>
+<!-- /BREADCRUMB -->
 
 <!-- SECTION -->
 <div class="section">
@@ -90,14 +88,6 @@
   <div class="container">
     <!-- row -->
     <div class="row">
-
-      <!-- section title -->
-      <div class="col-md-12">
-        <div class="section-title">
-          <h3 class="title">Products</h3>
-        </div>
-      </div>
-      <!-- /section title -->
 
       <!-- STORE -->
       <div id="store" class="col-md-12">
@@ -142,5 +132,4 @@
   <!-- /container -->
 </div>
 <!-- /SECTION -->
-
 @endsection
