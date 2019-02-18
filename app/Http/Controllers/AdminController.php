@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 
 use App\Categories as Categories;
 
@@ -55,8 +56,25 @@ class AdminController extends Controller
         return view('admin.categories.create');
     }
 
-    public function categoriesCreateResponse(Request $request)
+    /**
+     * Create a new category instance.
+     *
+     * @param  Request  $request
+     */
+    public function storeCategories(Request $request)
     {
+
+        $request->validate([
+            'categoryName' => 'required',
+            'categoryDescription' => 'required',
+        ]);
+
+        $category = new Categories;
+        $category->name = $request->categoryName;
+        $category->desc = $request->categoryDescription;
+        $category->save();
+
+		return redirect()->action('AdminController@categoriesList');
     }
 
 }

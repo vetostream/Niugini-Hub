@@ -33,26 +33,40 @@
       </div>
     </div>
 
-    <!-- Create Category -->
-    <div class="collapse row" id="editCategory">
-      <div class="col-md-2"></div>
+    <!-- Validation Errors -->
+    <div class="row" style="margin-top: 20px;">
       <div class="col-md-8">
-        <form method="POST" action="{{ route('home') }}">
+        @if ($errors->any())
+          <div class="alert alert-danger">
+            <ul>
+              @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+              @endforeach
+            </ul>
+          </div>
+        @endif
+      </div>
+    </div>
+    <!-- /Validation Errors -->
+
+    <!-- Create Category -->
+    <div class="row" id="editCategory">
+      <div class="col-md-8">
+        <form method="POST" action="{{ route('storeCategories') }}">
           @csrf
           <div class="form-group">
             <label for="categoryName">Name</label>
             <input type="text" class="form-control" id="categoryName" name="categoryName" placeholder="">
           </div>
           <div class="form-group">
-            <label for="categoryDesc">Description</label>
-            <input type="text" class="form-control" id="categoryDesc" name="categoryDesc" placeholder="">
+            <label for="categoryDescription">Description</label>
+            <input type="text" class="form-control" id="categoryDescription" name="categoryDescription" placeholder="">
           </div>
-          <button type="submit" class="btn btn-primary">Update</button>
+          <button type="submit" class="btn btn-primary">Create</button>
         </form>
       </div>
-      <div class="col-md-2"></div>
     </div>
-    <!-- /row -->
+    <!-- /Create Category -->
 
   </div>
 </div>
