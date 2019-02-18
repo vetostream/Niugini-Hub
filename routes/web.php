@@ -34,8 +34,9 @@ Route::get('/cart/retrieve', 'CartController@retrieve');
 Route::post('/cart/delete', 'CartController@delete');
 
 Route::get('/checkout', 'CheckoutController@index');
-Route::get('/checkout/payment', 'CheckoutController@payment');
+// Route::post('/checkout/payment', 'CheckoutController@payment');
+// Route::post('stripe', 'StripePaymentController@stripePost')->name('stripe.post');
+Route::post('stripe', 'CheckoutController@stripePost')->name('stripe.post');
 
-Route::get('/stripe', 'StripePaymentController@stripe');
-Route::post('stripe', 'StripePaymentController@stripePost')->name('stripe.post');
-
+// Route::get('addmoney/stripe', array('as' => 'addmoney.paywithstripe','uses' => 'AddMoneyController@payWithStripe'));
+// Route::post('addmoney/stripe', array('as' => 'addmoney.stripe','uses' => 'AddMoneyController@postPaymentWithStripe'));
