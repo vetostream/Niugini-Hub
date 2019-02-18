@@ -77,4 +77,25 @@ class AdminController extends Controller
 		return redirect()->action('AdminController@categoriesList');
     }
 
+    public function updateCategories(Request $request)
+    {
+        $request->validate([
+            'categoryId' => 'required',
+        ]);
+
+        $id = (int) $request->categoryId;
+        $category = Categories::find($id);
+
+        if($request->categoryName != null) {
+            $category->name = $request->categoryName;
+        }
+
+        if($request->categoryDescription != null) {
+            $category->desc = $request->categoryDescription;
+        }
+
+        $category->save();
+        return redirect()->route('adminCategoriesDetails', array('id' => $id));
+    }
+
 }

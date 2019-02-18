@@ -55,20 +55,39 @@
     </div>
     <!-- /row -->
 
+    <!-- Validation Errors -->
+    <div class="row" style="margin-top: 20px;">
+      <div class="col-md-2"></div>
+      <div class="col-md-8">
+        @if ($errors->any())
+          <div class="alert alert-danger">
+            <ul>
+              @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+              @endforeach
+            </ul>
+          </div>
+        @endif
+      </div>
+      <div class="col-md-2"></div>
+    </div>
+    <!-- /Validation Errors -->
+
     <!-- Edit Category -->
     <div class="collapse row" id="editCategory">
       <div class="col-md-2"></div>
       <div class="col-md-8">
         <h3>Edit Category</h3>
-        <form method="POST" action="{{ route('home') }}">
+        <form method="POST" action="{{ route('updateCategories') }}">
           @csrf
+          <input type="text" class="form-control hidden" id="categoryId" name="categoryId" value="{{ $category->id }}">
           <div class="form-group">
             <label for="categoryName">Name</label>
             <input type="text" class="form-control" id="categoryName" name="categoryName" placeholder="">
           </div>
           <div class="form-group">
-            <label for="categoryDesc">Description</label>
-            <input type="text" class="form-control" id="categoryDesc" name="categoryDesc" placeholder="">
+            <label for="categoryDescription">Description</label>
+            <input type="text" class="form-control" id="categoryDescription" name="categoryDescription" placeholder="">
           </div>
           <button type="submit" class="btn btn-primary">Update</button>
         </form>
