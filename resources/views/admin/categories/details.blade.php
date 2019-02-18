@@ -117,7 +117,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-        <a class="btn btn-danger" href="{{ route('home') }}" role="button">Confirm</a>
+        <a class="btn btn-danger" href="{{ url('/admin/delete/categories/'.$category->id) }}" role="button">Confirm</a>
       </div>
     </div>
   </div>

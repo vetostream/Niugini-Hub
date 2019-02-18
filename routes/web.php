@@ -26,8 +26,10 @@ Route::get('/orders', 'OrdersController@index');
 Route::get('/profile', 'UserController@index');
 
 Route::get('/admin', 'AdminController@index')->middleware('is_admin')->name('admin');
+
 Route::get('/admin/categories', 'AdminController@categoriesList')->middleware('is_admin')->name('adminCategoriesList');
-Route::get('/admin/categories/{id}', ['uses' => 'AdminController@categoriesDetails'])->name('adminCategoriesDetails');
+Route::get('/admin/categories/{id}', ['uses' => 'AdminController@categoriesDetails'])->middleware('is_admin')->name('adminCategoriesDetails');
 Route::get('/admin/create/categories', 'AdminController@categoriesCreateForm')->middleware('is_admin')->name('adminCategoriesCreateForm');
 Route::post('/admin/create/categories', 'AdminController@storeCategories')->middleware('is_admin')->name('storeCategories');
 Route::post('/admin/update/categories', 'AdminController@updateCategories')->middleware('is_admin')->name('updateCategories');
+Route::get('/admin/delete/categories/{id}', ['uses' => 'AdminController@deleteCategories'])->middleware('is_admin')->name('deleteCategories');

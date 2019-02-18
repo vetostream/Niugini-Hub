@@ -98,4 +98,12 @@ class AdminController extends Controller
         return redirect()->route('adminCategoriesDetails', array('id' => $id));
     }
 
+    public function deleteCategories($id)
+    {
+        $category = Categories::find($id);
+        $category->delete();
+
+		return redirect()->action('AdminController@categoriesList');
+    }
+
 }
