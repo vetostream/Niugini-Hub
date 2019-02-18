@@ -34,3 +34,8 @@ Route::get('/cart/retrieve', 'CartController@retrieve');
 Route::post('/cart/delete', 'CartController@delete');
 
 Route::get('/checkout', 'CheckoutController@index');
+Route::get('/checkout/payment', 'CheckoutController@payment');
+
+Route::get('/stripe', 'StripePaymentController@stripe');
+Route::post('stripe', 'StripePaymentController@stripePost')->name('stripe.post');
+

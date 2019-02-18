@@ -16,6 +16,7 @@ class CheckoutController extends Controller
      */
     public function __construct()
     {
+        $this->middleware('auth');
     }
 
     /**
@@ -43,4 +44,24 @@ class CheckoutController extends Controller
         ]);
     }
 
+    /**
+     * Show the index.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function payment(Request $request)
+    {
+        $cart = \Auth::user()->cart;
+        $products = $cart->products;
+        $product_subtotal = 0.00;
+        $product_total = [];
+
+        foreach($products as $product) {
+            $product_subtotal += $product->pivot->qty * $product->price;
+            array_push($product_total,
+                ($product->pivot->qty * $product->price));
+        }
+
+        return view('checkout.payment');
+    }
 }
