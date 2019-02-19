@@ -32,4 +32,47 @@ class UserController extends Controller
         return view('users.profile', ['user' => $user]);
     }
 
+    /**
+     * Show the update user form.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function updateUserForm()
+    {
+        return view('users.update');
+    }
+
+    public function update(Request $request)
+    {
+        $id = Auth::user()->id;
+        $user = User::find($id);
+
+        if($request->name != null) {
+            $user->name = $request->name;
+        }
+
+        if($request->email != null) {
+            $user->email = $request->email;
+        }
+
+        if($request->bday != null) {
+            $user->date_of_birth = $request->bday;
+        }
+
+        if($request->gender != null) {
+            $user->gender = $request->gender;
+        }
+
+        if($request->address != null) {
+            $user->address = $request->address;
+        }
+
+        if($request->phone_number != null) {
+            $user->phone_number = $request->phone_number;
+        }
+
+        $user->save();
+		return redirect()->action('UserController@index');
+    }
+
 }

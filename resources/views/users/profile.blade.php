@@ -26,11 +26,12 @@
             <p class="card-text">Email: {{ $user->email }}</p>
             <p class="card-text">Birthdate: {{ $user->date_of_birth }}</p>
             <p class="card-text">Gender: {{ $user->gender }}</p>
+            <p class="card-text">Address: {{ $user->address }}</p>
             <p class="card-text">Phone: {{ $user->phone_number }}</p>
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#sellerModal">
               Apply as Seller
             </button>
-            <a class="btn btn-secondary" href="">Edit Profile</a>
+            <a class="btn btn-secondary" href="{{ route('updateUserForm') }}">Edit Profile</a>
             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteProfileModal">
               Deactivate
             </button>
