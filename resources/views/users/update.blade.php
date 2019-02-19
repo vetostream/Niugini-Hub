@@ -1,6 +1,26 @@
 @extends('layouts.base')
 
 @section('content')
+
+<!-- BREADCRUMB -->
+<div id="breadcrumb" class="section">
+  <!-- container -->
+  <div class="container">
+    <!-- row -->
+    <div class="row">
+      <div class="col-md-12">
+        <ul class="breadcrumb-tree">
+          <li><a href="{{ route('profile') }}">Profile</a></li>
+          <li class="active">Edit</li>
+        </ul>
+      </div>
+    </div>
+    <!-- /row -->
+  </div>
+  <!-- /container -->
+</div>
+<!-- /BREADCRUMB -->
+
 <!-- SECTION -->
 <div class="section">
   <!-- container -->
@@ -10,6 +30,7 @@
     <div class="row">
       <div class="col-sm">
         <h3 class="title">Edit Profile</h3>
+        <a href="{{ route('updatePasswordForm') }}">Update Password</a>
       </div>
     </div>
     <!-- /row -->

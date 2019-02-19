@@ -14,9 +14,12 @@
 Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
+
 Route::get('/user', 'UserController@index')->name('profile');
 Route::get('/user/update', 'UserController@updateUserForm')->name('updateUserForm');
 Route::post('/user/update', 'UserController@update')->name('updateUser');
+Route::get('/user/update/password', 'UserController@updatePasswordForm')->name('updatePasswordForm');
+Route::post('/user/update/password', 'UserController@updatePassword')->name('updatePassword');
 
 Route::get('/products', 'ProductsController@index')->name('products');
 Route::get('/products/{id}', ['uses' => 'ProductsController@details']);

@@ -75,4 +75,23 @@ class UserController extends Controller
 		return redirect()->action('UserController@index');
     }
 
+    /**
+     * Show the update password form.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function updatePasswordForm()
+    {
+        return view('users.password');
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $id = Auth::user()->id;
+        $user = User::find($id);
+
+        // $user->save();
+		return redirect()->action('UserController@index');
+    }
+
 }
