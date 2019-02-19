@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 use App\User as User;
 
@@ -87,10 +88,16 @@ class UserController extends Controller
 
     public function updatePassword(Request $request)
     {
+        $request->validate([
+            'password' => 'required|string|min:6|confirmed'
+        ]);
+
         $id = Auth::user()->id;
         $user = User::find($id);
 
-        // $user->save();
+        $user->password = Hash::make($request->password);
+
+        $user->save();
 		return redirect()->action('UserController@index');
     }
 
