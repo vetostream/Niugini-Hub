@@ -52,15 +52,19 @@
     <!-- Create Category -->
     <div class="row" id="editCategory">
       <div class="col-md-8">
-        <form method="POST" action="{{ route('storeCategories') }}">
+        <form method="POST" action="{{ route('storeCategories') }}" enctype="multipart/form-data">
           @csrf
           <div class="form-group">
             <label for="categoryName">Name</label>
-            <input type="text" class="form-control" id="categoryName" name="categoryName" placeholder="">
+            <input type="text" class="form-control" id="categoryName" name="categoryName" placeholder="" />
           </div>
           <div class="form-group">
             <label for="categoryDescription">Description</label>
-            <input type="text" class="form-control" id="categoryDescription" name="categoryDescription" placeholder="">
+            <input type="text" class="form-control" id="categoryDescription" name="categoryDescription" placeholder="" />
+          </div>
+          <div class="form-group">
+            <label for="categoryImage">Image</label>
+            <input type="file" class="form-control" id="categoryImage" name="categoryImage" />
           </div>
           <button type="submit" class="btn btn-primary">Create</button>
         </form>

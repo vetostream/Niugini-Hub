@@ -17,7 +17,11 @@ class CreateCategoriesTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('desc');
+            $table->string('original_filename')->nullable();
+            $table->string('filename')->nullable();
+            $table->string('mime')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

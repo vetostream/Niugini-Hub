@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 use App\Categories as Categories;
 
@@ -56,6 +58,15 @@ class AdminController extends Controller
         return view('admin.categories.create');
     }
 
+    function setFileUpload($file, $env, $model) {
+        $extension = $file->getClientOriginalExtension();
+        Storage::disk($env)->put($file->getFilename().'.'.$extension, File::get($file));
+
+        $model->mime = $file->getClientMimeType();
+        $model->original_filename = $file->getClientOriginalName();
+        $model->filename = $file->getFilename().'.'.$extension;
+    }
+
     /**
      * Create a new category instance.
      *
@@ -72,6 +83,13 @@ class AdminController extends Controller
         $category = new Categories;
         $category->name = $request->categoryName;
         $category->desc = $request->categoryDescription;
+
+        $file = $request->file('categoryImage');
+        $env = 'public';
+        if ($file) {
+            $this->setFileUpload($file, $env, $category);
+        }
+
         $category->save();
 
 		return redirect()->action('AdminController@categoriesList');
