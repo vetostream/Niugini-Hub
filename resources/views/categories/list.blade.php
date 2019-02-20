@@ -98,7 +98,11 @@
           <div class="col-md-4 col-xs-6">
             <div class="product">
               <div class="product-img">
-                <img src="{{ asset('img/blank.png') }}" alt="">
+              @if ($category->filename)
+                <img src="{{ url('uploads/'.$category->filename) }}" alt="{{ $category->filename }}" />
+              @else
+                <img src="{{ asset('img/blank.png') }}" alt="blank" />
+              @endif
               </div>
               <div class="product-body">
                 <h3 class="product-name"><a href="{{ url('/categories/'.$category->id) }}">{{ $category->name }}</a></h3>

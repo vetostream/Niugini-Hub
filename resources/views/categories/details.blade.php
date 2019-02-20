@@ -99,11 +99,7 @@
           <div class="col-md-4 col-xs-6">
             <div class="product">
               <div class="product-img">
-              @if ($category->filename)
-                <img src="{{ url('uploads/'.$category->filename) }}" alt="{{ $category->filename }}" />
-              @else
                 <img src="{{ asset('img/blank.png') }}" alt="blank" />
-              @endif
               </div>
               <div class="product-body">
                 <p class="product-category">{{ $product->category['name'] }}</p>
