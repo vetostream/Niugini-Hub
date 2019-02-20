@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Categories as Categories;
 use App\Products as Products;
+use Log;
 class CartController extends Controller
 {
     /**
@@ -30,14 +31,22 @@ class CartController extends Controller
             $product = Products::findOrFail($request->product_id);
             $cart = \Auth::user()->cart;
             $qty = (int)$request->product_qty;
+            $stock = $product->qty;
 
-            if ($cart->products()->where('products_id', $product->id)->count() == 0){
-                $cart->products()->attach($product, ['qty' => $qty]);
-                $product_count = $cart->products()->count();
-                return response()->json(['success'=>'Data is successfully added']);
+            if ($qty < $product->qty) {
+                if (($cart->products()->where('products_id', $product->id)->count() == 0)) {
+                    $cart->products()->attach($product, ['qty' => $qty]);
+                    $product->update(['qty' => ($product->qty - $qty)]);
+                    $product_count = $cart->products()->count();
+
+                    return response()->json(['success'=>'Data is successfully added']);
+                } else {
+                    $product_count = $cart->products()->count();
+                    return response()->json(['success'=>'Data is already in cart']);
+                }
             } else {
-                $product_count = $cart->products()->count();
-                return response()->json(['success'=>'Data is already in cart']);
+                return response()->json(['error'=>'Stock not enough!',
+                                         'stocks'=>$stock]);
             }
         } catch(Exception $exception) {
             return response()->json(['error'=>$exception->getMessage()], 404);
@@ -125,8 +134,18 @@ class CartController extends Controller
             $cart = \Auth::user()->cart;
 
             if ($cart->products()->where('products_id', $product->id)->count() > 0){
+                $qty = $cart->products()->find($product->id)->pivot->qty;
+                $product->update(['qty' => ($product->qty + $qty)]);
                 $cart->products()->detach($product);
-                return response()->json(['success'=>'Data is successfully removed']);
+                $products = $cart->products;
+                $product_subtotal = 0.0;
+
+                foreach($products as $product) {
+                    $product_subtotal += $product->pivot->qty * $product->price;
+                }
+
+                return response()->json(['success'=>'Data is successfully removed',
+                                         'product_subtotal' => $product_subtotal]);
             } else {
                 return response()->json(['success'=>'Data is not in the cart']);
             }
@@ -135,4 +154,100 @@ class CartController extends Controller
         }
     }
 
+    /**
+     * Remove a product to the user cart.
+     *
+     * @return void
+     */
+    public function index(Request $request){
+        $cart = \Auth::user()->cart;
+        $products = $cart->products;
+        $product_subtotal = 0.0;
+        $product_total = [];
+
+        foreach($products as $product) {
+            $product_subtotal += $product->pivot->qty * $product->price;
+            array_push($product_total,
+                ($product->pivot->qty * $product->price));
+        }
+
+        return view('cart.index', [
+            'products' => $products,
+            'product_subtotal' => $product_subtotal,
+            'product_total' => $product_total
+        ]);
+    }
+
+
+    /**
+     * Update a product to the user cart.
+     *
+     * @return void
+     */
+    public function update(Request $request){
+        try {
+            $product = Products::findOrFail($request->product_id);
+            $cart = \Auth::user()->cart;
+            $qty = (int)$request->product_qty;
+            $current_qty = $cart->products()->find($product->id)->pivot->qty;
+            $stock = $product->qty;
+            $update_product_qty = 0;
+
+            if ($qty > $current_qty) {
+                $update_product_qty = $stock - ($qty - $current_qty);
+            } else {
+                $update_product_qty = $stock + ($current_qty - $qty);
+            }
+
+            if ($update_product_qty > 0) {
+                if ($cart->products()->where('products_id', $product->id)->count() != 0) {
+                    $cart->products()->updateExistingPivot($product, ['qty' => $qty]);
+                    $product->update(['qty' => ($update_product_qty)]);
+                    $product_count = $cart->products()->count();
+                    $products = $cart->products;
+                    $product_subtotal = 0.0;
+
+                    foreach($products as $product) {
+                        $product_subtotal += $product->pivot->qty * $product->price;
+                    }
+
+                    return response()->json(['success'=>'Data is successfully updated',
+                                             'product_subtotal' => $product_subtotal,
+                                             'product_total' => ($qty * $product->price),
+                                             'qty' => $qty,
+                                             'update_product_qty' => $update_product_qty,
+                                             'current_qty' => $current_qty,
+                                             'stock' => $stock]);
+                } else {
+                    $product_count = $cart->products()->count();
+                    return response()->json(['success'=>'Data is not in the cart']);
+                }
+            } else {
+                $qty = $cart->products()->find($product->id)->pivot->qty;
+                return response()->json(['error'=>'Stock not enough!',
+                                         'current_qty'=>$current_qty], 404);
+            }
+        } catch(Exception $exception) {
+            return response()->json(['error'=>$exception->getMessage()], 404);
+        }
+    }
+
+    /**
+     * Retrienve a product from the user cart.
+     *
+     * @return void
+     */
+    public function get_qty(Request $request){
+        try {
+            $product = Products::findOrFail($request->product_id);
+            $cart = \Auth::user()->cart;
+            $qty = $cart->products()->find($product->id)->pivot->qty;
+
+            return response()->json(['success'=>'Data is successfully updated',
+                                     'qty' => $qty]);
+
+        } catch(Exception $exception) {
+            return response()->json(['error'=>$exception->getMessage()], 404);
+        }
+    }
 }

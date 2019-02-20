@@ -44,7 +44,7 @@
                               <h5>SUBTOTAL: K <span id="cart-subtotal"></span></h5>
                           </div>
                           <div class="cart-btns">
-                              <a href="#">View Cart</a>
+                              <a href="/cart">View Cart</a>
                               <a href="/checkout">Checkout  <i class="fa fa-arrow-circle-right"></i></a>
                           </div>
                       </div>

@@ -153,5 +153,6 @@
   <script src="{{ asset('js/product.js') }}"></script>
   <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
   <script src="{{ asset('js/checkout.js') }}"></script>
+  <script src="{{ asset('js/cart.js') }}"></script>
 </body>
 </html>

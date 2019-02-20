@@ -9,7 +9,7 @@ $(function() {
         $errorMessage = $form.find('div.error'),
         valid         = true;
         $errorMessage.addClass('hide');
- 
+
         $('.has-error').removeClass('has-error');
     $inputs.each(function(i, el) {
       var $input = $(el);
@@ -19,7 +19,7 @@ $(function() {
         e.preventDefault();
       }
     });
-  
+
     if (!$form.data('cc-on-file')) {
       e.preventDefault();
       Stripe.setPublishableKey($form.data('stripe-publishable-key'));
@@ -30,9 +30,9 @@ $(function() {
         exp_year: $('.card-expiry-year').val()
       }, stripeResponseHandler);
     }
-  
+
   });
-  
+
   function stripeResponseHandler(status, response) {
         if (response.error) {
             $('.error')
@@ -48,5 +48,5 @@ $(function() {
             $form.get(0).submit();
         }
     }
-  
+
 });

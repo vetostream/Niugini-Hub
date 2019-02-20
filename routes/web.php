@@ -32,6 +32,9 @@ Route::post('/cart/post', 'CartController@add');
 Route::get('/cart/count', 'CartController@count');
 Route::get('/cart/retrieve', 'CartController@retrieve');
 Route::post('/cart/delete', 'CartController@delete');
+Route::get('/cart', 'CartController@index');
+Route::post('/cart/update', 'CartController@update');
+Route::post('/cart/qty', 'CartController@get_qty');
 
 Route::get('/checkout', 'CheckoutController@index');
 // Route::post('/checkout/payment', 'CheckoutController@payment');

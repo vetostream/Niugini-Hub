@@ -14,6 +14,14 @@ class Products extends Model
     protected $table = 'products';
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'qty'
+    ];
+    /**
      * Get the foreign key
      */
     public function category()
