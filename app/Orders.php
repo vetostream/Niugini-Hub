@@ -4,14 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Products extends Model
+class Orders extends Model
 {
     /**
      * The table associated with the model.
      *
      * @var string
      */
-    protected $table = 'products';
+    protected $table = 'orders';
 
     /**
      * The attributes that are mass assignable.
@@ -19,7 +19,7 @@ class Products extends Model
      * @var array
      */
     protected $fillable = [
-        'qty'
+        'order_date', 'total', 'address', 'delivery_method', 'payment_status', 'payment_date'
     ];
 
     /**
@@ -27,17 +27,12 @@ class Products extends Model
      */
     public function category()
     {
-        return $this->belongsTo('App\Categories');
+        return $this->belongsTo('App\User');
     }
 
-    public function cart()
+    public function products()
     {
-        return $this->belongsToMany('App\Cart');
-    }
-
-    public function orders()
-    {
-        return $this->belongsToMany('App\Orders');
+        return $this->belongsToMany('App\Products')->withPivot('qty');;
     }
 
 }

@@ -15,7 +15,8 @@ use Input;
 use App\User;
 use Stripe\Error\Card;
 use Cartalyst\Stripe\Stripe;
-
+use App\Orders;
+use Carbon;
 class CheckoutController extends Controller
 {
     /**
@@ -57,7 +58,7 @@ class CheckoutController extends Controller
     /**
      * Get a validator for an incoming registration request.
      *
-     * @param  array  $data
+    * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function validator(array $data)
@@ -95,41 +96,75 @@ class CheckoutController extends Controller
     public function stripePost(Request $request)
     {
         $this->validator($request->all())->validate();
+        $cod_bool = false;
+
+        if($request->payment_option == null){
+            $cod_bool = true;
+        }
+
         $cart = \Auth::user()->cart;
         $products = $cart->products;
         $product_subtotal = 0.00;
         $product_total = [];
-        $shipping_address = $request->address;
 
         foreach($products as $product) {
             $product_subtotal += $product->pivot->qty * $product->price;
         }
 
-        $stripe = Stripe::make(env('STRIPE_SECRET'));
-        try {
-            $charge = $stripe
-                ->charges()
-                    ->create(['source' => $request->stripeToken,
-                        'currency' => 'PGK',
-                        'amount' => $product_subtotal * 100,
-                        'description' => 'Add in wallet', ]);
-            if ($charge['status'] == 'succeeded') {
-                Session::flash('success', 'Payment successful!');
+        $order = New Orders;
+        $order->order_date = Carbon\Carbon::now();
+        $order->total = $product_subtotal;
+        $order->address = $request->address;
+        $order->cust_id = \Auth::user()->id;
+
+        if (!$cod_bool) {
+            $stripe = Stripe::make(env('STRIPE_SECRET'));
+            try {
+                $charge = $stripe
+                    ->charges()
+                        ->create(['source' => $request->stripeToken,
+                            'currency' => 'PGK',
+                            'amount' => $product_subtotal * 100,
+                            'description' => 'Add in wallet', ]);
+
+                if ($charge['status'] == 'succeeded') {
+
+                    $order->payment_status = 'done';
+                    $order->payment_date = Carbon\Carbon::now();
+                    $order->save();
+
+
+                    foreach($products as $product) {
+                        $order->products()->attach($product, ['qty' => $product->pivot->qty]);
+                        $cart->products()->detach($product);
+                    }
+
+                    Session::flash('success', 'Payment successful!');
+                    return back();
+                } else {
+                    Session::put('error', 'Money not add in wallet!!');
+                    return back();
+                }
+
+
+            } catch(Exception $e) {
+                Session::put('error', $e->getMessage());
                 return back();
-            } else {
-                Session::put('error', 'Money not add in wallet!!');
+            } catch(CartalystStripeExceptionCardErrorException $e) {
+                Session::put('error', $e->getMessage());
+                return back();
+            } catch(CartalystStripeExceptionMissingParameterException $e) {
+                Session::put('error', $e->getMessage());
                 return back();
             }
+        } else {
+            $order->save();
 
-
-        } catch(Exception $e) {
-            Session::put('error', $e->getMessage());
-            return back();
-        } catch(CartalystStripeExceptionCardErrorException $e) {
-            Session::put('error', $e->getMessage());
-            return back();
-        } catch(CartalystStripeExceptionMissingParameterException $e) {
-            Session::put('error', $e->getMessage());
+            foreach($products as $product) {
+               $order->products()->attach($product, ['qty' => $product->pivot->qty]);
+               $cart->products()->detach($product);
+            }
+            Session::flash('success', 'Order Successful!');
             return back();
         }
 

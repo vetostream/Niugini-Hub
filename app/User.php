@@ -35,4 +35,12 @@ class User extends Authenticatable
     {
         return $this->hasOne('App\Cart');
     }
+
+    /**
+     * Get the orders associated with the user.
+     */
+    public function orders()
+    {
+        return $this->hasMany('App\Orders');
+    }
 }
