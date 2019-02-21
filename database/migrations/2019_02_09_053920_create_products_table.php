@@ -20,6 +20,7 @@ class CreateProductsTable extends Migration
             $table->string('desc');
             $table->integer('qty');
             $table->integer('total');
+            $table->string('location')->nullable();
             $table->unsignedInteger('category_id');
             $table->foreign('category_id')
                 ->references('id')
