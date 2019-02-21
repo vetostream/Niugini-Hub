@@ -26,8 +26,6 @@ Route::get('/orders', 'OrdersController@index');
 Route::get('/profile', 'UserController@index');
 Route::get('/admin', 'AdminController@index');
 
-Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
-
 Route::post('/cart/post', 'CartController@add');
 Route::get('/cart/count', 'CartController@count');
 Route::get('/cart/retrieve', 'CartController@retrieve');
@@ -37,9 +35,4 @@ Route::post('/cart/update', 'CartController@update');
 Route::post('/cart/qty', 'CartController@get_qty');
 
 Route::get('/checkout', 'CheckoutController@index');
-// Route::post('/checkout/payment', 'CheckoutController@payment');
-// Route::post('stripe', 'StripePaymentController@stripePost')->name('stripe.post');
 Route::post('stripe', 'CheckoutController@stripePost')->name('stripe.post');
-
-// Route::get('addmoney/stripe', array('as' => 'addmoney.paywithstripe','uses' => 'AddMoneyController@payWithStripe'));
-// Route::post('addmoney/stripe', array('as' => 'addmoney.stripe','uses' => 'AddMoneyController@postPaymentWithStripe'));
