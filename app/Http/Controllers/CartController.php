@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
-
 use App\Categories as Categories;
 use App\Products as Products;
-use Log;
+use Illuminate\Http\Request;
+
 class CartController extends Controller
 {
     /**
@@ -26,7 +24,7 @@ class CartController extends Controller
      *
      * @return void
      */
-    public function add(Request $request){
+    public function add(Request $request) {
         try {
             $product = Products::findOrFail($request->product_id);
             $cart = \Auth::user()->cart;
@@ -54,7 +52,7 @@ class CartController extends Controller
     }
 
     /**
-     * Add a product to the user cart.
+     * Count products to the user cart.
      *
      * @return product count
      */
@@ -70,7 +68,7 @@ class CartController extends Controller
     }
 
     /**
-     * Add a product to the user cart.
+     * Retrieve products in html form to cart dropdown.
      *
      * @return products html
      */
@@ -128,12 +126,12 @@ class CartController extends Controller
      *
      * @return void
      */
-    public function delete(Request $request){
+    public function delete(Request $request) {
         try {
             $product = Products::findOrFail($request->product_id);
             $cart = \Auth::user()->cart;
 
-            if ($cart->products()->where('products_id', $product->id)->count() > 0){
+            if ($cart->products()->where('products_id', $product->id)->count() > 0) {
                 $qty = $cart->products()->find($product->id)->pivot->qty;
                 $product->update(['qty' => ($product->qty + $qty)]);
                 $cart->products()->detach($product);
@@ -149,17 +147,18 @@ class CartController extends Controller
             } else {
                 return response()->json(['success'=>'Data is not in the cart']);
             }
+
         } catch(Exception $exception) {
             return response()->json(['error'=>$exception->getMessage()], 404);
         }
     }
 
     /**
-     * Remove a product to the user cart.
+     * Return cart view.
      *
      * @return void
      */
-    public function index(Request $request){
+    public function index(Request $request) {
         $cart = \Auth::user()->cart;
         $products = $cart->products;
         $product_subtotal = 0.0;
@@ -184,7 +183,7 @@ class CartController extends Controller
      *
      * @return void
      */
-    public function update(Request $request){
+    public function update(Request $request) {
         try {
             $product = Products::findOrFail($request->product_id);
             $cart = \Auth::user()->cart;
@@ -233,11 +232,11 @@ class CartController extends Controller
     }
 
     /**
-     * Retrienve a product from the user cart.
+     * Retrieve product qty from the user cart.
      *
      * @return void
      */
-    public function get_qty(Request $request){
+    public function get_qty(Request $request) {
         try {
             $product = Products::findOrFail($request->product_id);
             $cart = \Auth::user()->cart;
@@ -250,4 +249,5 @@ class CartController extends Controller
             return response()->json(['error'=>$exception->getMessage()], 404);
         }
     }
+
 }

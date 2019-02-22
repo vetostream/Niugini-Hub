@@ -1,22 +1,20 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Categories as Categories;
-use App\Products as Products;
-use Illuminate\Http\Request;
 
-use Session;
-
-use App\Http\Requests;
-use Validator;
-use URL;
-use Redirect;
-use Input;
-use App\User;
-use Stripe\Error\Card;
-use Cartalyst\Stripe\Stripe;
+use App\Categories;
 use App\Orders;
+use App\Products;
+use App\User;
+use App\Http\Requests;
 use Carbon;
+use Cartalyst\Stripe\Stripe;
+use Illuminate\Http\Request;
+use Redirect;
+use Session;
+use Stripe\Error\Card;
+use Validator;
+
 class CheckoutController extends Controller
 {
     /**
@@ -56,7 +54,7 @@ class CheckoutController extends Controller
 
 
     /**
-     * Get a validator for an incoming registration request.
+     * Get a validator for an incoming order request.
      *
     * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
@@ -69,7 +67,7 @@ class CheckoutController extends Controller
     }
 
     /**
-     * Show the index.
+     * Show the payment page.
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
@@ -93,12 +91,17 @@ class CheckoutController extends Controller
         ]);
     }
 
+    /**
+     * Post stripe payment or create COD order
+     *
+     * @return ajax response
+     */
     public function stripePost(Request $request)
     {
         $this->validator($request->all())->validate();
         $cod_bool = false;
 
-        if($request->payment_option == null){
+        if ($request->payment_option == null) {
             $cod_bool = true;
         }
 
@@ -109,6 +112,11 @@ class CheckoutController extends Controller
 
         foreach($products as $product) {
             $product_subtotal += $product->pivot->qty * $product->price;
+        }
+
+        if ($product_subtotal == 0.00) {
+            Session::put('error', 'No items on cart!');
+            return back();
         }
 
         $order = New Orders;
@@ -157,6 +165,7 @@ class CheckoutController extends Controller
                 Session::put('error', $e->getMessage());
                 return back();
             }
+
         } else {
             $order->save();
 
@@ -164,9 +173,11 @@ class CheckoutController extends Controller
                $order->products()->attach($product, ['qty' => $product->pivot->qty]);
                $cart->products()->detach($product);
             }
+
             Session::flash('success', 'Order Successful!');
             return back();
         }
 
     }
+
 }

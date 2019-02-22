@@ -33,6 +33,7 @@ $(function() {
                 }, stripeResponseHandler);
             }
         }
+
   });
 
   function stripeResponseHandler(status, response) {

@@ -21,6 +21,7 @@
     </div>
     <!-- /container -->
 </div>
+
 <!-- SECTION -->
 <div class="section">
     <!-- container -->
@@ -40,7 +41,7 @@
                  </div>
             </div>
             @foreach ($products as $indexKey => $item )
-            <div class="row" id="row-{{$item->id}}">
+            <div class="row" id="cart-page-row-{{$item->id}}">
                 <div class="col-xs-2">
                     {{-- for image --}}
                 </div>

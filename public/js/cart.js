@@ -1,5 +1,4 @@
-function delete_cart_page_item(id){
-
+function delete_cart_page_item(id) {
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
@@ -12,16 +11,16 @@ function delete_cart_page_item(id){
         data: {
             product_id : id
         },
-        success: function(result){
+        success: function(result) {
             update_cart();
-            $('#row-'+id).remove();
+            $('#cart-page-row-'+id).remove();
             $('#cart-page-total').text('K ' + result["product_subtotal"]);
         },
         error: function (data) {
             console.log("Error: ", data);
             console.log("Errors->", data.errors);
     }});
-    //$('#cart-page-total').text('Okoy');
+
 }
 
 $(".cart-page-number").change(function() {
@@ -45,7 +44,7 @@ $(".cart-page-number").change(function() {
             product_id : product_id,
             product_qty : product_qty
         },
-        success: function(result){
+        success: function(result) {
             update_cart();
             $('#cart-page-total').text('K ' + result["product_subtotal"]);
             $('#cart-page-product-total-'+product_id).text('K ' + result["product_total"]);
@@ -61,6 +60,4 @@ $(".cart-page-number").change(function() {
             $(".cart-page-btn").prop('disabled', false);
     }});
 
-
-    // Check input( $( this ).val() ) for validity here
   });
