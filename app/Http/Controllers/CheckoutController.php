@@ -9,6 +9,7 @@ use App\User;
 use App\Http\Requests;
 use Carbon;
 use Cartalyst\Stripe\Stripe;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Redirect;
 use Session;
@@ -34,7 +35,7 @@ class CheckoutController extends Controller
      */
     public function index()
     {
-        $cart = \Auth::user()->cart;
+        $cart = Auth::user()->cart;
         $products = $cart->products;
         $product_subtotal = 0.00;
         $product_total = [];
@@ -75,7 +76,7 @@ class CheckoutController extends Controller
     {
         $this->validator($request->all())->validate();
 
-        $cart = \Auth::user()->cart;
+        $cart = Auth::user()->cart;
         $products = $cart->products;
         $product_subtotal = 0.00;
         $product_total = [];
@@ -105,7 +106,7 @@ class CheckoutController extends Controller
             $cod_bool = true;
         }
 
-        $cart = \Auth::user()->cart;
+        $cart = Auth::user()->cart;
         $products = $cart->products;
         $product_subtotal = 0.00;
         $product_total = [];
@@ -120,10 +121,10 @@ class CheckoutController extends Controller
         }
 
         $order = New Orders;
-        $order->order_date = Carbon\Carbon::now();
+        $order->order_date = Carbon::now();
         $order->total = $product_subtotal;
         $order->address = $request->address;
-        $order->cust_id = \Auth::user()->id;
+        $order->cust_id = Auth::user()->id;
 
         if (!$cod_bool) {
             $stripe = Stripe::make(env('STRIPE_SECRET'));

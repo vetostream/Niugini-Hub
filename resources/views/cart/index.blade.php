@@ -41,12 +41,14 @@
                  </div>
             </div>
             @foreach ($products as $indexKey => $item )
-            <div class="row" id="cart-page-row-{{$item->id}}">
+            <div class="row cart-row" id="cart-page-row-{{$item->id}}">
                 <div class="col-xs-2">
-                    {{-- for image --}}
+                    <img src="{{ asset('img/product01.png') }}" alt="blank"  height="100" width="100"/>
                 </div>
                 <div class="col-xs-2">
-                    {{ $item->name }}
+                    <span class="align-middle">
+                        {{ $item->name }}
+                    </span>
                 </div>
                 <div class="col-xs-1">
                     <input class="form-control cart-page-number"
@@ -64,7 +66,6 @@
                 <span id="cart-page-product-total-{{$item->id}}"> K {{ $product_total[$indexKey] }}<span>
                 </div>
                 <div class="col-xs-2">
-                    {{-- <input type="submit" class="btn btn-danger btn-sm" value="Remove"> --}}
                     <button class="btn btn-danger btn-sm cart-page-btn" onclick="delete_cart_page_item('{{ $item->id }}')">Remove</button>
                 </div>
             </div>
@@ -77,6 +78,12 @@
                 <div class="col-xs-2" >
                         <h5><span id="cart-page-total">K {{ $product_subtotal }}<span></h5>
                 </div>
+            </div>
+
+            <div class="row">
+                    <div class="col-xs-3 col-xs-offset-9">
+                        <a href="/checkout" class="primary-btn order-submit btn-sm btn-block" role="button" aria-pressed="true">Checkout</a>
+                    </div>
             </div>
     </div>
 </div>

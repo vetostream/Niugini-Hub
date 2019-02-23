@@ -14,44 +14,49 @@
       <!-- section title -->
       <div class="col-md-12">
         <div class="section-title">
-          <h3 class="title">Products</h3>
+          <h3 class="title">Categories</h3>
         </div>
       </div>
       <!-- /section title -->
 
       <!-- STORE -->
-      <div id="store" class="col-md-12">
+      <div id="store" class="col-sm">
+            <!-- store categories -->
+            @foreach($categories->chunk(4) as $categories_chunk)
+                <div class="row">
+                    @foreach ($categories_chunk as $category)
+                        <!-- product -->
+                        <div class="col-md-3 col-xs-3">
+                            <div class="product">
+                                <div class="product-img">
+                                    @if ($category->filename)
 
-        <!-- store products -->
-        <div class="row">
-          @foreach ($products as $product)
-          <!-- product -->
-          <div class="col-md-4 col-xs-6">
-            <div class="product">
-              <div class="product-img">
-                <img src="{{ asset('img/blank.png') }}" alt="">
-              </div>
-              <div class="product-body">
-                <p class="product-category">{{ $product->category['name'] }}</p>
-                <h3 class="product-name"><a href="{{ url('/products/'.$product->id) }}">{{ $product->name }}</a></h3>
-                <h4 class="product-price">K{{ $product->price }}</h4>
-              </div>
-              <div class="add-to-cart">
-                    <button class="add-to-cart-btn" onclick="add_cart({{ $product->id }}, 1)">
-                        <i class="fa fa-shopping-cart"></i>
-                        add to cart
-                    </button>
-              </div>
-            </div>
-          </div>
-          <!-- /product -->
-          @endforeach
-        </div>
-        <!-- /store products -->
+                                        <img src="{{ url('uploads/'.$category->filename) }}" alt="{{ $category->filename }}" />
+                                    @else
+                                        <img src="{{ asset('img/blank.png') }}" alt="blank" />
+                                    @endif
+                                </div>
 
+                                <div class="product-body">
+                                    <h3 class="product-name">
+                                        <a href="{{ url('/categories/'.$category->id) }}">
+                                            {{ $category->name }}
+                                        </a>
+                                    </h3>
+                                    <p class="product-category">
+                                        {{ $category->desc }}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /categories -->
+                    @endforeach
+                </div>
+            @endforeach
+             <!-- /categories -->
         <!-- Next and Previous links -->
         <div class="row text-center">
-          {{ $products->links() }}
+          {{ $categories->links() }}
         </div>
 
       </div>

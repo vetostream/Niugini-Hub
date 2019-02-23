@@ -12,7 +12,6 @@
       <div class="col-md-12">
         <ul class="breadcrumb-tree">
           <li><a href="{{ route('home') }}">Home</a></li>
-          <li><a href="{{ route('categories') }}">All Categories</a></li>
           <li><a href="{{ url('/categories/'.$product->category['id']) }}">{{ $product->category['name'] }}</a></li>
         </ul>
       </div>

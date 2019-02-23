@@ -30,7 +30,7 @@ $(".cart-page-number").change(function() {
     console.log(previousValue);
     $(".cart-page-number").prop('disabled', true);
     $(".cart-page-btn").prop('disabled', true);
-    //$("input").prop('disabled', false);
+
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')

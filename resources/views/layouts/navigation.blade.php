@@ -6,7 +6,6 @@
           <div id="responsive-nav">
             <!-- NAV -->
             <ul class="main-nav nav navbar-nav">
-              <li><a href="{{ route('categories') }}">Categories</a></li>
               <li><a href="{{ route('home') }}">About Us</a></li>
               <li><a href="{{ route('home') }}">Contact</a></li>
               <li><a href="{{ route('home') }}">Profile</a></li>
