@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\Cart;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
@@ -73,5 +75,31 @@ class RegisterController extends Controller
             'phone_number' => $data['phone_number'],
             'address' => $data['address'],
         ]);
+    }
+
+    /**
+     * Override default register method from RegistersUsers trait
+     *
+     * @param array $request
+     * @return redirect to $redirectTo
+     */
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+
+        $user = User::create([
+            'name' => $request['name'],
+            'username' => $request['username'],
+            'email' => $request['email'],
+            'password' => Hash::make($request['password']),
+            'date_of_birth' => $request['bday'],
+            'gender' => $request['gender'],
+            'phone_number' => $request['phone_number'],
+            'address' => $request['address'],
+        ]);
+
+        $user->cart()->save(new Cart());
+
+        return redirect('/login')->with('message', 'Please try logging in to your account');
     }
 }

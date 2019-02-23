@@ -90,30 +90,38 @@
 
       <!-- STORE -->
       <div id="store" class="col-sm">
+            <!-- store categories -->
+            @foreach($categories->chunk(4) as $categories_chunk)
+                <div class="row">
+                    @foreach ($categories_chunk as $category)
+                        <!-- product -->
+                        <div class="col-md-3 col-xs-3">
+                            <div class="product">
+                                <div class="product-img">
+                                    @if ($category->filename)
+                                        <img src="{{ url('uploads/'.$category->filename) }}" alt="{{ $category->filename }}" />
+                                    @else
+                                        <img src="{{ asset('img/blank.png') }}" alt="blank" />
+                                    @endif
+                                </div>
 
-        <!-- store categories -->
-        <div class="row">
-          @foreach ($categories as $category)
-          <!-- product -->
-          <div class="col-md-4 col-xs-6">
-            <div class="product">
-              <div class="product-img">
-              @if ($category->filename)
-                <img src="{{ url('uploads/'.$category->filename) }}" alt="{{ $category->filename }}" />
-              @else
-                <img src="{{ asset('img/blank.png') }}" alt="blank" />
-              @endif
-              </div>
-              <div class="product-body">
-                <h3 class="product-name"><a href="{{ url('/categories/'.$category->id) }}">{{ $category->name }}</a></h3>
-                <p class="product-category">{{ $category->desc }}</p>
-              </div>
-            </div>
-          </div>
-          <!-- /categories -->
-          @endforeach
-        </div>
-
+                                <div class="product-body">
+                                    <h3 class="product-name">
+                                        <a href="{{ url('/categories/'.$category->id) }}">
+                                            {{ $category->name }}
+                                        </a>
+                                    </h3>
+                                    <p class="product-category">
+                                        {{ $category->desc }}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /categories -->
+                    @endforeach
+                </div>
+            @endforeach
+             <!-- /categories -->
         <!-- Next and Previous links -->
         <div class="row text-center">
           {{ $categories->links() }}

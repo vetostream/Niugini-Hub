@@ -13,17 +13,19 @@ class CreateCartProductTable extends Migration
      */
     public function up()
     {
-        Schema::create('cart_product', function (Blueprint $table) {
+        Schema::create('cart_products', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('cart_id');
             $table->foreign('cart_id')
                 ->references('id')
-                ->on('carts');
-            $table->unsignedInteger('product_id');
-            $table->foreign('product_id')
+                ->on('carts')
+                ->onDelete('cascade');
+            $table->unsignedInteger('products_id');
+            $table->foreign('products_id')
                 ->references('id')
                 ->on('products')
                 ->onDelete('cascade');
+            $table->integer('qty');
             $table->timestamps();
         });
     }

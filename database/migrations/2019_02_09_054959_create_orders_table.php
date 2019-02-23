@@ -18,13 +18,13 @@ class CreateOrdersTable extends Migration
             $table->date('order_date');
             $table->float('total', 8, 2);
             $table->string('address');
-            $table->string('delivery_method');
-            $table->string('payment_status');
-            $table->date('payment_date');
+            $table->string('delivery_method')->nullable();
+            $table->string('payment_status')->nullable();
+            $table->date('payment_date')->nullable();
             $table->unsignedInteger('cust_id');
             $table->foreign('cust_id')
                 ->references('id')
-                ->on('customers');
+                ->on('users');
             $table->timestamps();
         });
     }

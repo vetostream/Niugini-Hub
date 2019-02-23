@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
+  <meta name="_token" content="{{csrf_token()}}" />
   <!-- Google font -->
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
 
@@ -154,6 +154,11 @@
   <script src="{{ asset('js/nouislider.min.js') }}"></script>
   <script src="{{ asset('js/jquery.zoom.min.js') }}"></script>
   <script src="{{ asset('js/main.js') }}"></script>
+  <script src="{{ asset('js/login.js') }}"></script>
+  <script src="{{ asset('js/product.js') }}"></script>
+  <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+  <script src="{{ asset('js/checkout.js') }}"></script>
+  <script src="{{ asset('js/cart.js') }}"></script>
   @yield('scripts')
 </body>
 </html>

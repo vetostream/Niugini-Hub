@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Products as Products;
+use App\Categories;
 
 class HomeController extends Controller
 {
@@ -24,9 +25,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $products = Products::paginate(10);
+        $categories = Categories::paginate(12);
 
-        return view('home', ['products' => $products]);
+        return view('home', ['categories' => $categories]);
     }
 
 }

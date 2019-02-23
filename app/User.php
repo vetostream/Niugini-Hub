@@ -29,8 +29,23 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function isAdmin() {        
-        return $this->is_admin === self::ADMIN_TYPE;    
+    /**
+     * Get the cart associated with the user.
+     */
+    public function cart()
+    {
+        return $this->hasOne('App\Cart');
+    }
+
+    /**
+     * Get the orders associated with the user.
+     */
+    public function orders()
+    {
+        return $this->hasMany('App\Orders');
+    }
+    public function isAdmin() {
+        return $this->is_admin === self::ADMIN_TYPE;
     }
 
 }
