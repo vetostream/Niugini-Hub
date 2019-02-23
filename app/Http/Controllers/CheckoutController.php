@@ -7,7 +7,7 @@ use App\Orders;
 use App\Products;
 use App\User;
 use App\Http\Requests;
-use Carbon;
+use Carbon\Carbon;
 use Cartalyst\Stripe\Stripe;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
