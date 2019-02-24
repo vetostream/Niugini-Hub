@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
+
+use App\Sellers as Sellers;
 
 class SellersController extends Controller
 {
@@ -21,8 +24,13 @@ class SellersController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function apply()
+    public function apply($id)
     {
+        $sellers = new Sellers;
+        $sellers->user_id = $id;
+        $sellers->save();
+
+		return redirect()->action('UserController@index');
     }
 
 }

@@ -8,9 +8,11 @@ use Illuminate\Support\Facades\Hash;
 use Iatstuti\Database\Support\CascadeSoftDeletes;
 
 use App\User as User;
+use App\Sellers as Sellers;
 use DateTime;
 use Redirect;
 use Session;
+
 
 class UserController extends Controller
 {
@@ -36,9 +38,12 @@ class UserController extends Controller
         $date = new DateTime($user->date_of_birth);
         $now = new DateTime();
         $interval = $now->diff($date);
+        $seller = Sellers::where('user_id', $id)->get();
 
         return view('users.profile', ['user' => $user,
-            'age' => $interval->y]);
+            'age' => $interval->y,
+            'sellerIsEmpty' => $seller->isEmpty()
+            ]);
     }
 
     /**
@@ -108,6 +113,7 @@ class UserController extends Controller
 
         $request->validate([
             'password' => 'required|string|min:6|confirmed',
+            //Function validates if the correct password is inputted to update new password
             'current_password' => ['required', function ($attribute, $value, $fail) use ($user) {
                 if (!Hash::check($value, $user->password)) {
                     return $fail(__('The current password is incorrect.'));
@@ -141,8 +147,9 @@ class UserController extends Controller
     public function deactivate(Request $request)
     {
         $user = Auth::user();
-        // dd($user);
+
         $request->validate([
+            //Function validates if the correct password is inputted to update new password
             'current_password' => ['required', function ($attribute, $value, $fail) use ($user) {
                 if (!Hash::check($value, $user->password)) {
                     return $fail(__('The current password is incorrect.'));

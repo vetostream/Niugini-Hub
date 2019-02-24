@@ -28,9 +28,35 @@
 				</div>
                 <!-- /aside Widget -->
 
+                <!-- aside Widget -->
+                <div class="aside row">
+                    <div class="col-xs-8 col-xs-offset-2">
+                        <a href="{{ route('updatePasswordForm') }}"
+                            class="btn btn-success btn-sm btn-block"
+                            role="button"
+                            aria-pressed="true">
+                                Update Password
+                        </a>
+                    </div>
+                </div>
+                <!-- /aside Widget -->
+
+                <!-- aside Widget -->
+                <div class="aside row">
+                    <div class="col-xs-8 col-xs-offset-2">
+                        <button type="button"
+                            class="btn btn-info btn-sm btn-block"
+                            data-toggle="modal"
+                            data-target="#sellerModal">
+                                Apply as Seller
+                        </button>
+                    </div>
+                </div>
+                <!-- /aside Widget -->
+
  				<!-- aside Widget -->
                 <div class="aside row">
-                    <div class="col-xs-6 col-xs-offset-3">
+                    <div class="col-xs-8 col-xs-offset-2">
                         <a href="{{ route('deactivateForm') }}"
                             class="btn btn-danger btn-sm btn-block"
                             role="button"
@@ -41,18 +67,7 @@
                 </div>
                 <!-- /aside Widget -->
 
-                <!-- aside Widget -->
-                    <div class="aside row">
-                        <div class="col-xs-6 col-xs-offset-3">
-                            <a href="{{ route('updatePasswordForm') }}"
-                                class="btn btn-success btn-sm btn-block"
-                                role="button"
-                                aria-pressed="true">
-                                    Update Password
-                            </a>
-                        </div>
-                    </div>
-                <!-- /aside Widget -->
+
 			</div>
             <!-- /ASIDE -->
 
@@ -166,7 +181,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-        <a class="btn btn-primary" href="{{ route('home') }}" role="button">Confirm</a>
+        <a class="btn btn-primary" href="{{ url('/sellers/apply/'.$user->id) }}" role="button">Confirm</a>
       </div>
     </div>
   </div>
