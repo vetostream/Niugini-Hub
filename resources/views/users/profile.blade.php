@@ -5,6 +5,15 @@
 <div class="section">
     <!-- container -->
     <div class="container">
+        <!-- row -->
+        <div class="row">
+            <div class="col-sm">
+                <h3 class="title">User Profile</h3>
+                <br>
+            </div>
+        </div>
+        <!-- /row -->
+
 		<!-- row -->
         <div class="row">
 			<!-- ASIDE -->
@@ -28,6 +37,19 @@
                     </div>
                 </div>
                 <!-- /aside Widget -->
+
+                <!-- aside Widget -->
+                    <div class="aside row">
+                        <div class="col-xs-6 col-xs-offset-3">
+                            <a href="{{ route('updatePasswordForm') }}"
+                                class="btn btn-success btn-sm btn-block"
+                                role="button"
+                                aria-pressed="true">
+                                    Update Password
+                            </a>
+                        </div>
+                    </div>
+                <!-- /aside Widget -->
 			</div>
             <!-- /ASIDE -->
 
@@ -45,7 +67,12 @@
 
                     <div class="form-group">
                         <label for="name">Name</label>
-                        <input type="text" class="form-control" id="name" name="name" value="{{ $user->name}}">
+                        <input type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" id="name" name="name" value="{{ $user->name}}">
+                        @if ($errors->has('name'))
+                            <span class="invalid-feedback text-danger" role="alert">
+                                <strong>{{ $errors->first('name') }}</strong>
+                            </span>
+                        @endif
                     </div>
 
                     <div class="form-group">
@@ -54,32 +81,58 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="bday">Date of Birth</label>
-                        <input id="date_of_birth" type="date" class="form-control" name="date_of_birth" value="{{ $user->date_of_birth }}">
+                        <label for="date_of_birth">Date of Birth</label>
+                        <input id="date_of_birth" type="date" class="form-control{{ $errors->has('date_of_birth') ? ' is-invalid' : '' }}" name="date_of_birth" value="{{ $user->date_of_birth }}">
+                        @if ($errors->has('date_of_birth'))
+                            <span class="invalid-feedback text-danger" role="alert">
+                                <strong>{{ $errors->first('date_of_birth') }}</strong>
+                            </span>
+                        @endif
                     </div>
 
                     <div class="form-group">
                         <label for="email">Email</label>
-                        <input type="email" class="form-control" id="email" name="email" value="{{ $user->email }}">
+                        <input type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" id="email" name="email" value="{{ $user->email }}">
+                        @if ($errors->has('email'))
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $errors->first('email') }}</strong>
+                            </span>
+                        @endif
                     </div>
 
                     <div class="form-group">
                         <label for="gender">Gender</label>
-                        <select id="gender" class="form-control" name="gender">
+                        <select id="gender" class="form-control{{ $errors->has('gender') ? ' is-invalid' : '' }}" name="gender">
                             <option @if ($user->gender == "Male") selected @endif>Male</option>
                             <option @if ($user->gender == "Female") selected @endif>Female</option>
                         </select>
+                        @if ($errors->has('gender'))
+                            <span class="invalid-feedback text-danger" role="alert">
+                                <strong>{{ $errors->first('gender') }}</strong>
+                            </span>
+                        @endif
                     </div>
 
                     <div class="form-group">
                         <label for="address">Address</label>
-                        <input id="address" type="text" class="form-control" name="address" value="{{ $user->address }}">
+                        <input id="address" type="text" class="form-control{{ $errors->has('address') ? ' is-invalid' : '' }}" name="address" value="{{ $user->address }}">
+                        @if ($errors->has('address'))
+                            <span class="invalid-feedback text-danger" role="alert">
+                                <strong>{{ $errors->first('address') }}</strong>
+                            </span>
+                        @endif
                     </div>
 
                     <div class="form-group">
                         <label for="phone_number">Phone Number</label>
-                        <input id="phone_number" class="form-control" type="number" name="phone_number" value="{{ $user->phone_number }}">
+                        <input id="phone_number" class="form-control{{ $errors->has('phone_number') ? ' is-invalid' : '' }}" type="number" name="phone_number" value="{{ $user->phone_number }}">
+                        @if ($errors->has('phone_number'))
+                            <span class="invalid-feedback text-danger" role="alert">
+                                <strong>{{ $errors->first('phone_numberW') }}</strong>
+                            </span>
+                        @endif
                     </div>
+
                     <div class="row">
                         <div class="col-xs-2 col-xs-offset-10">
                             <button type="submit" class="btn btn-primary btn-small btn-block">Update</button>

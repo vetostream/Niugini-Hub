@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 
 use App\User as User;
 use DateTime;
+use Redirect;
 use Session;
 
 class UserController extends Controller
@@ -96,17 +97,24 @@ class UserController extends Controller
 
     public function updatePassword(Request $request)
     {
-        $request->validate([
-            'password' => 'required|string|min:6|confirmed'
-        ]);
 
-        $id = Auth::user()->id;
-        $user = User::find($id);
+        $user = Auth::user();
+
+        $request->validate([
+            'password' => 'required|string|min:6|confirmed',
+            'current_password' => ['required', function ($attribute, $value, $fail) use ($user) {
+                if (!Hash::check($value, $user->password)) {
+                    return $fail(__('The current password is incorrect.'));
+                }
+            }],
+        ]);
 
         $user->password = Hash::make($request->password);
 
         $user->save();
-		return redirect()->action('UserController@index');
+        Auth::logout();
+
+        return redirect('/login');
     }
 
 }
