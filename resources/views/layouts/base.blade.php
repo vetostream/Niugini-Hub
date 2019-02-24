@@ -59,7 +59,7 @@
                 <a class="dropdown-item" href="{{ route('updatePasswordForm') }}" style="padding-left: 1rem; padding-right: 1rem;">
                     Update Password
                 </a>
-                <a class="dropdown-item" href="{{ route('profile') }}" style="padding-left: 1rem; padding-right: 1rem;">
+                <a class="dropdown-item" href="{{ route('deactivateForm') }}" style="padding-left: 1rem; padding-right: 1rem;">
                     Deactivate Account
                 </a>
                 <a class="dropdown-item" href="{{ route('logout') }}" style="padding-left: 1rem; padding-right: 1rem;"

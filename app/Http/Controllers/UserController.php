@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Iatstuti\Database\Support\CascadeSoftDeletes;
 
 use App\User as User;
 use DateTime;
@@ -95,6 +96,11 @@ class UserController extends Controller
         return view('users.password');
     }
 
+    /**
+     * Update the user password.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
     public function updatePassword(Request $request)
     {
 
@@ -114,7 +120,39 @@ class UserController extends Controller
         $user->save();
         Auth::logout();
 
-        return redirect('/login');
+        return redirect('/login')->with('message', 'Please try logging in to your account with your new password!');
     }
 
+    /**
+     * Show the deactivate account form.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function deactivateForm()
+    {
+        return view('users.deactivate');
+    }
+
+    /**
+     * Deactivate account.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function deactivate(Request $request)
+    {
+        $user = Auth::user();
+        // dd($user);
+        $request->validate([
+            'current_password' => ['required', function ($attribute, $value, $fail) use ($user) {
+                if (!Hash::check($value, $user->password)) {
+                    return $fail(__('The current password is incorrect.'));
+                }
+            }],
+        ]);
+
+        $user->delete();
+        Auth::logout();
+
+        return redirect('/login')->with('message', 'Account has been successfully deactivated.');
+    }
 }

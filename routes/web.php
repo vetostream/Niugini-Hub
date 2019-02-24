@@ -19,6 +19,8 @@ Route::get('/user', 'UserController@index')->name('profile');
 Route::patch('users/{user}/update',  ['as' => 'users.update', 'uses' => 'UserController@update']);
 Route::get('/user/update/password', 'UserController@updatePasswordForm')->name('updatePasswordForm');
 Route::post('/user/update/password', 'UserController@updatePassword')->name('updatePassword');
+Route::get('/user/deactivate', 'UserController@deactivateForm')->name('deactivateForm');
+Route::POST('/user/deactivateAccount', 'UserController@deactivate')->name('deactivate');
 
 Route::get('/products', 'ProductsController@index')->name('products');
 Route::get('/products/{id}', ['uses' => 'ProductsController@details']);

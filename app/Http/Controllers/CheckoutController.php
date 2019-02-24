@@ -124,7 +124,7 @@ class CheckoutController extends Controller
         $order->order_date = Carbon::now();
         $order->total = $product_subtotal;
         $order->address = $request->address;
-        $order->cust_id = Auth::user()->id;
+        $order->user_id = Auth::user()->id;
 
         if (!$cod_bool) {
             $stripe = Stripe::make(env('STRIPE_SECRET'));

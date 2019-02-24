@@ -31,9 +31,12 @@
  				<!-- aside Widget -->
                 <div class="aside row">
                     <div class="col-xs-6 col-xs-offset-3">
-                        <button type="button" class="btn btn-danger btn-sm btn-block" data-toggle="modal" data-target="#deleteProfileModal">
-                                Deactivate
-                        </button>
+                        <a href="{{ route('deactivateForm') }}"
+                            class="btn btn-danger btn-sm btn-block"
+                            role="button"
+                            aria-pressed="true">
+                                Deactivate Account
+                        </a>
                     </div>
                 </div>
                 <!-- /aside Widget -->
