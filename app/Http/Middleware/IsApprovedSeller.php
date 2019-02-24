@@ -12,6 +12,7 @@ class IsApprovedSeller
 
     /**
      * Handle an incoming request.
+     * Checks if current user is an approved seller.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next

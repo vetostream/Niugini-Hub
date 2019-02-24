@@ -38,6 +38,15 @@ class SellersController extends Controller
 		return redirect()->action('UserController@index');
     }
 
+    public function details($id)
+    {
+        $seller = Sellers::findOrFail($id);
+
+        return view('sellers.details', [
+            'seller' => $seller
+        ]);
+    }
+
     /**
      * Show the create product form.
      *
