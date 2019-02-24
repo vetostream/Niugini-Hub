@@ -3,46 +3,95 @@
 @section('content')
 <!-- SECTION -->
 <div class="section">
-  <!-- container -->
-  <div class="container">
+    <!-- container -->
+    <div class="container">
+		<!-- row -->
+        <div class="row">
+			<!-- ASIDE -->
+			<div class="col-md-4">
+				<!-- aside Widget -->
+				<div class="aside">
+                    <div class="card text-center">
+                        <div class="card-header">
+                            <img src="{{ asset('img/blank.png') }}" class="rounded-circle img-fluid img-thumbnail" alt="pic" height="250" width="250" />
+                        </div>
+                    </div>
+				</div>
+                <!-- /aside Widget -->
 
-    <!-- row -->
-    <div class="row">
-      <div class="col-sm">
-        <h3 class="title">Profile</h3>
-      </div>
-    </div>
-    <!-- /row -->
+ 				<!-- aside Widget -->
+                <div class="aside row">
+                    <div class="col-xs-6 col-xs-offset-3">
+                        <button type="button" class="btn btn-danger btn-sm btn-block" data-toggle="modal" data-target="#deleteProfileModal">
+                                Deactivate
+                        </button>
+                    </div>
+                </div>
+                <!-- /aside Widget -->
+			</div>
+            <!-- /ASIDE -->
 
-    <!-- Profile -->
-    <div class="row">
-      <div class="col-sm">
-        <div class="card text-center">
-          <div class="card-header">
-            <img src="{{ asset('img/blank.png') }}" class="rounded-circle img-fluid" alt="pic" />
-          </div>
-          <div class="card-body">
-            <h5 class="card-title">{{ $user->name }}</h5>
-            <p class="card-text">Email: {{ $user->email }}</p>
-            <p class="card-text">Birthdate: {{ $user->date_of_birth }}</p>
-            <p class="card-text">Gender: {{ $user->gender }}</p>
-            <p class="card-text">Address: {{ $user->address }}</p>
-            <p class="card-text">Phone: {{ $user->phone_number }}</p>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#sellerModal">
-              Apply as Seller
-            </button>
-            <a class="btn btn-secondary" href="{{ route('updateUserForm') }}">Edit Profile</a>
-            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteProfileModal">
-              Deactivate
-            </button>
-          </div>
+            <!-- ASIDE -->
+			<div class="col-md-8">
+                @if (Session::has('success'))
+                    <div class="alert alert-success text-center">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+                        <p>{{ Session::get('success') }}</p>
+                    </div>
+                @endif
+                <form method="POST" action="{{route('users.update', $user)}}">
+                    @csrf
+                    {{ method_field('patch') }}
+
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" id="name" name="name" value="{{ $user->name}}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="name">Age</label>
+                        <input type="text" class="form-control" id="age" name="age" value="{{ $age}}" disabled>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="bday">Date of Birth</label>
+                        <input id="date_of_birth" type="date" class="form-control" name="date_of_birth" value="{{ $user->date_of_birth }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" value="{{ $user->email }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="gender">Gender</label>
+                        <select id="gender" class="form-control" name="gender">
+                            <option @if ($user->gender == "Male") selected @endif>Male</option>
+                            <option @if ($user->gender == "Female") selected @endif>Female</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="address">Address</label>
+                        <input id="address" type="text" class="form-control" name="address" value="{{ $user->address }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone_number">Phone Number</label>
+                        <input id="phone_number" class="form-control" type="number" name="phone_number" value="{{ $user->phone_number }}">
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-2 col-xs-offset-10">
+                            <button type="submit" class="btn btn-primary btn-small btn-block">Update</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!-- /ASIDE -->
         </div>
-      </div>
+        <!-- /row -->
     </div>
-    <!-- /row -->
-
-  </div>
-  <!-- /container -->
+    <!-- /container -->
 </div>
 <!-- /SECTION -->
 @endsection

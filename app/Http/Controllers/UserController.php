@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 use App\User as User;
+use DateTime;
+use Session;
 
 class UserController extends Controller
 {
@@ -29,51 +31,57 @@ class UserController extends Controller
     {
         $id = Auth::user()->id;
         $user = User::find($id);
+        $date = new DateTime($user->date_of_birth);
+        $now = new DateTime();
+        $interval = $now->diff($date);
 
-        return view('users.profile', ['user' => $user]);
+        return view('users.profile', ['user' => $user,
+            'age' => $interval->y]);
     }
 
     /**
-     * Show the update user form.
+     * Update user profile.
      *
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @param  array  $data
+     * @return \Illuminate\Contracts\Validation\Validator
      */
-    public function updateUserForm()
+    public function update(User $user)
     {
-        return view('users.update');
-    }
+        if(Auth::user()->email == request('email')) {
+            $this->validate(request(), [
+                'name' => ['required', 'string', 'max:255'],
+                'gender' => ['required', 'string'],
+                'date_of_birth' => ['required', 'date'],
+                'address' => ['required', 'string'],
+                'phone_number' => ['required', 'numeric']
+            ]);
 
-    public function update(Request $request)
-    {
-        $id = Auth::user()->id;
-        $user = User::find($id);
+            $user->name = request('name');
+            $user->date_of_birth = request('date_of_birth');
+            $user->gender = request('gender');
+            $user->address = request('address');
+            $user->phone_number = request('phone_number');
 
-        if($request->name != null) {
-            $user->name = $request->name;
-        }
+        } else {
+            $this->validate(request(), [
+                'name' => ['required', 'string', 'max:255'],
+                'gender' => ['required', 'string'],
+                'date_of_birth' => ['required', 'date'],
+                'address' => ['required', 'string'],
+                'phone_number' => ['required', 'numeric']
+            ]);
 
-        if($request->email != null) {
-            $user->email = $request->email;
-        }
-
-        if($request->bday != null) {
-            $user->date_of_birth = $request->bday;
-        }
-
-        if($request->gender != null) {
-            $user->gender = $request->gender;
-        }
-
-        if($request->address != null) {
-            $user->address = $request->address;
-        }
-
-        if($request->phone_number != null) {
-            $user->phone_number = $request->phone_number;
+            $user->name = request('name');
+            $user->email = request('email');
+            $user->date_of_birth = request('date_of_birth');
+            $user->gender = request('gender');
+            $user->address = request('address');
+            $user->phone_number = request('phone_number');
         }
 
         $user->save();
-		return redirect()->action('UserController@index');
+        Session::flash('success', 'Profile Updated!');
+        return back();
     }
 
     /**

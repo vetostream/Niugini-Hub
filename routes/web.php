@@ -16,8 +16,7 @@ Auth::routes();
 Route::get('/', 'HomeController@index')->name('home');
 
 Route::get('/user', 'UserController@index')->name('profile');
-Route::get('/user/update', 'UserController@updateUserForm')->name('updateUserForm');
-Route::post('/user/update', 'UserController@update')->name('updateUser');
+Route::patch('users/{user}/update',  ['as' => 'users.update', 'uses' => 'UserController@update']);
 Route::get('/user/update/password', 'UserController@updatePasswordForm')->name('updatePasswordForm');
 Route::post('/user/update/password', 'UserController@updatePassword')->name('updatePassword');
 
