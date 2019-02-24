@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 use App\User as User;
+use App\Sellers as Sellers;
 
 class UserController extends Controller
 {
@@ -29,8 +30,12 @@ class UserController extends Controller
     {
         $id = Auth::user()->id;
         $user = User::find($id);
+        $seller = Sellers::where('user_id', $id)->get();
 
-        return view('users.profile', ['user' => $user]);
+        return view('users.profile', [
+            'user' => $user,
+            'sellerIsEmpty' => $seller->isEmpty()
+        ]);
     }
 
     /**

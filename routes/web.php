@@ -15,22 +15,31 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
 
+// User
 Route::get('/user', 'UserController@index')->name('profile');
 Route::get('/user/update', 'UserController@updateUserForm')->name('updateUserForm');
 Route::post('/user/update', 'UserController@update')->name('updateUser');
 Route::get('/user/update/password', 'UserController@updatePasswordForm')->name('updatePasswordForm');
 Route::post('/user/update/password', 'UserController@updatePassword')->name('updatePassword');
 
+// Sellers
+Route::get('/sellers/apply/{id}', ['uses' => 'SellersController@apply']);
+
+// Products
 Route::get('/products', 'ProductsController@index')->name('products');
 Route::get('/products/{id}', ['uses' => 'ProductsController@details']);
 
+// Categories
 Route::get('/categories', 'CategoriesController@index')->name('categories');
 Route::get('/categories/{id}', ['uses' => 'CategoriesController@details']);
 
 Route::get('/stocks', 'StocksController@index');
+
+// Orders
 Route::get('/orders', 'OrdersController@index');
 Route::get('/profile', 'UserController@index');
 
+// Cart
 Route::post('/cart/post', 'CartController@add');
 Route::get('/cart/count', 'CartController@count');
 Route::get('/cart/retrieve', 'CartController@retrieve');
@@ -42,6 +51,7 @@ Route::post('/cart/qty', 'CartController@get_qty');
 Route::get('/checkout', 'CheckoutController@index');
 Route::post('stripe', 'CheckoutController@stripePost')->name('stripe.post');
 
+// Admin
 Route::get('/admin', 'AdminController@index')->middleware('is_admin')->name('admin');
 
 Route::get('/admin/categories', 'AdminController@categoriesList')->middleware('is_admin')->name('adminCategoriesList');

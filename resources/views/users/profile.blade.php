@@ -28,9 +28,11 @@
             <p class="card-text">Gender: {{ $user->gender }}</p>
             <p class="card-text">Address: {{ $user->address }}</p>
             <p class="card-text">Phone: {{ $user->phone_number }}</p>
+          @if ($sellerIsEmpty)
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#sellerModal">
               Apply as Seller
             </button>
+          @endif
             <a class="btn btn-secondary" href="{{ route('updateUserForm') }}">Edit Profile</a>
             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteProfileModal">
               Deactivate
@@ -61,7 +63,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-        <a class="btn btn-primary" href="{{ route('home') }}" role="button">Confirm</a>
+        <a class="btn btn-primary" href="{{ url('/sellers/apply/'.$user->id) }}" role="button">Confirm</a>
       </div>
     </div>
   </div>
