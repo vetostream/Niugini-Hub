@@ -24,6 +24,7 @@ Route::post('/user/update/password', 'UserController@updatePassword')->name('upd
 
 // Sellers
 Route::get('/sellers/apply/{id}', ['uses' => 'SellersController@apply']);
+Route::get('/sellers/create/products', 'SellersController@productsCreateForm')->middleware('is_approved_seller')->name('productsCreateForm');
 
 // Products
 Route::get('/products', 'ProductsController@index')->name('products');

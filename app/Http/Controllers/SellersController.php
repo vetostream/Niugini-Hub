@@ -38,4 +38,14 @@ class SellersController extends Controller
 		return redirect()->action('UserController@index');
     }
 
+    /**
+     * Show the create product form.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function productsCreateForm()
+    {
+        return view('sellers.products.create');
+    }
+
 }
