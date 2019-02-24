@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
 use App\Categories as Categories;
+use App\Sellers as Sellers;
 
 class AdminController extends Controller
 {
@@ -122,6 +123,13 @@ class AdminController extends Controller
         $category->delete();
 
 		return redirect()->action('AdminController@categoriesList');
+    }
+
+    public function sellersList()
+    {
+        $sellers = Sellers::paginate(10);
+
+        return view('admin.sellers.list', ['sellers' => $sellers]);
     }
 
 }
