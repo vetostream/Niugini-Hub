@@ -53,7 +53,7 @@
           @foreach ($sellers as $seller)
             <tr>
               <th scope="row">{{ $seller->id }}</th>
-              <td><a href="{{ url('/admin/sellers/'.$seller->id) }}">{{ $seller->user->name }}</a></td>
+              <td><a href="{{ route('adminSellersDetails', ['id' => $seller->id]) }}">{{ $seller->user->name }}</a></td>
               <td>{{ $seller->location }}</td>
               <td>{{ $seller->products_sold }}</td>
               <td>{{ $seller->stars }}</td>
