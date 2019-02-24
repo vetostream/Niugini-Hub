@@ -132,4 +132,23 @@ class AdminController extends Controller
         return view('admin.sellers.list', ['sellers' => $sellers]);
     }
 
+    public function sellersDetails($id)
+    {
+        $seller = Sellers::findOrFail($id);
+
+        return view('admin.sellers.details', [
+            'seller' => $seller
+        ]);
+    }
+
+    public function updateSellersStatus(Request $request)
+    {
+        $seller = Sellers::findOrFail($request->route('id'));
+
+        $seller->status = $request->status;
+        $seller->save();
+
+        return redirect()->route('adminSellersDetails', array('id' => $seller->id));
+    }
+
 }

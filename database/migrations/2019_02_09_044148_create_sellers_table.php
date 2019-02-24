@@ -20,7 +20,7 @@ class CreateSellersTable extends Migration
             $table->integer('products_posted')->default(0);
             $table->integer('products_count')->default(0);
             $table->float('stars', 1, 2)->default(0);
-            $table->boolean('is_approved')->default(0);
+            $table->integer('status')->default(0);
             $table->timestamps();
             $table->softDeletes();
 

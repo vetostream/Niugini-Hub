@@ -62,3 +62,5 @@ Route::post('/admin/update/categories', 'AdminController@updateCategories')->mid
 Route::get('/admin/delete/categories/{id}', ['uses' => 'AdminController@deleteCategories'])->middleware('is_admin')->name('deleteCategories');
 
 Route::get('/admin/sellers', 'AdminController@sellersList')->middleware('is_admin')->name('adminSellersList');
+Route::get('/admin/sellers/{id}', ['uses' => 'AdminController@sellersDetails'])->middleware('is_admin')->name('adminSellersDetails');
+Route::post('/admin/update/sellers/status/{id}', ['uses' => 'AdminController@updateSellersStatus'])->middleware('is_admin')->name('adminUpdateSellersStatus');

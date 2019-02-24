@@ -47,24 +47,16 @@
               <th scope="col">Location</th>
               <th scope="col">Products Sold</th>
               <th scope="col">Stars</th>
-              <th scope="col">Action</th>
             </tr>
           </thead>
           <tbody>
           @foreach ($sellers as $seller)
             <tr>
               <th scope="row">{{ $seller->id }}</th>
-              <td>{{ $seller->user->name }}</td>
+              <td><a href="{{ url('/admin/sellers/'.$seller->id) }}">{{ $seller->user->name }}</a></td>
               <td>{{ $seller->location }}</td>
               <td>{{ $seller->products_sold }}</td>
               <td>{{ $seller->stars }}</td>
-              <td>
-              @if ($seller->is_approved)
-                <a href="{{ route('home') }}">Disapprove</a>
-              @else
-                <a href="{{ route('home') }}">Approve</a>
-              @endif
-              </td>
             </tr>
           @endforeach
           </tbody>

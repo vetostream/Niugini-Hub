@@ -26,9 +26,14 @@ class SellersController extends Controller
      */
     public function apply($id)
     {
-        $sellers = new Sellers;
-        $sellers->user_id = $id;
-        $sellers->save();
+        $seller = Sellers::find($id);
+
+        if (!$seller) {
+            // create seller
+            $sellers = new Sellers;
+            $sellers->user_id = $id;
+            $sellers->save();
+        }
 
 		return redirect()->action('UserController@index');
     }
