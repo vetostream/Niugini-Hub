@@ -108,9 +108,9 @@ class UserController extends Controller
     }
 
     /**
-     * Update user password.
+     * Update user address.
      *
-     * @return JSON response
+     * @return \Illuminate\Contracts\Support\Renderable
      */
     public function updateAddress(Request $request)
     {
