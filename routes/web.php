@@ -21,6 +21,7 @@ Route::get('/user/update', 'UserController@updateUserForm')->name('updateUserFor
 Route::post('/user/update', 'UserController@update')->name('updateUser');
 Route::get('/user/update/password', 'UserController@updatePasswordForm')->name('updatePasswordForm');
 Route::post('/user/update/password', 'UserController@updatePassword')->name('updatePassword');
+Route::post('/user/update/address', 'UserController@updateAddress')->name('updateAddress');
 
 // Sellers
 Route::get('/sellers/apply/{id}', ['uses' => 'SellersController@apply']);

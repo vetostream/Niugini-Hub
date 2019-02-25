@@ -118,18 +118,35 @@
                     </h5>
                 </div> --}}
                     {{-- For future --}}
-
-                    <div class="form-group">
-                        <div class="input-group">
-                            <div class="input-group-addon">
-                              <span class="glyphicon glyphicon-map-marker"></span>
-                            </div>
-                            <input class="form-control cart-address" id="cart-address" name="address" type="text"/>
-                            <span class="input-group-btn">
-                                <button class="btn btn-primary cart-page-btn" type="button">Change</button>
-                            </span>
+                    @if (Session::has('success'))
+                        <div class="alert alert-success text-center">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+                            <p>{{ Session::get('success') }}</p>
                         </div>
-                    </div>
+                    @endif
+                    <form method="POST" action="{{ route('updateAddress') }}">
+                        @csrf
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                <span class="glyphicon glyphicon-map-marker"></span>
+                                </div>
+                                <input class="form-control cart-address"
+                                    id="cart-address"
+                                    name="address"
+                                    type="text"
+                                    value="{{ $address }}"/>
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default cart-page-btn" type="submit">Change</button>
+                                </span>
+                            </div>
+                            @if ($errors->has('address'))
+                                <span class="invalid-feedback text-danger" role="alert">
+                                    <strong>{{ $errors->first('address') }}</strong>
+                                </span>
+                          @endif
+                        </div>
+                    </form>
                     <div class="section-title text-center">
                         <h5 class="title">Order Summary</h5>
                     </div>

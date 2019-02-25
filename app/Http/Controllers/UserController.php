@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 
 use App\User as User;
 use App\Sellers as Sellers;
+use Session;
 
 class UserController extends Controller
 {
@@ -104,6 +105,29 @@ class UserController extends Controller
 
         $user->save();
 		return redirect()->action('UserController@index');
+    }
+
+    /**
+     * Update user password.
+     *
+     * @return JSON response
+     */
+    public function updateAddress(Request $request)
+    {
+        $request->validate([
+            'address' => 'required|string'
+        ]);
+
+
+        $id = Auth::user()->id;
+        $user = User::find($id);
+
+        $user->address = $request->address;
+
+        $user->save();
+
+        Session::flash('success', 'Address updated!');
+        return back();
     }
 
 }
