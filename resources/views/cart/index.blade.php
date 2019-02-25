@@ -81,9 +81,9 @@
             </div>
 
             <div class="row">
-                    <div class="col-xs-3 col-xs-offset-9">
-                        <a href="/checkout" class="primary-btn order-submit btn-sm btn-block" role="button" aria-pressed="true">Checkout</a>
-                    </div>
+                <div class="col-xs-3 col-xs-offset-9">
+                    <a href="/checkout" class="primary-btn order-submit btn-sm btn-block" role="button" aria-pressed="true">Checkout</a>
+                </div>
             </div>
     </div>
 </div>

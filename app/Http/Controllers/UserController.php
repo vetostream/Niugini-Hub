@@ -5,9 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Iatstuti\Database\Support\CascadeSoftDeletes;
 
 use App\User as User;
 use App\Sellers as Sellers;
+use DateTime;
+use Redirect;
+use Session;
+
 
 class UserController extends Controller
 {
@@ -30,55 +35,60 @@ class UserController extends Controller
     {
         $id = Auth::user()->id;
         $user = User::find($id);
+        $date = new DateTime($user->date_of_birth);
+        $now = new DateTime();
+        $interval = $now->diff($date);
         $seller = Sellers::where('user_id', $id)->get();
 
-        return view('users.profile', [
-            'user' => $user,
+        return view('users.profile', ['user' => $user,
+            'age' => $interval->y,
             'sellerIsEmpty' => $seller->isEmpty()
-        ]);
+            ]);
     }
 
     /**
-     * Show the update user form.
+     * Update user profile.
      *
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @param  array  $data
+     * @return \Illuminate\Contracts\Validation\Validator
      */
-    public function updateUserForm()
+    public function update(User $user)
     {
-        return view('users.update');
-    }
+        if(Auth::user()->email == request('email')) {
+            $this->validate(request(), [
+                'name' => ['required', 'string', 'max:255'],
+                'gender' => ['required', 'string'],
+                'date_of_birth' => ['required', 'date'],
+                'address' => ['required', 'string'],
+                'phone_number' => ['required', 'numeric']
+            ]);
 
-    public function update(Request $request)
-    {
-        $id = Auth::user()->id;
-        $user = User::find($id);
+            $user->name = request('name');
+            $user->date_of_birth = request('date_of_birth');
+            $user->gender = request('gender');
+            $user->address = request('address');
+            $user->phone_number = request('phone_number');
 
-        if($request->name != null) {
-            $user->name = $request->name;
-        }
+        } else {
+            $this->validate(request(), [
+                'name' => ['required', 'string', 'max:255'],
+                'gender' => ['required', 'string'],
+                'date_of_birth' => ['required', 'date'],
+                'address' => ['required', 'string'],
+                'phone_number' => ['required', 'numeric']
+            ]);
 
-        if($request->email != null) {
-            $user->email = $request->email;
-        }
-
-        if($request->bday != null) {
-            $user->date_of_birth = $request->bday;
-        }
-
-        if($request->gender != null) {
-            $user->gender = $request->gender;
-        }
-
-        if($request->address != null) {
-            $user->address = $request->address;
-        }
-
-        if($request->phone_number != null) {
-            $user->phone_number = $request->phone_number;
+            $user->name = request('name');
+            $user->email = request('email');
+            $user->date_of_birth = request('date_of_birth');
+            $user->gender = request('gender');
+            $user->address = request('address');
+            $user->phone_number = request('phone_number');
         }
 
         $user->save();
-		return redirect()->action('UserController@index');
+        Session::flash('success', 'Profile Updated!');
+        return back();
     }
 
     /**
@@ -91,19 +101,65 @@ class UserController extends Controller
         return view('users.password');
     }
 
+    /**
+     * Update the user password.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
     public function updatePassword(Request $request)
     {
-        $request->validate([
-            'password' => 'required|string|min:6|confirmed'
-        ]);
 
-        $id = Auth::user()->id;
-        $user = User::find($id);
+        $user = Auth::user();
+
+        $request->validate([
+            'password' => 'required|string|min:6|confirmed',
+            //Function validates if the correct password is inputted to update new password
+            'current_password' => ['required', function ($attribute, $value, $fail) use ($user) {
+                if (!Hash::check($value, $user->password)) {
+                    return $fail(__('The current password is incorrect.'));
+                }
+            }],
+        ]);
 
         $user->password = Hash::make($request->password);
 
         $user->save();
-		return redirect()->action('UserController@index');
+        Auth::logout();
+
+        return redirect('/login')->with('message', 'Please try logging in to your account with your new password!');
     }
 
+    /**
+     * Show the deactivate account form.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function deactivateForm()
+    {
+        return view('users.deactivate');
+    }
+
+    /**
+     * Deactivate account.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function deactivate(Request $request)
+    {
+        $user = Auth::user();
+
+        $request->validate([
+            //Function validates if the correct password is inputted to update new password
+            'current_password' => ['required', function ($attribute, $value, $fail) use ($user) {
+                if (!Hash::check($value, $user->password)) {
+                    return $fail(__('The current password is incorrect.'));
+                }
+            }],
+        ]);
+
+        $user->delete();
+        Auth::logout();
+
+        return redirect('/login')->with('message', 'Account has been successfully deactivated.');
+    }
 }

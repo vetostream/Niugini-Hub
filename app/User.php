@@ -2,15 +2,20 @@
 
 namespace App;
 
+use Iatstuti\Database\Support\CascadeSoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable
 {
     use Notifiable;
+    use SoftDeletes, CascadeSoftDeletes;
     const ADMIN_TYPE = true;
 
+    protected $cascadeDeletes = ['orders', 'cart'];
+    protected $dates = ['deleted_at'];
     /**
      * The attributes that are mass assignable.
      *
