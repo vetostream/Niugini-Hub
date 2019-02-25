@@ -2217,7 +2217,7 @@ textarea.input {
     width: 200px !important;
 }
 
-.cart-item > h1, h2, h3, h4, h5 {
+.cart-item {
     margin: 0 0 20px 20px !important;
 }
 

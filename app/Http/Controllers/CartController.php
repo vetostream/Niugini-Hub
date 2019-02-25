@@ -137,13 +137,16 @@ class CartController extends Controller
                 $cart->products()->detach($product);
                 $products = $cart->products;
                 $product_subtotal = 0.0;
+                $cart_items = 0;
 
                 foreach($products as $product) {
                     $product_subtotal += $product->pivot->qty * $product->price;
+                    $cart_items += $product->pivot->qty;
                 }
 
                 return response()->json(['success'=>'Data is successfully removed',
-                                         'product_subtotal' => $product_subtotal]);
+                                         'product_subtotal' => $product_subtotal,
+                                         'cart_items' => $cart_items]);
             } else {
                 return response()->json(['success'=>'Data is not in the cart']);
             }
@@ -163,9 +166,11 @@ class CartController extends Controller
         $products = $cart->products;
         $product_subtotal = 0.0;
         $product_total = [];
+        $cart_items = 0;
 
         foreach($products as $product) {
             $product_subtotal += $product->pivot->qty * $product->price;
+            $cart_items += $product->pivot->qty;
             array_push($product_total,
                 ($product->pivot->qty * $product->price));
         }
@@ -173,7 +178,8 @@ class CartController extends Controller
         return view('cart.index', [
             'products' => $products,
             'product_subtotal' => $product_subtotal,
-            'product_total' => $product_total
+            'product_total' => $product_total,
+            'cart_items' => $cart_items
         ]);
     }
 
@@ -205,9 +211,11 @@ class CartController extends Controller
                     $product_count = $cart->products()->count();
                     $products = $cart->products;
                     $product_subtotal = 0.0;
+                    $cart_items = 0;
 
                     foreach($products as $product) {
                         $product_subtotal += $product->pivot->qty * $product->price;
+                        $cart_items += $product->pivot->qty;
                     }
 
                     return response()->json(['success'=>'Data is successfully updated',
@@ -216,7 +224,8 @@ class CartController extends Controller
                                              'qty' => $qty,
                                              'update_product_qty' => $update_product_qty,
                                              'current_qty' => $current_qty,
-                                             'stock' => $stock]);
+                                             'stock' => $stock,
+                                             'cart_items' => $cart_items]);
                 } else {
                     $product_count = $cart->products()->count();
                     return response()->json(['success'=>'Data is not in the cart']);

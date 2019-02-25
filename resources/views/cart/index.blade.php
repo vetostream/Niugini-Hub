@@ -27,10 +27,10 @@
     <!-- container -->
     <div class="container">
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-7">
                 @foreach ($products as $indexKey => $item )
                 <div class="row cart-row" id="cart-page-row-{{$item->id}}">
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="row">
                             <img src="{{ asset('img/product01.png') }}"
                                 alt="blank"
@@ -44,7 +44,6 @@
                                     <span class="input-group-btn">
                                         <button type="button"
                                             class="btn btn-default btn-number cart-page-btn"
-                                            disabled="disabled"
                                             data-type="minus"
                                             data-field="cart-number-{{ $item->id}}">
                                                 <span class="glyphicon glyphicon-minus "></span>
@@ -75,21 +74,15 @@
                                     </span>
                                 </div>
                             </div>
-
-                            {{-- <input class="form-control cart-page-number"
-                                id="cart-number-{{ $item->id}}"
-                                type="number"
-                                name="quantity"
-                                value ="{{ $item->pivot->qty }}"
-                                min="1"
-                                product_id="{{ $item->id }}"> --}}
                         </div>
                     </div>
-                    <div class="col-md-8 cart-item">
+                    <div class="col-md-6 cart-item">
                         <div class="row">
                             <h3 class="align-middle">
                                 <span class="cart-item-name">
-                                    {{ $item->name }}
+                                    <a href="{{ url('/products/'.$item->id) }}">
+                                        {{ $item->name }}
+                                    </a>
                                 </span>
                             </h3>
                         </div>
@@ -115,16 +108,76 @@
                 </div>
                 @endforeach
             </div>
-            <div class="col-md-4 order-details">
+            <div class="col-md-5 order-details">
+                {{-- For future --}}
+                {{-- <div class="section-title text-center">
+                    <h5 class="title">
+                        <span class="glyphicon glyphicon-shopping-cart fa-2x"
+                        style="color:#D10024">
+                        </span>
+                    </h5>
+                </div> --}}
+                    {{-- For future --}}
+
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                              <span class="glyphicon glyphicon-map-marker"></span>
+                            </div>
+                            <input class="form-control cart-address" id="cart-address" name="address" type="text"/>
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary cart-page-btn" type="button">Change</button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="section-title text-center">
+                        <h5 class="title">Order Summary</h5>
+                    </div>
+
+                    <div class="order-summary">
+                        <div class="order-col">
+                            <div>
+                                <strong>TOTAL: </strong>
+                            </div>
+                            <div>
+                                <strong class="order-total">
+                                    <span id="cart-page-total">K {{ $product_subtotal }}<span>
+                                </strong>
+                            </div>
+                        </div>
+
+                        <div class="order-col">
+                            <div>
+                                <strong>Number of items: </strong>
+                            </div>
+                            <div>
+                                <strong class="order-total">
+                                    <span id="cart-page-items">{{ $cart_items }}<span>
+                                </strong>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="row">
+                        <div class="col-xs-12">
+                            <a href="/checkout"
+                                class="primary-btn order-submit btn-lg btn-block"
+                                role="button"
+                                aria-pressed="true">
+                                    Checkout
+                            </a>
+                        </div>
+                    </div>
+
+                    {{-- <div class="row">
                         <h5>Your Total:
                         <span id="cart-page-total">K {{ $product_subtotal }}<span>
                     </div>
                     <div class="row">
                             <div class="col-xs-9">
                                 <a href="/checkout" class="primary-btn order-submit btn-sm btn-block" role="button" aria-pressed="true">Checkout</a>
-                            </div>
-                    </div>
+                            </div> --}}
+                    {{-- </div> --}}
             </div>
         </div>
 {{--

@@ -1,4 +1,8 @@
 function delete_cart_page_item(id) {
+    $(".cart-number").prop('disabled', true);
+    $(".cart-page-btn").prop('disabled', true);
+    $(".cart-address").prop('disabled', true);
+
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
@@ -15,54 +19,22 @@ function delete_cart_page_item(id) {
             update_cart();
             $('#cart-page-row-'+id).remove();
             $('#cart-page-total').text('K ' + result["product_subtotal"]);
+            $('#cart-page-items').text('' + result["cart_items"]);
+            $(".cart-number").prop('disabled', false);
+            $(".cart-page-btn").prop('disabled', false);
+            $(".cart-address").prop('disabled', false);
         },
         error: function (data) {
             console.log("Error: ", data);
             console.log("Errors->", data.errors);
+            $(".cart-number").prop('disabled', false);
+            $(".cart-page-btn").prop('disabled', false);
+            $(".cart-address").prop('disabled', false);
     }});
 
 }
 
-$(".cart-page-number").change(function() {
-    var product_id = $( this ).attr('product_id');
-    var product_qty = $(this).val();
-    var previousValue = $(this).data('prevData');
-
-    $(".cart-page-number").prop('disabled', true);
-    $(".cart-page-btn").prop('disabled', true);
-
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-        }
-    });
-
-    $.ajax({
-        url: '/cart/update',
-        method: 'post',
-        data: {
-            product_id : product_id,
-            product_qty : product_qty
-        },
-        success: function(result) {
-            update_cart();
-            $('#cart-page-total').text('K ' + result["product_subtotal"]);
-            $('#cart-page-product-total-'+product_id).text('K ' + result["product_total"]);
-            $(".cart-page-number").prop('disabled', false);
-            $(".cart-page-btn").prop('disabled', false);
-        },
-        error: function (data) {
-            console.log("Error: ", data);
-            console.log("Errors->", data.errors);
-            var old_val = data.responseJSON.current_qty;
-            document.getElementById("cart-number-"+product_id).value = ""+old_val;
-            $(".cart-page-number").prop('disabled', false);
-            $(".cart-page-btn").prop('disabled', false);
-    }});
-
-  });
-
-  $('.btn-number').click(function(e){
+$('.btn-number').click(function(e){
     e.preventDefault();
 
     fieldName = $(this).attr('data-field');
@@ -107,6 +79,7 @@ $('.cart-number').change(function() {
 
     $(".cart-number").prop('disabled', true);
     $(".cart-page-btn").prop('disabled', true);
+    $(".cart-address").prop('disabled', true);
 
     name = $(this).attr('name');
 
@@ -140,8 +113,10 @@ $('.cart-number').change(function() {
             update_cart();
             $('#cart-page-total').text('K ' + result["product_subtotal"]);
             $('#cart-page-product-total-'+product_id).text('K ' + result["product_total"]);
+            $('#cart-page-items').text('' + result["cart_items"]);
             $(".cart-number").prop('disabled', false);
             $(".cart-page-btn").prop('disabled', false);
+            $(".cart-address").prop('disabled', false);
         },
         error: function (data) {
             console.log("Error: ", data);
@@ -149,8 +124,9 @@ $('.cart-number').change(function() {
             var old_val = data.responseJSON.current_qty;
             alert(data.responseJSON.error);
             document.getElementById("cart-number-"+product_id).value = ""+old_val;
-            $(".cart-page").prop('disabled', false);
+            $(".cart-number").prop('disabled', false);
             $(".cart-page-btn").prop('disabled', false);
+            $(".cart-address").prop('disabled', false);
     }});
 
 });

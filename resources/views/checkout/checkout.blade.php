@@ -43,11 +43,6 @@
                     <div class="col-md-7">
                         <!-- Billing Details -->
                         <div class="billing-details">
-
-                            <div class="section-title">
-                                <h3 class="title">Payment</h3>
-                            </div>
-
                             <div class='form-row row'>
                                 <div class='col-xs-12 form-group required'>
                                     <label class='control-label'>Shipping Adress</label>
