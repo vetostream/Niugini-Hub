@@ -31,6 +31,7 @@ class CreateProductsTable extends Migration
                         ->on('sellers')
                         ->onDelete('cascade');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
