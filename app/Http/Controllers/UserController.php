@@ -40,9 +40,13 @@ class UserController extends Controller
         $interval = $now->diff($date);
         $seller = Sellers::where('user_id', $id)->get();
 
+        if ($seller->isEmpty()) {
+            $seller = false;
+        }
+
         return view('users.profile', ['user' => $user,
             'age' => $interval->y,
-            'sellerIsEmpty' => $seller->isEmpty()
+            'seller' => $seller
             ]);
     }
 

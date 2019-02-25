@@ -44,12 +44,21 @@
                 <!-- aside Widget -->
                 <div class="aside row">
                     <div class="col-xs-8 col-xs-offset-2">
+                    @if (!$seller)
                         <button type="button"
                             class="btn btn-info btn-sm btn-block"
                             data-toggle="modal"
                             data-target="#sellerModal">
                                 Apply as Seller
                         </button>
+                    @else
+                        <a href="{{ route('sellersProfile', ['id' => $seller[0]->id]) }}"
+                            class="btn btn-primary btn-sm btn-block"
+                            role="button"
+                            aria-pressed="true">
+                                Seller Profile
+                        </a>
+                    @endif
                     </div>
                 </div>
                 <!-- /aside Widget -->
