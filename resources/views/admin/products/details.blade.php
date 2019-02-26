@@ -49,6 +49,12 @@
             <p class="product-category">Status: Approved</p>
           @else
             <p class="product-category">Status: For Review</p>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#approveProductModal">
+              Approve
+            </button>
+            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#disapproveProductModal">
+              Disapprove
+            </button>
           @endif
           </div>
         </div>
@@ -65,4 +71,49 @@
 @endsection
 
 @section('modals')
+<!-- Approve Product Modal -->
+<div class="modal fade bd-example-modal-sm" id="approveProductModal" tabindex="-1" role="dialog" aria-labelledby="approveProductLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <!-- Note: Flexbox used to align contents in modal header -->
+      <div class="modal-header" style="padding: 1rem; display: flex; align-items: flex-start; justify-content: space-between; ">
+        <h4 class="modal-title" id="approveProductLabel" style="font-weight: 500; font-size: 1.5rem;" >Approve Product?</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin: -1rem -1rem -1rem auto; padding: 1rem;">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-footer">
+        <form method="POST" action="{{ route('home') }}" >
+          @csrf
+          <input type="text" name="status" value="1" hidden />
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-primary">Confirm</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Disapprove Product Modal -->
+<div class="modal fade bd-example-modal-sm" id="disapproveProductModal" tabindex="-1" role="dialog" aria-labelledby="disapproveProductLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <!-- Note: Flexbox used to align contents in modal header -->
+      <div class="modal-header" style="padding: 1rem; display: flex; align-items: flex-start; justify-content: space-between; ">
+        <h4 class="modal-title" id="disapproveProductLabel" style="font-weight: 500; font-size: 1.5rem;" >Disapprove Product?</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin: -1rem -1rem -1rem auto; padding: 1rem;">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-footer">
+        <form method="POST" action="{{ route('home') }}" >
+          @csrf
+          <input type="text" name="status" value="-2" hidden />
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-danger">Confirm</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 @endsection
