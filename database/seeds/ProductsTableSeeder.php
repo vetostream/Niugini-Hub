@@ -21,6 +21,7 @@ class ProductsTableSeeder extends Seeder
                     'name' => $row->name,
                     'price' => $row->price,
                     'desc' => $row->desc,
+                    'status' => $row->status,
                     'qty' => $row->qty,
                     'total' => $row->total,
                     'category_id' => $row->category_id,

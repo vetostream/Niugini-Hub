@@ -48,9 +48,17 @@
             <p class="product-category">Stars: {{ $seller->stars }}</p>
           @if ($seller->status == 1)
             <p class="product-category">Status: Active</p>
+            <a href="{{ route('productsCreateForm') }}" 
+              class="btn btn-primary" role="button">
+              Create Product
+            </a>
           @endif
           </div>
         </div>
+        <a href="{{ route('home') }}" 
+          class="btn btn-primary" role="button">
+          All Products
+        </a>
       </div>
       <div class="col-md-4"></div>
     </div>

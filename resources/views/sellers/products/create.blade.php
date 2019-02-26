@@ -10,7 +10,7 @@
     <div class="row">
       <div class="col-md-12">
         <ul class="breadcrumb-tree">
-          <li><a href="{{ route('home') }}">Seller Profile</a></li>
+          <li><a href="{{ route('sellersProfile', ['id' => $id]) }}">Seller Profile</a></li>
           <li><a href="{{ route('home') }}">All Products</a></li>
           <li class="active">Create</li>
         </ul>
@@ -52,7 +52,7 @@
     <!-- Create Product -->
     <div class="row" id="createProduct">
       <div class="col-md-8">
-        <form method="POST" action="{{ route('home') }}" enctype="multipart/form-data">
+        <form method="POST" action="{{ route('storeSellersProducts') }}" enctype="multipart/form-data">
           @csrf
           <div class="form-group">
             <label for="productName">Name</label>
@@ -61,6 +61,26 @@
           <div class="form-group">
             <label for="productImage">Image</label>
             <input type="file" class="form-control" id="productImage" name="productImage" />
+          </div>
+          <div class="form-group">
+            <label for="productPrice">Price</label>
+            <input type="number" min="0" class="form-control" id="productPrice" name="productPrice" placeholder="" />
+          </div>
+          <div class="form-group">
+            <label for="productCategory">Category</label>
+            <select class="form-control" id="productCategory" name="productCategory">
+            @foreach ($categories as $category)
+              <option value="{{ $category->id }}">{{ $category->name }}</option>
+            @endforeach
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="productDescription">Description</label>
+            <input type="text" class="form-control" id="productDescription" name="productDescription" placeholder="" />
+          </div>
+          <div class="form-group">
+            <label for="productLocation">Location</label>
+            <input type="text" class="form-control" id="productLocation" name="productLocation" placeholder="{{$location}}" />
           </div>
           <button type="submit" class="btn btn-primary">Create</button>
         </form>

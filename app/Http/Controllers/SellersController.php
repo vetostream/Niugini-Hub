@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
+use Illuminate\Support\Facades\Auth;
 
 use App\Sellers as Sellers;
+use App\Categories as Categories;
+use App\Products as Products;
 
 class SellersController extends Controller
 {
@@ -54,7 +57,55 @@ class SellersController extends Controller
      */
     public function productsCreateForm()
     {
-        return view('sellers.products.create');
+        $categories = Categories::all();
+        $id = Auth::user()->id;
+        $seller = Sellers::where('user_id', $id)->get()->first();
+
+        return view('sellers.products.create', [
+            'categories' => $categories,
+            'id' => $seller->id,
+            'location' => $seller->location
+        ]);
+    }
+
+    /**
+     * Create a new product instance.
+     *
+     * @param  Request  $request
+     */
+    public function storeSellersProducts(Request $request)
+    {
+        $request->validate([
+            'productName' => 'required',
+            'productPrice' => 'required',
+            'productCategory' => 'required',
+            'productDescription' => 'required',
+        ]);
+
+        $product = new Products;
+        $product->name = $request->productName;
+        $product->desc = $request->productDescription;
+        $product->price = $request->productPrice;
+        $product->category_id = $request->productCategory;
+
+        $id = Auth::user()->id;
+        $seller = Sellers::where('user_id', $id)->get()->first();
+        $product->seller_id = $seller->id;
+
+        if($request->productLocation != null) {
+            $product->location = $request->productLocation;
+        } else {
+            // set to seller's location if none specified
+            $product->location = $seller->location;
+        }
+
+        $file = $request->file('productImage');
+        if ($file) {
+            $this->setFileUpload($file, $product);
+        }
+
+        $product->save();
+        return redirect()->route('sellersProfile', array('id' => $seller->id));
     }
 
 }
