@@ -43,21 +43,36 @@
                     <div class="col-md-7">
                         <!-- Billing Details -->
                         <div class="billing-details">
-
-                            <div class="section-title">
-                                <h3 class="title">Payment</h3>
+                            <div class='form-row row'>
+                                <div class='col-xs-12 form-group required'>
+                                    <label class='control-label'>Name: </label>
+                                    <input class='form-control'
+                                        type='text'
+                                        name="name"
+                                        value="{{ $name }}"
+                                        disabled>
+                                </div>
                             </div>
 
                             <div class='form-row row'>
                                 <div class='col-xs-12 form-group required'>
-                                    <label class='control-label'>Shipping Adress</label>
-                                    <input class='form-control' size='4' type='text' name="address">
+                                    <label class='control-label'>Adress: </label>
+                                    <input class='form-control'
+                                        type='text'
+                                        name="address"
+                                        value="{{ $address }}"
+                                        disabled>
+                                </div>
+                            </div>
 
-                                    @if ($errors->has('address'))
-                                        <span class="invalid-feedback text-danger" role="alert">
-                                            <strong>{{ $errors->first('address') }}</strong>
-                                        </span>
-                                    @endif
+                            <div class='form-row row'>
+                                <div class='col-xs-12 form-group required'>
+                                    <label class='control-label'>No. of items: </label>
+                                    <input class='form-control'
+                                        type='text'
+                                        name="cart_items"
+                                        value="{{ $cart_items }}"
+                                        disabled>
                                 </div>
                             </div>
 
@@ -67,7 +82,7 @@
 								<input type="checkbox" id="shiping-address" name="payment_option" class="checkout_payment_check">
 								<label for="shiping-address">
                                     <span></span>
-									Pay using credit card?
+									Pay using credit card? Order will be processed automatically as COD if unchecked.
                                 </label>
 
 								<div class="caption">

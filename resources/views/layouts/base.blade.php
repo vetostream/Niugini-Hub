@@ -11,6 +11,7 @@
 
   <!-- Bootstrap -->
   <link type="text/css" rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}"/>
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
 
   <!-- Slick -->
   <link type="text/css" rel="stylesheet" href="{{ asset('css/slick.css') }}"/>

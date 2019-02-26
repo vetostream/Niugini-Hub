@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Categories as Categories;
 use App\Products as Products;
+use Auth;
+
 use Illuminate\Http\Request;
 
 class CartController extends Controller
@@ -16,7 +18,7 @@ class CartController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->user =  \Auth::user();
+        $this->user =  Auth::user();
     }
 
     /**
@@ -27,7 +29,7 @@ class CartController extends Controller
     public function add(Request $request) {
         try {
             $product = Products::findOrFail($request->product_id);
-            $cart = \Auth::user()->cart;
+            $cart = Auth::user()->cart;
             $qty = (int)$request->product_qty;
             $stock = $product->qty;
 
@@ -75,7 +77,7 @@ class CartController extends Controller
     public function retrieve(Request $request) {
         try {
 
-            $cart = \Auth::user()->cart;
+            $cart = Auth::user()->cart;
             $products = $cart->products;
             $product_html = '';
             $product_count = $cart->products()->count();
@@ -129,7 +131,7 @@ class CartController extends Controller
     public function delete(Request $request) {
         try {
             $product = Products::findOrFail($request->product_id);
-            $cart = \Auth::user()->cart;
+            $cart = Auth::user()->cart;
 
             if ($cart->products()->where('products_id', $product->id)->count() > 0) {
                 $qty = $cart->products()->find($product->id)->pivot->qty;
@@ -137,13 +139,16 @@ class CartController extends Controller
                 $cart->products()->detach($product);
                 $products = $cart->products;
                 $product_subtotal = 0.0;
+                $cart_items = 0;
 
                 foreach($products as $product) {
                     $product_subtotal += $product->pivot->qty * $product->price;
+                    $cart_items += $product->pivot->qty;
                 }
 
                 return response()->json(['success'=>'Data is successfully removed',
-                                         'product_subtotal' => $product_subtotal]);
+                                         'product_subtotal' => $product_subtotal,
+                                         'cart_items' => $cart_items]);
             } else {
                 return response()->json(['success'=>'Data is not in the cart']);
             }
@@ -159,13 +164,16 @@ class CartController extends Controller
      * @return void
      */
     public function index(Request $request) {
-        $cart = \Auth::user()->cart;
+        $cart = Auth::user()->cart;
         $products = $cart->products;
         $product_subtotal = 0.0;
         $product_total = [];
+        $cart_items = 0;
+        $address = Auth::user()->address;
 
         foreach($products as $product) {
             $product_subtotal += $product->pivot->qty * $product->price;
+            $cart_items += $product->pivot->qty;
             array_push($product_total,
                 ($product->pivot->qty * $product->price));
         }
@@ -173,7 +181,9 @@ class CartController extends Controller
         return view('cart.index', [
             'products' => $products,
             'product_subtotal' => $product_subtotal,
-            'product_total' => $product_total
+            'product_total' => $product_total,
+            'cart_items' => $cart_items,
+            'address' => $address
         ]);
     }
 
@@ -186,7 +196,7 @@ class CartController extends Controller
     public function update(Request $request) {
         try {
             $product = Products::findOrFail($request->product_id);
-            $cart = \Auth::user()->cart;
+            $cart = Auth::user()->cart;
             $qty = (int)$request->product_qty;
             $current_qty = $cart->products()->find($product->id)->pivot->qty;
             $stock = $product->qty;
@@ -205,9 +215,11 @@ class CartController extends Controller
                     $product_count = $cart->products()->count();
                     $products = $cart->products;
                     $product_subtotal = 0.0;
+                    $cart_items = 0;
 
                     foreach($products as $product) {
                         $product_subtotal += $product->pivot->qty * $product->price;
+                        $cart_items += $product->pivot->qty;
                     }
 
                     return response()->json(['success'=>'Data is successfully updated',
@@ -216,7 +228,8 @@ class CartController extends Controller
                                              'qty' => $qty,
                                              'update_product_qty' => $update_product_qty,
                                              'current_qty' => $current_qty,
-                                             'stock' => $stock]);
+                                             'stock' => $stock,
+                                             'cart_items' => $cart_items]);
                 } else {
                     $product_count = $cart->products()->count();
                     return response()->json(['success'=>'Data is not in the cart']);
@@ -239,7 +252,7 @@ class CartController extends Controller
     public function get_qty(Request $request) {
         try {
             $product = Products::findOrFail($request->product_id);
-            $cart = \Auth::user()->cart;
+            $cart = Auth::user()->cart;
             $qty = $cart->products()->find($product->id)->pivot->qty;
 
             return response()->json(['success'=>'Data is successfully updated',
