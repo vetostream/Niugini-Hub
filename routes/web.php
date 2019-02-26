@@ -70,3 +70,4 @@ Route::get('/admin/sellers/{id}', ['uses' => 'AdminController@sellersDetails'])-
 Route::post('/admin/update/sellers/status/{id}', ['uses' => 'AdminController@updateSellersStatus'])->middleware('is_admin')->name('adminUpdateSellersStatus');
 
 Route::get('/admin/products', 'AdminController@productsList')->middleware('is_admin')->name('adminProductsList');
+Route::get('/admin/products/{id}', ['uses' => 'AdminController@productsDetails'])->middleware('is_admin')->name('adminProductsDetails');

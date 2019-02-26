@@ -147,4 +147,13 @@ class AdminController extends Controller
         return view('admin.products.list', ['products' => $products]);
     }
 
+    public function productsDetails($id)
+    {
+        $product = Products::findOrFail($id);
+
+        return view('admin.products.details', [
+            'product' => $product
+        ]);
+    }
+
 }

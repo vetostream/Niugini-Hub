@@ -53,7 +53,7 @@
           @foreach ($products as $product)
             <tr>
               <th scope="row">{{ $product->id }}</th>
-              <td><a href="{{ route('home') }}">{{ $product->name }}</a></td>
+              <td><a href="{{ route('adminProductsDetails', ['id' => $product->id]) }}">{{ $product->name }}</a></td>
               <td>{{ $product->price }}</td>
               <td>{{ $product->location }}</td>
             @if ($product->status)
