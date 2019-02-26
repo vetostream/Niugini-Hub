@@ -77,7 +77,7 @@ class SellersController extends Controller
     {
         $request->validate([
             'productName' => 'required',
-            'productPrice' => 'required',
+            'productPrice' => 'required|numeric',
             'productCategory' => 'required',
             'productDescription' => 'required',
         ]);

@@ -64,7 +64,7 @@
           </div>
           <div class="form-group">
             <label for="productPrice">Price</label>
-            <input type="number" min="0" class="form-control" id="productPrice" name="productPrice" placeholder="" />
+            <input type="text" class="form-control" id="productPrice" name="productPrice" placeholder="" />
           </div>
           <div class="form-group">
             <label for="productCategory">Category</label>
