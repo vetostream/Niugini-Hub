@@ -11,7 +11,7 @@
             <div class="col-md-12">
                 <ul class="breadcrumb-tree">
                     <li><a href="{{ route('profile') }}">Profile</a></li>
-                    <li class="active">Update Password</li>
+                    <li class="active">Deactivate Account</li>
                 </ul>
             </div>
         </div>
@@ -31,11 +31,11 @@
     <div class="row" id="updatePassword">
         <div class="col-md-8 col-md-offset-2 order-details">
             <div class="section-title text-center">
-                <h3 class="title">Update Password</h3>
+                <h3 class="title">Deactivate Account</h3>
             </div>
-            <form method="POST" action="{{ route('updatePassword') }}">
+            <p class="bg-danger text-white">Input password to deactivate account.</p>
+            <form method="POST" action="{{ route('deactivate') }}">
                 @csrf
-
 
                 <div class="form-group">
                     <label for="current_password">Current Password</label>
@@ -47,26 +47,12 @@
                     @endif
                 </div>
 
-                <div class="form-group">
-                    <label for="password">New Password</label>
-                    <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
-                    @if ($errors->has('password'))
-                        <span class="invalid-feedback text-danger" role="alert">
-                            <strong>{{ $errors->first('password') }}</strong>
-                        </span>
-                    @endif
-                </div>
-
-                <div class="form-group">
-                    <label for="password-confirm">Confirm New Password</label>
-                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
-                </div>
-
                 <div class="row">
                     <div class="col-xs-3 col-xs-offset-9">
-                        <button type="submit" class="btn btn-primary btn-small btn-block">Change Password</button>
+                        <button type="submit" class="btn btn-primary btn-small btn-block">Deactivate</button>
                     </div>
                 </div>
+
             </form>
         </div>
     </div>

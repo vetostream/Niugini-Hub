@@ -21,11 +21,12 @@ class CreateOrdersTable extends Migration
             $table->string('delivery_method')->nullable();
             $table->string('payment_status')->nullable();
             $table->date('payment_date')->nullable();
-            $table->unsignedInteger('cust_id');
-            $table->foreign('cust_id')
+            $table->unsignedInteger('user_id');
+            $table->foreign('user_id')
                 ->references('id')
                 ->on('users');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
