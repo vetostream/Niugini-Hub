@@ -162,4 +162,28 @@ class UserController extends Controller
 
         return redirect('/login')->with('message', 'Account has been successfully deactivated.');
     }
+
+    /**
+     * Update user address.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function updateAddress(Request $request)
+    {
+        $request->validate([
+            'address' => 'required|string'
+        ]);
+
+
+        $id = Auth::user()->id;
+        $user = User::find($id);
+
+        $user->address = $request->address;
+
+        $user->save();
+
+        Session::flash('success', 'Address updated!');
+        return back();
+    }
+
 }

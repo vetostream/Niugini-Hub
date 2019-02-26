@@ -39,9 +39,13 @@ class CheckoutController extends Controller
         $products = $cart->products;
         $product_subtotal = 0.00;
         $product_total = [];
+        $name = Auth::user()->name;
+        $address = Auth::user()->address;
+        $cart_items = 0;
 
         foreach($products as $product) {
             $product_subtotal += $product->pivot->qty * $product->price;
+            $cart_items += $product->pivot->qty;
             array_push($product_total,
                 ($product->pivot->qty * $product->price));
         }
@@ -49,7 +53,10 @@ class CheckoutController extends Controller
         return view('checkout.checkout', [
             'products' => $products,
             'product_subtotal' => $product_subtotal,
-            'product_total' => $product_total
+            'product_total' => $product_total,
+            'name' => $name,
+            'address' => $address,
+            'cart_items' => $cart_items
         ]);
     }
 
@@ -99,7 +106,6 @@ class CheckoutController extends Controller
      */
     public function stripePost(Request $request)
     {
-        $this->validator($request->all())->validate();
         $cod_bool = false;
 
         if ($request->payment_option == null) {
@@ -123,7 +129,7 @@ class CheckoutController extends Controller
         $order = New Orders;
         $order->order_date = Carbon::now();
         $order->total = $product_subtotal;
-        $order->address = $request->address;
+        $order->address = Auth::user()->address;
         $order->user_id = Auth::user()->id;
 
         if (!$cod_bool) {
@@ -149,7 +155,7 @@ class CheckoutController extends Controller
                     }
 
                     Session::flash('success', 'Payment successful!');
-                    return back();
+                    return redirect('/');
                 } else {
                     Session::put('error', 'Money not add in wallet!!');
                     return back();
@@ -176,7 +182,7 @@ class CheckoutController extends Controller
             }
 
             Session::flash('success', 'Order Successful!');
-            return back();
+            return redirect('/');
         }
 
     }
