@@ -7,6 +7,7 @@ use Illuminate\Routing\Redirector;
 
 use App\Categories as Categories;
 use App\Sellers as Sellers;
+use App\Products as Products;
 
 class AdminController extends Controller
 {
@@ -137,6 +138,13 @@ class AdminController extends Controller
         $seller->save();
 
         return redirect()->route('adminSellersDetails', array('id' => $seller->id));
+    }
+
+    public function productsList()
+    {
+        $products = Products::paginate(10);
+
+        return view('admin.products.list', ['products' => $products]);
     }
 
 }
