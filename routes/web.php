@@ -30,6 +30,7 @@ Route::get('/sellers/apply/{id}', ['uses' => 'SellersController@apply']);
 // Products
 Route::get('/products', 'ProductsController@index')->name('products');
 Route::get('/products/{id}', ['uses' => 'ProductsController@details']);
+Route::post('/search', 'ProductsController@search')->name('search');
 
 // Categories
 Route::get('/categories', 'CategoriesController@index')->name('categories');
