@@ -27,6 +27,7 @@ Route::POST('/user/deactivateAccount', 'UserController@deactivate')->name('deact
 // Sellers
 Route::get('/sellers/apply/{id}', ['uses' => 'SellersController@apply']);
 Route::get('/sellers/details/{id}', ['uses' => 'SellersController@details'])->name('sellersProfile');
+Route::get('/sellers/list/{id}/products', ['uses' => 'SellersController@productsList'])->middleware('is_approved_seller')->name('sellersProductsList');
 Route::get('/sellers/create/products', 'SellersController@productsCreateForm')->middleware('is_approved_seller')->name('productsCreateForm');
 Route::post('/sellers/create/products', 'SellersController@storeSellersProducts')->middleware('is_approved_seller')->name('storeSellersProducts');
 

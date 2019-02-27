@@ -11,7 +11,7 @@
       <div class="col-md-12">
         <ul class="breadcrumb-tree">
           <li><a href="{{ route('sellersProfile', ['id' => $id]) }}">Seller Profile</a></li>
-          <li><a href="{{ route('home') }}">All Products</a></li>
+          <li><a href="{{ route('sellersProductsList', ['id' => $id]) }}">All Products</a></li>
           <li class="active">Create</li>
         </ul>
       </div>
@@ -81,6 +81,9 @@
           <div class="form-group">
             <label for="productLocation">Location</label>
             <input type="text" class="form-control" id="productLocation" name="productLocation" placeholder="{{$location}}" />
+          </div>
+          <div class="form-group">
+            <small id="" class="form-text text-muted">By submitting, you agree to the Terms and Conditions of Niugini-hub.</small>
           </div>
           <button type="submit" class="btn btn-primary">Create</button>
         </form>

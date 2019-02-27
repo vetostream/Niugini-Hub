@@ -54,10 +54,12 @@
             </a>
           @elseif ($seller->status == 0)
             <p class="product-category">Status: For Approval</p>
+          @else
+            <p class="product-category">Status: Inactive</p>
           @endif
           </div>
         </div>
-        <a href="{{ route('home') }}" 
+        <a href="{{ route('sellersProductsList', ['id' => $seller->id]) }}" 
           class="btn btn-primary" role="button">
           All Products
         </a>

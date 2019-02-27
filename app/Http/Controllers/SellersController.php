@@ -50,6 +50,17 @@ class SellersController extends Controller
         ]);
     }
 
+    public function productsList($id)
+    {
+        $products = Products::where('seller_id', $id)->where('status', 1)->get();
+        $seller = Sellers::findOrFail($id);
+
+        return view('sellers.products.list', [
+            'seller' => $seller,
+            'products' => $products
+        ]);
+    }
+
     /**
      * Show the create product form.
      *

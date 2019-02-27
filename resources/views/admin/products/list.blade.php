@@ -56,10 +56,12 @@
               <td><a href="{{ route('adminProductsDetails', ['id' => $product->id]) }}">{{ $product->name }}</a></td>
               <td>{{ $product->price }}</td>
               <td>{{ $product->location }}</td>
-            @if ($product->status)
+            @if ($product->status == 1)
               <td>Approved</td>
-            @else
+            @elseif ($product->status == 0)
               <td>For Review</td>
+            @elseif ($product->status == -1)
+              <td>Disapproved</td>
             @endif
             </tr>
           @endforeach

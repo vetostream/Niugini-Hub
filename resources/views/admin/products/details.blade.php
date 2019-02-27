@@ -45,9 +45,9 @@
             <p class="product-category">Location: {{ $product->location }}</p>
             <p class="product-category">Category: {{ $product->category->name }}</p>
             <p class="product-category">Seller: {{ $product->seller->user->name }}</p>
-          @if ($product->status)
+          @if ($product->status == 1)
             <p class="product-category">Status: Approved</p>
-          @else
+          @elseif ($product->status == 0)
             <p class="product-category">Status: For Review</p>
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#approveProductModal">
               Approve
@@ -55,6 +55,8 @@
             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#disapproveProductModal">
               Disapprove
             </button>
+          @elseif ($product->status == -1)
+            <p class="product-category">Status: Disapproved</p>
           @endif
           </div>
         </div>
