@@ -41,4 +41,32 @@ class ProductsController extends Controller
         return view('products.details', ['product' => $product]);
     }
 
+    /**
+     * Show the products based from result
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function search(Request $request)
+    {
+        $name = $request->name;
+        $address = $request->address;
+        $product_result = null;
+
+        if (($name == null) && ($address == null)) {
+            $product_result = null;
+        } else if (($name == null) && ($address != null)) {
+            $product_result = Products::where('location', 'ilike', '%'. $address .'%')->paginate(10);
+        } else if (($name != null) && ($address == null)) {
+            $product_result = Products::where('name', 'ilike', '%'. $name .'%')->paginate(10);
+        } else {
+            $product_result = Products::where('name', 'ilike', '%'. $name .'%')
+            ->where('location', 'ilike', '%'. $address .'%')
+            ->paginate(10);
+        }
+
+        return view('products.results', ['product_result' => $product_result,
+            'search_address' => $address,
+            'search_name' => $name]);
+    }
+
 }
