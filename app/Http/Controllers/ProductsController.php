@@ -67,7 +67,6 @@ class ProductsController extends Controller
         return view('products.results', ['product_result' => $product_result,
             'search_address' => $address,
             'search_name' => $name]);
-
     }
 
 }
