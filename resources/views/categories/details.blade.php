@@ -40,7 +40,11 @@
             <div class="col-md-3 col-xs-3">
               <div class="product">
                 <div class="product-img">
-                  <img src="{{ asset('img/blank.png') }}" alt="blank" />
+                  @if ($product->filename)
+                    <img src="{{ url('uploads/'.$product->filename) }}" alt="{{ $product->filename }}" />
+                  @else
+                    <img src="{{ asset('img/blank.png') }}" alt="blank" />
+                  @endif
                 </div>
 
                 <div class="product-body">
