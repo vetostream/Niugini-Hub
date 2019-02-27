@@ -52,6 +52,7 @@ class SellersController extends Controller
 
     public function productsList($id)
     {
+        // only retrieve approved products for the specific seller
         $products = Products::where('seller_id', $id)->where('status', 1)->paginate(10);
         $seller = Sellers::findOrFail($id);
 
