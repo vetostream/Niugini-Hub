@@ -74,3 +74,4 @@ Route::post('/admin/update/sellers/status/{id}', ['uses' => 'AdminController@upd
 
 Route::get('/admin/products', 'AdminController@productsList')->middleware('is_admin')->name('adminProductsList');
 Route::get('/admin/products/{id}', ['uses' => 'AdminController@productsDetails'])->middleware('is_admin')->name('adminProductsDetails');
+Route::post('/admin/update/products/status/{id}', ['uses' => 'AdminController@updateProductsStatus'])->middleware('is_admin')->name('adminUpdateProductsStatus');

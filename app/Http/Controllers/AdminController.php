@@ -156,4 +156,14 @@ class AdminController extends Controller
         ]);
     }
 
+    public function updateProductsStatus(Request $request)
+    {
+        $product = Products::findOrFail($request->route('id'));
+
+        $product->status = $request->status;
+        $product->save();
+
+        return redirect()->route('adminProductsDetails', array('id' => $product->id));
+    }
+
 }

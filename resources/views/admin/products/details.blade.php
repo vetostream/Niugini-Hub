@@ -85,7 +85,7 @@
         </button>
       </div>
       <div class="modal-footer">
-        <form method="POST" action="{{ route('home') }}" >
+        <form method="POST" action="{{ route('adminUpdateProductsStatus', ['id' => $product->id]) }}" >
           @csrf
           <input type="text" name="status" value="1" hidden />
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
@@ -108,7 +108,7 @@
         </button>
       </div>
       <div class="modal-footer">
-        <form method="POST" action="{{ route('home') }}" >
+        <form method="POST" action="{{ route('adminUpdateProductsStatus', ['id' => $product->id]) }}" >
           @csrf
           <input type="text" name="status" value="-1" hidden />
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
