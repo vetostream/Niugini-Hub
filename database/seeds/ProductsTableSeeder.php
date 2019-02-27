@@ -24,7 +24,8 @@ class ProductsTableSeeder extends Seeder
                     'qty' => $row->qty,
                     'total' => $row->total,
                     'category_id' => $row->category_id,
-                    'seller_id' => $row->seller_id
+                    'seller_id' => $row->seller_id,
+                    'location' => $row->location
                 ]);
             }
         });
