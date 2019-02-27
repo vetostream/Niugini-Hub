@@ -42,26 +42,30 @@
                 <!-- /aside Widget -->
 
                 <!-- aside Widget -->
+            @if (!$seller)
                 <div class="aside row">
                     <div class="col-xs-8 col-xs-offset-2">
-                    @if (!$seller)
                         <button type="button"
                             class="btn btn-info btn-sm btn-block"
                             data-toggle="modal"
                             data-target="#sellerModal">
                                 Apply as Seller
                         </button>
-                    @else
-                        <a href="{{ route('sellersProfile', ['id' => $seller[0]->id]) }}"
+                    </div>
+                </div>
+            @elseif ($seller->status == 1)
+                <div class="aside row">
+                    <div class="col-xs-8 col-xs-offset-2">
+                        <a href="{{ route('sellersProfile', ['id' => $seller->id]) }}"
                             class="btn btn-primary btn-sm btn-block"
                             role="button"
                             aria-pressed="true">
                                 Seller Profile
                         </a>
-                    @endif
                     </div>
                 </div>
                 <!-- /aside Widget -->
+            @endif
 
  				<!-- aside Widget -->
                 <div class="aside row">

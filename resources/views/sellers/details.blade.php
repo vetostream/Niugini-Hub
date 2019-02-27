@@ -52,6 +52,8 @@
               class="btn btn-primary" role="button">
               Create Product
             </a>
+          @elseif ($seller->status == 0)
+            <p class="product-category">Status: For Approval</p>
           @endif
           </div>
         </div>

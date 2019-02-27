@@ -47,6 +47,7 @@
               <th scope="col">Location</th>
               <th scope="col">Products Sold</th>
               <th scope="col">Stars</th>
+              <th scope="col">Status</th>
             </tr>
           </thead>
           <tbody>
@@ -57,6 +58,15 @@
               <td>{{ $seller->location }}</td>
               <td>{{ $seller->products_sold }}</td>
               <td>{{ $seller->stars }}</td>
+            @if ($seller->status == 0)
+              <td>For Review</td>
+            @elseif ($seller->status == 1)
+              <td>Active</td>
+            @elseif ($seller->status == -1)
+              <td>Inactive</td>
+            @elseif ($seller->status == -2)
+              <td>Disapproved</td>
+            @endif
             </tr>
           @endforeach
           </tbody>

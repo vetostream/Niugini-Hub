@@ -18,7 +18,7 @@ class CreateProductsTable extends Migration
             $table->string('name');
             $table->float('price', 8, 2);
             $table->string('desc');
-            $table->boolean('status')->default(false);
+            $table->integer('status')->default(0);
             $table->integer('qty')->nullable();
             $table->integer('total')->nullable();
             $table->string('location')->nullable();

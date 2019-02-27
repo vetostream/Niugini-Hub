@@ -46,7 +46,7 @@ class UserController extends Controller
 
         return view('users.profile', ['user' => $user,
             'age' => $interval->y,
-            'seller' => $seller
+            'seller' => $seller[0]
             ]);
     }
 

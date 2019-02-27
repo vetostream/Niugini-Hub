@@ -108,7 +108,7 @@
       <div class="modal-footer">
         <form method="POST" action="{{ route('home') }}" >
           @csrf
-          <input type="text" name="status" value="-2" hidden />
+          <input type="text" name="status" value="-1" hidden />
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
           <button type="submit" class="btn btn-danger">Confirm</button>
         </form>

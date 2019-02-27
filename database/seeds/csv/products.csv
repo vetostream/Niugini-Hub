@@ -1,4 +1,4 @@
 Name,Price,Desc,Status,Qty,Total,Category Id,Seller Id,Location
-PA,100,Best,true,5,500,1,1,Cebu
-PB,10,Great,true,3,30,1,1,Mandaue
-PC,5,Fine,5,25,2,1,Talisay
+PA,100,Best,1,5,500,1,1,Cebu
+PB,10,Great,1,3,30,1,1,Mandaue
+PC,5,Fine,1,5,25,2,1,Talisay
