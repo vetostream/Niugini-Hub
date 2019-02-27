@@ -52,7 +52,7 @@ class SellersController extends Controller
 
     public function productsList($id)
     {
-        $products = Products::where('seller_id', $id)->where('status', 1)->get();
+        $products = Products::where('seller_id', $id)->where('status', 1)->paginate(10);
         $seller = Sellers::findOrFail($id);
 
         return view('sellers.products.list', [
