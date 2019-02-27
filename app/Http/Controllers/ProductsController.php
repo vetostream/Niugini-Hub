@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Exceptions\Handler;
 use App\Products as Products;
 
 class ProductsController extends Controller
@@ -37,6 +38,11 @@ class ProductsController extends Controller
     public function details($id)
     {
         $product = Products::findOrFail($id);
+
+        // returns 404 if product status is not approved
+        if ($product->status != 1) {
+            abort(404);
+        }
 
         return view('products.details', ['product' => $product]);
     }
