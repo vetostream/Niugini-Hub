@@ -13,7 +13,7 @@
       <div id="store" class="col-md-12">
         @if($product_result == null)
         <div class="row">
-          <p>0 results.....</p>
+          <p>There are no results that match your search.</p>
         </div>
         @else
         @foreach($product_result->chunk(4) as $products_chunk)

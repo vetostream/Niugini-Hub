@@ -28,85 +28,94 @@
     <div class="container">
         <div class="row">
             <div class="col-md-7">
-                @foreach ($products as $indexKey => $item )
-                <div class="row cart-row" id="cart-page-row-{{$item->id}}">
-                    <div class="col-md-6">
-                        <div class="row">
-                            <img src="{{ asset('img/product01.png') }}"
-                                alt="blank"
-                                class="rounded-circle img-fluid img-thumbnail cart-image"
-                                height="200"
-                                width="200"/>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="input-group">
-                                    <span class="input-group-btn">
-                                        <button type="button"
-                                            class="btn btn-default btn-number cart-page-btn"
-                                            data-type="minus"
-                                            data-field="cart-number-{{ $item->id}}">
-                                                <span class="glyphicon glyphicon-minus "></span>
-                                        </button>
-                                    </span>
-                                    <input type="text"
-                                        name="cart-number-{{ $item->id}}"
-                                        class="form-control input-number cart-number"
-                                        value ="{{ $item->pivot->qty }}"
-                                        min="1"
-                                        max="1000"
-                                        product_id="{{ $item->id }}"
-                                        id="cart-number-{{ $item->id}}">
-                                    <span class="input-group-btn">
-                                        <button type="button"
-                                            class="btn btn-default btn-number cart-page-btn"
-                                            data-type="plus"
-                                            data-field="cart-number-{{ $item->id}}">
-                                                <span class="glyphicon glyphicon-plus"></span>
-                                        </button>
-                                    </span>
-                                    <span class="input-group-btn">
-                                        <button type="button"
-                                            class="btn btn-default cart-page-btn"
-                                            onclick="delete_cart_page_item('{{ $item->id }}')">
-                                                <span class="glyphicon glyphicon-trash"></span>
-                                        </button>
-                                    </span>
+                @if ($products->isEmpty())
+                    <div class="row">
+                        <h4>
+                            <span class="glyphicon glyphicon-shopping-cart fa-2x"style="color:#D10024"></span>
+                            Your cart is empty. <a href="{{ route('home') }}"> Click here to shop now.
+                        </h4>
+                    </div>
+                @else
+                    @foreach ($products as $indexKey => $item )
+                    <div class="row cart-row" id="cart-page-row-{{$item->id}}">
+                        <div class="col-md-6">
+                            <div class="row">
+                                <img src="{{ asset('img/product01.png') }}"
+                                    alt="blank"
+                                    class="rounded-circle img-fluid img-thumbnail cart-image"
+                                    height="200"
+                                    width="200"/>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="input-group">
+                                        <span class="input-group-btn">
+                                            <button type="button"
+                                                class="btn btn-default btn-number cart-page-btn"
+                                                data-type="minus"
+                                                data-field="cart-number-{{ $item->id}}">
+                                                    <span class="glyphicon glyphicon-minus "></span>
+                                            </button>
+                                        </span>
+                                        <input type="text"
+                                            name="cart-number-{{ $item->id}}"
+                                            class="form-control input-number cart-number"
+                                            value ="{{ $item->pivot->qty }}"
+                                            min="1"
+                                            max="1000"
+                                            product_id="{{ $item->id }}"
+                                            id="cart-number-{{ $item->id}}">
+                                        <span class="input-group-btn">
+                                            <button type="button"
+                                                class="btn btn-default btn-number cart-page-btn"
+                                                data-type="plus"
+                                                data-field="cart-number-{{ $item->id}}">
+                                                    <span class="glyphicon glyphicon-plus"></span>
+                                            </button>
+                                        </span>
+                                        <span class="input-group-btn">
+                                            <button type="button"
+                                                class="btn btn-default cart-page-btn"
+                                                onclick="delete_cart_page_item('{{ $item->id }}')">
+                                                    <span class="glyphicon glyphicon-trash"></span>
+                                            </button>
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        <div class="col-md-6 cart-item">
+                            <div class="row">
+                                <h3 class="align-middle">
+                                    <span class="cart-item-name">
+                                        <a href="{{ url('/products/'.$item->id) }}">
+                                            {{ $item->name }}
+                                        </a>
+                                    </span>
+                                </h3>
+                            </div>
+                            <div class="row">
+                                <h4 class="align-middle">
+                                    Descripiton: {{ $item->desc }}
+                                </h4>
+                            </div>
+                            <div class="row">
+                                <h4 class="align-middle">
+                                    Price: K {{ $item->price }}
+                                </h4>
+                            </div>
+                            <div class="row">
+                                <h4>
+                                    Total:
+                                    <span id="cart-page-product-total-{{$item->id}}">
+                                        K {{ $product_total[$indexKey] }}
+                                    </span>
+                                </h4>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-md-6 cart-item">
-                        <div class="row">
-                            <h3 class="align-middle">
-                                <span class="cart-item-name">
-                                    <a href="{{ url('/products/'.$item->id) }}">
-                                        {{ $item->name }}
-                                    </a>
-                                </span>
-                            </h3>
-                        </div>
-                        <div class="row">
-                            <h4 class="align-middle">
-                                Descripiton: {{ $item->desc }}
-                            </h4>
-                        </div>
-                        <div class="row">
-                            <h4 class="align-middle">
-                                Price: K {{ $item->price }}
-                            </h4>
-                        </div>
-                        <div class="row">
-                            <h4>
-                                Total:
-                                <span id="cart-page-product-total-{{$item->id}}">
-                                    K {{ $product_total[$indexKey] }}
-                                </span>
-                            </h4>
-                        </div>
-                    </div>
-                </div>
-                @endforeach
+                    @endforeach
+                @endif
             </div>
             <div class="col-md-5 order-details">
                 {{-- For future --}}
