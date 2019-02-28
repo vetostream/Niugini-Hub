@@ -38,7 +38,8 @@ class CategoriesController extends Controller
     public function details($id)
     {
         $category = Categories::findOrFail($id);
-        $products = Products::where('category_id', $category->id)->paginate(10);
+        // only retrieve approved products for the specific category
+        $products = Products::where('category_id', $category->id)->where('status', 1)->paginate(10);
 
         return view('categories.details', [
             'category' => $category,

@@ -2,81 +2,38 @@
 
 @section('content')
 
-<!-- MAIN HEADER -->
-<div id="header">
+<!-- BREADCRUMB -->
+<div id="breadcrumb" class="section">
   <!-- container -->
   <div class="container">
     <!-- row -->
     <div class="row">
-
-      <!-- SEARCH BAR -->
-      <div class="col-md-9">
-        <div class="header-search">
-          <form method="POST" action="/search">
-            @csrf
-            <input class="input" placeholder="Search here">
-            <button class="search-btn">Search</button>
-          </form>
-        </div>
+      <div class="col-md-12">
+        <ul class="breadcrumb-tree">
+          <li><a href="{{ route('sellersProfile', ['id' => $seller->id]) }}">Seller Profile</a></li>
+          <li class="active">All Products</li>
+        </ul>
       </div>
-      <!-- /SEARCH BAR -->
-
-      <!-- ACCOUNT -->
-      <div class="col-md-3 clearfix">
-        <div class="header-ctn">
-        @if (Auth::check())
-          <!-- Wishlist -->
-          <div>
-            <a href="{{ route('home') }}">
-              <i class="fa fa-heart-o"></i>
-              <span>Your Wishlist</span>
-            </a>
-          </div>
-          <!-- /Wishlist -->
-
-          <!-- Cart -->
-          <div>
-            <a href="{{ route('home') }}">
-              <i class="fa fa-shopping-cart"></i>
-              <span>Your Cart</span>
-            </a>
-          </div>
-          <!-- /Cart -->
-        @endif
-          <!-- Menu Toogle -->
-          <div class="menu-toggle">
-            <a href="#">
-              <i class="fa fa-bars"></i>
-              <span>Menu</span>
-            </a>
-          </div>
-          <!-- /Menu Toogle -->
-        </div>
-      </div>
-      <!-- /ACCOUNT -->
-
     </div>
-    <!-- row -->
+    <!-- /row -->
   </div>
-  <!-- container -->
+  <!-- /container -->
 </div>
-<!-- /MAIN HEADER -->
+<!-- /BREADCRUMB -->
 
 <!-- SECTION -->
 <div class="section">
   <!-- container -->
   <div class="container">
+
+    <div class="row">
+      <div class="col-sm">
+        <h3 class="title">Products of {{ $seller->user->name }}</h3>
+      </div>
+    </div>
+
     <!-- row -->
     <div class="row">
-
-      <!-- section title -->
-      <div class="col-md-12">
-        <div class="section-title">
-          <h3 class="title">Products</h3>
-        </div>
-      </div>
-      <!-- /section title -->
-
       <!-- STORE -->
       <div id="store" class="col-md-12">
 
@@ -117,7 +74,6 @@
 
       </div>
       <!-- /STORE -->
-
     </div>
     <!-- /row -->
   </div>

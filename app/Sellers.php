@@ -13,4 +13,12 @@ class Sellers extends Model
      */
     protected $table = 'sellers';
 
+    /**
+     * Get the foreign key
+     */
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
+
 }

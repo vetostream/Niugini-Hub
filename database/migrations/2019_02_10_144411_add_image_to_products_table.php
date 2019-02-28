@@ -14,7 +14,9 @@ class AddImageToProductsTable extends Migration
     public function up()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->text('image')->nullable();
+            $table->string('original_filename')->nullable();
+            $table->string('filename')->nullable();
+            $table->string('mime')->nullable();
         });
     }
 
@@ -26,7 +28,9 @@ class AddImageToProductsTable extends Migration
     public function down()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->dropColumn('image');
+            $table->dropColumn('original_filename');
+            $table->dropColumn('filename');
+            $table->dropColumn('mime');
         });
     }
 }

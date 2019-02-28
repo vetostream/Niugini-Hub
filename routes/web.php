@@ -26,10 +26,14 @@ Route::POST('/user/deactivateAccount', 'UserController@deactivate')->name('deact
 
 // Sellers
 Route::get('/sellers/apply/{id}', ['uses' => 'SellersController@apply']);
+Route::get('/sellers/details/{id}', ['uses' => 'SellersController@details'])->name('sellersProfile');
+Route::get('/sellers/list/{id}/products', ['uses' => 'SellersController@productsList'])->middleware('is_approved_seller')->name('sellersProductsList');
+Route::get('/sellers/create/products', 'SellersController@productsCreateForm')->middleware('is_approved_seller')->name('productsCreateForm');
+Route::post('/sellers/create/products', 'SellersController@storeSellersProducts')->middleware('is_approved_seller')->name('storeSellersProducts');
 
 // Products
 Route::get('/products', 'ProductsController@index')->name('products');
-Route::get('/products/{id}', ['uses' => 'ProductsController@details']);
+Route::get('/products/{id}', ['uses' => 'ProductsController@details'])->name('productsDetails');
 Route::post('/search', 'ProductsController@search')->name('search');
 
 // Categories
@@ -63,3 +67,11 @@ Route::get('/admin/create/categories', 'AdminController@categoriesCreateForm')->
 Route::post('/admin/create/categories', 'AdminController@storeCategories')->middleware('is_admin')->name('storeCategories');
 Route::post('/admin/update/categories', 'AdminController@updateCategories')->middleware('is_admin')->name('updateCategories');
 Route::get('/admin/delete/categories/{id}', ['uses' => 'AdminController@deleteCategories'])->middleware('is_admin')->name('deleteCategories');
+
+Route::get('/admin/sellers', 'AdminController@sellersList')->middleware('is_admin')->name('adminSellersList');
+Route::get('/admin/sellers/{id}', ['uses' => 'AdminController@sellersDetails'])->middleware('is_admin')->name('adminSellersDetails');
+Route::post('/admin/update/sellers/status/{id}', ['uses' => 'AdminController@updateSellersStatus'])->middleware('is_admin')->name('adminUpdateSellersStatus');
+
+Route::get('/admin/products', 'AdminController@productsList')->middleware('is_admin')->name('adminProductsList');
+Route::get('/admin/products/{id}', ['uses' => 'AdminController@productsDetails'])->middleware('is_admin')->name('adminProductsDetails');
+Route::post('/admin/update/products/status/{id}', ['uses' => 'AdminController@updateProductsStatus'])->middleware('is_admin')->name('adminUpdateProductsStatus');

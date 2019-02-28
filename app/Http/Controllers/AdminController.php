@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Storage;
 
 use App\Categories as Categories;
+use App\Sellers as Sellers;
+use App\Products as Products;
 
 class AdminController extends Controller
 {
@@ -58,15 +58,6 @@ class AdminController extends Controller
         return view('admin.categories.create');
     }
 
-    function setFileUpload($file, $env, $model) {
-        $extension = $file->getClientOriginalExtension();
-        Storage::disk($env)->put($file->getFilename().'.'.$extension, File::get($file));
-
-        $model->mime = $file->getClientMimeType();
-        $model->original_filename = $file->getClientOriginalName();
-        $model->filename = $file->getFilename().'.'.$extension;
-    }
-
     /**
      * Create a new category instance.
      *
@@ -85,9 +76,8 @@ class AdminController extends Controller
         $category->desc = $request->categoryDescription;
 
         $file = $request->file('categoryImage');
-        $env = 'public';
         if ($file) {
-            $this->setFileUpload($file, $env, $category);
+            $this->setFileUpload($file, $category);
         }
 
         $category->save();
@@ -122,6 +112,58 @@ class AdminController extends Controller
         $category->delete();
 
 		return redirect()->action('AdminController@categoriesList');
+    }
+
+    public function sellersList()
+    {
+        $sellers = Sellers::paginate(10);
+
+        return view('admin.sellers.list', ['sellers' => $sellers]);
+    }
+
+    public function sellersDetails($id)
+    {
+        $seller = Sellers::findOrFail($id);
+
+        return view('admin.sellers.details', [
+            'seller' => $seller
+        ]);
+    }
+
+    public function updateSellersStatus(Request $request)
+    {
+        $seller = Sellers::findOrFail($request->route('id'));
+
+        $seller->status = $request->status;
+        $seller->save();
+
+        return redirect()->route('adminSellersDetails', array('id' => $seller->id));
+    }
+
+    public function productsList()
+    {
+        $products = Products::paginate(10);
+
+        return view('admin.products.list', ['products' => $products]);
+    }
+
+    public function productsDetails($id)
+    {
+        $product = Products::findOrFail($id);
+
+        return view('admin.products.details', [
+            'product' => $product
+        ]);
+    }
+
+    public function updateProductsStatus(Request $request)
+    {
+        $product = Products::findOrFail($request->route('id'));
+
+        $product->status = $request->status;
+        $product->save();
+
+        return redirect()->route('adminProductsDetails', array('id' => $product->id));
     }
 
 }

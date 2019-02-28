@@ -42,6 +42,7 @@
                 <!-- /aside Widget -->
 
                 <!-- aside Widget -->
+            @if (!$seller)
                 <div class="aside row">
                     <div class="col-xs-8 col-xs-offset-2">
                         <button type="button"
@@ -52,7 +53,19 @@
                         </button>
                     </div>
                 </div>
+            @elseif ($seller->status == 1)
+                <div class="aside row">
+                    <div class="col-xs-8 col-xs-offset-2">
+                        <a href="{{ route('sellersProfile', ['id' => $seller->id]) }}"
+                            class="btn btn-primary btn-sm btn-block"
+                            role="button"
+                            aria-pressed="true">
+                                Seller Profile
+                        </a>
+                    </div>
+                </div>
                 <!-- /aside Widget -->
+            @endif
 
  				<!-- aside Widget -->
                 <div class="aside row">
