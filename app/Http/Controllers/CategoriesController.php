@@ -25,7 +25,7 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        $categories = Categories::paginate(10);
+        $categories = Categories::paginate(12);
 
         return view('categories.list', ['categories' => $categories]);
     }
@@ -39,7 +39,7 @@ class CategoriesController extends Controller
     {
         $category = Categories::findOrFail($id);
         // only retrieve approved products for the specific category
-        $products = Products::where('category_id', $category->id)->where('status', 1)->paginate(10);
+        $products = Products::where('category_id', $category->id)->where('status', 1)->paginate(12);
 
         return view('categories.details', [
             'category' => $category,

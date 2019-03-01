@@ -46,7 +46,7 @@
         <div class="product-details">
           <h2 class="product-name">{{ $product->name }}</h2>
           <div>
-            <h3 class="product-price">K{{ $product->price }}</h3>
+            <h3 class="product-price">K {{ $product->price }}</h3>
           </div>
           <p>{{ $product->desc }}</p>
 
@@ -71,6 +71,11 @@
           <ul class="product-links">
             <li>Category:</li>
             <li><a href="{{ route('home') }}">{{ $product->category['name'] }}</a></li>
+          </ul>
+
+          <ul class="product-links">
+            <li>Location:</li>
+            <li>{{ $product->location  }}</li>
           </ul>
 
         </div>

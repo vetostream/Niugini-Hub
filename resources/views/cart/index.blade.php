@@ -40,8 +40,13 @@
                     <div class="row cart-row" id="cart-page-row-{{$item->id}}">
                         <div class="col-md-6">
                             <div class="row">
-                                <img src="{{ asset('img/product01.png') }}"
-                                    alt="blank"
+                                @if ($item->filename)
+                                    <img src="{{ url('uploads/'.$item->filename) }}"
+                                        alt="{{ $item->filename }}"
+                                @else
+                                    <img src="{{ asset('img/blank.png') }}"
+                                        alt="blank"
+                                @endif
                                     class="rounded-circle img-fluid img-thumbnail cart-image"
                                     height="200"
                                     width="200"/>
@@ -53,7 +58,7 @@
                                             <button type="button"
                                                 class="btn btn-default btn-number cart-page-btn"
                                                 data-type="minus"
-                                                data-field="cart-number-{{ $item->id}}">
+                                                data-field="cart-number-{{ $item->id }}">
                                                     <span class="glyphicon glyphicon-minus "></span>
                                             </button>
                                         </span>
@@ -96,8 +101,11 @@
                             </div>
                             <div class="row">
                                 <h4 class="align-middle">
-                                    Descripiton: {{ $item->desc }}
+                                    Descripiton:
                                 </h4>
+                                <p>
+                                    {{ $item->desc }}
+                                </p>
                             </div>
                             <div class="row">
                                 <h4 class="align-middle">
