@@ -84,9 +84,18 @@ class CartController extends Controller
             $product_subtotal = 0.00;
             foreach($products as $product) {
                 $product_html .= '<div class="product-widget" id="cart-product-'. $product->id.'">';
+                $source = '/img/blank.png';
+                $alt = "blank";
+                
+                if ($product->filename) {
+                    $source = '/uploads/'.$product->filename;
+                    $alt = $product->name;
+                }
 
                 $product_html .= '<div class="product-img">';
-                $product_html .= '<img src="" alt="">';
+                $product_html .= '<img ';
+                $product_html .= 'src="'.$source.'"';
+                $product_html .= 'alt="'.$alt.'">';
                 $product_html .= '</div>';
 
                 $product_html .= '<div class="product-body">';
