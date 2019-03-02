@@ -32,6 +32,6 @@ class ProductsTableSeeder extends Seeder
         //     }
         // });
 
-        factory(Products::class, 250)->create();
+        factory(Products::class, 500)->create();
     }
 }
