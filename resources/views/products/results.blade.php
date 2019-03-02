@@ -29,7 +29,7 @@
               <div class="product-body">
                 <p class="product-category">{{ $product->category['name'] }}</p>
                 <h3 class="product-name"><a href="{{ url('/products/'.$product->id) }}">{{ $product->name }}</a></h3>
-                <h4 class="product-price">K{{ $product->price }}</h4>
+                <h4 class="product-price">K {{ $product->price }}</h4>
               </div>
               <div class="add-to-cart">
                 <button class="add-to-cart-btn" onclick="add_cart({{ $product->id }}, 1)">
