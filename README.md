@@ -30,6 +30,9 @@ extension=pgsql
 Run `php artisan migrate` to run the migrations  
 Run `php artisan serve` to run the webapp
 
+## Notes
+Run `php artisan migrate:fresh --seed` for fresh migrations and seeds
+
 ### License
 
 Niugini-Hub is [MIT licensed](./LICENSE).

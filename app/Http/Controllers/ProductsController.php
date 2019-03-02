@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Exceptions\Handler;
 use App\Products as Products;
 
 class ProductsController extends Controller
@@ -24,7 +25,7 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        $products = Products::paginate(10);
+        $products = Products::paginate(12);
 
         return view('products.list', ['products' => $products]);
     }
@@ -38,7 +39,40 @@ class ProductsController extends Controller
     {
         $product = Products::findOrFail($id);
 
+        // returns 404 if product status is not approved
+        if ($product->status != 1) {
+            abort(404);
+        }
+
         return view('products.details', ['product' => $product]);
+    }
+
+    /**
+     * Show the products based from result
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function search(Request $request)
+    {
+        $name = $request->name;
+        $address = $request->address;
+        $product_result = null;
+
+        if (($name == null) && ($address == null)) {
+            $product_result = null;
+        } else if (($name == null) && ($address != null)) {
+            $product_result = Products::where('location', 'ilike', '%'. $address .'%')->paginate(12);
+        } else if (($name != null) && ($address == null)) {
+            $product_result = Products::where('name', 'ilike', '%'. $name .'%')->paginate(12);
+        } else {
+            $product_result = Products::where('name', 'ilike', '%'. $name .'%')
+            ->where('location', 'ilike', '%'. $address .'%')
+            ->paginate(12);
+        }
+
+        return view('products.results', ['product_result' => $product_result,
+            'search_address' => $address,
+            'search_name' => $name]);
     }
 
 }

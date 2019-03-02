@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Products as Products;
 
 class ProductsTableSeeder extends Seeder
 {
@@ -11,22 +12,26 @@ class ProductsTableSeeder extends Seeder
      */
     public function run()
     {
-        $csv = database_path('seeds/csv/products.csv');
-        $excel = App::make('excel');
+        // $csv = database_path('seeds/csv/products.csv');
+        // $excel = App::make('excel');
 
-        $data = $excel->load($csv, function($reader) {
-            $results = $reader->all();
-            foreach($results as $row) {
-                DB::table('products')->insert([
-                    'name' => $row->name,
-                    'price' => $row->price,
-                    'desc' => $row->desc,
-                    'qty' => $row->qty,
-                    'total' => $row->total,
-                    'category_id' => $row->category_id,
-                    'seller_id' => $row->seller_id
-                ]);
-            }
-        });
+        // $data = $excel->load($csv, function($reader) {
+        //     $results = $reader->all();
+        //     foreach($results as $row) {
+        //         DB::table('products')->insert([
+        //             'name' => $row->name,
+        //             'price' => $row->price,
+        //             'desc' => $row->desc,
+        //             'status' => $row->status,
+        //             'qty' => $row->qty,
+        //             'total' => $row->total,
+        //             'category_id' => $row->category_id,
+        //             'seller_id' => $row->seller_id,
+        //             'location' => $row->location
+        //         ]);
+        //     }
+        // });
+
+        factory(Products::class, 250)->create();
     }
 }

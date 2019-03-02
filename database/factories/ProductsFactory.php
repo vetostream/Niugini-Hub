@@ -1,0 +1,19 @@
+<?php
+
+use Faker\Generator as Faker;
+use App\Products as Products;
+
+$factory->define(Products::class, function (Faker $faker) {
+    return [
+        'name' => $faker->word,
+        'price' => $faker->numberBetween($min = 20, $max = 2000),
+        'desc' => $faker->text,
+        'status' => $faker->numberBetween($min = 1, $max = 2),
+        'qty' => $faker->numberBetween($min = 20, $max = 1000),
+        'total' => $faker->numberBetween($min = 20, $max = 1000),
+        'category_id' => $faker->numberBetween($min = 1, $max = 13),
+        'seller_id' => 1,
+        'location' => $faker->address,
+        'filename' => 'product_img/product'.$faker->numberBetween($min = 1, $max = 9).'.png',
+    ];
+});

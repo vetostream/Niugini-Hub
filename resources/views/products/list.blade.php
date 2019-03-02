@@ -87,12 +87,16 @@
           <div class="col-md-4 col-xs-6">
             <div class="product">
               <div class="product-img">
-                <img src="{{ asset('img/blank.png') }}" alt="">
+                @if ($product->filename)
+                  <img src="{{ url('uploads/'.$product->filename) }}" alt="{{ $product->filename }}" />
+                @else
+                  <img src="{{ asset('img/blank.png') }}" alt="blank" />
+                @endif
               </div>
               <div class="product-body">
                 <p class="product-category">{{ $product->category['name'] }}</p>
                 <h3 class="product-name"><a href="{{ url('/products/'.$product->id) }}">{{ $product->name }}</a></h3>
-                <h4 class="product-price">K{{ $product->price }}</h4>
+                <h4 class="product-price">K {{ $product->price }}</h4>
               </div>
               <div class="add-to-cart">
                 <a href="{{ route('home') }}">
@@ -106,6 +110,9 @@
         </div>
         <!-- /store products -->
 
+        <br>
+        <br>
+        <br>
         <!-- Next and Previous links -->
         <div class="row text-center">
           {{ $products->links() }}

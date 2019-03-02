@@ -15,12 +15,14 @@ class CreateSellersTable extends Migration
     {
         Schema::create('sellers', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('location');
-            $table->integer('products_sold');
-            $table->integer('products_posted');
-            $table->integer('products_count');
-            $table->float('stars', 1, 2);
+            $table->string('location')->nullable();
+            $table->integer('products_sold')->default(0);
+            $table->integer('products_posted')->default(0);
+            $table->integer('products_count')->default(0);
+            $table->float('stars', 1, 2)->default(0);
+            $table->integer('status')->default(0);
             $table->timestamps();
+            $table->softDeletes();
 
             $table->unsignedInteger('user_id');
             $table->foreign('user_id')

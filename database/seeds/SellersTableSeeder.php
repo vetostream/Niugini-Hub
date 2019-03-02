@@ -23,6 +23,7 @@ class SellersTableSeeder extends Seeder
                     'products_posted' => $row->products_posted,
                     'products_count' => $row->products_count,
                     'stars' => $row->stars,
+                    'status' => $row->status,
                     'user_id' => $row->user_id
                 ]);
             }

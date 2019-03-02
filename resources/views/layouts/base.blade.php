@@ -5,12 +5,13 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
+  <meta name="_token" content="{{csrf_token()}}" />
   <!-- Google font -->
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
 
   <!-- Bootstrap -->
   <link type="text/css" rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}"/>
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
 
   <!-- Slick -->
   <link type="text/css" rel="stylesheet" href="{{ asset('css/slick.css') }}"/>
@@ -52,12 +53,21 @@
               <i class="fa fa-user-o"></i>My Account<span class="caret"></span>
             </a>
 
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="{{ route('logout') }}" style="padding-left: 1rem; padding-right: 1rem;"
-                onclick="event.preventDefault();
-                document.getElementById('logout-form').submit();">
-                {{ __('Logout') }}
-              </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown" style="background-color: #15161D;">
+                <a class="dropdown-item" href="{{ route('profile') }}" style="padding-left: 1rem; padding-right: 1rem;">
+                    Profile
+                </a>
+                <a class="dropdown-item" href="{{ route('updatePasswordForm') }}" style="padding-left: 1rem; padding-right: 1rem;">
+                    Update Password
+                </a>
+                <a class="dropdown-item" href="{{ route('deactivateForm') }}" style="padding-left: 1rem; padding-right: 1rem;">
+                    Deactivate Account
+                </a>
+                <a class="dropdown-item" href="{{ route('logout') }}" style="padding-left: 1rem; padding-right: 1rem;"
+                    onclick="event.preventDefault();
+                    document.getElementById('logout-form').submit();">
+                    {{ __('Logout') }}
+                </a>
               <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                 @csrf
               </form>
@@ -142,6 +152,8 @@
   </footer>
   <!-- /FOOTER -->
 
+  @yield('modals')
+
   <!-- jQuery Plugins -->
   <script src="{{ asset('js/jquery.min.js') }}"></script>
   <script src="{{ asset('js/bootstrap.min.js') }}"></script>
@@ -149,5 +161,11 @@
   <script src="{{ asset('js/nouislider.min.js') }}"></script>
   <script src="{{ asset('js/jquery.zoom.min.js') }}"></script>
   <script src="{{ asset('js/main.js') }}"></script>
+  <script src="{{ asset('js/login.js') }}"></script>
+  <script src="{{ asset('js/product.js') }}"></script>
+  <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+  <script src="{{ asset('js/checkout.js') }}"></script>
+  <script src="{{ asset('js/cart.js') }}"></script>
+  @yield('scripts')
 </body>
 </html>
