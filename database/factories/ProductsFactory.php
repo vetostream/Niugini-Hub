@@ -8,7 +8,7 @@ $factory->define(Products::class, function (Faker $faker) {
         'name' => $faker->word,
         'price' => $faker->numberBetween($min = 20, $max = 2000),
         'desc' => $faker->text,
-        'status' => $faker->numberBetween($min = 1, $max = 2),
+        'status' => 1,
         'qty' => $faker->numberBetween($min = 20, $max = 1000),
         'total' => $faker->numberBetween($min = 20, $max = 1000),
         'category_id' => $faker->numberBetween($min = 1, $max = 13),
