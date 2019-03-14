@@ -2247,3 +2247,5 @@ textarea.input {
     border: none;
     border-radius: 40px 40px 40px 40px;
 }
+
+.cart-nav {cursor: pointer}

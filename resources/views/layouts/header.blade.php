@@ -52,7 +52,7 @@
                 <!-- /Wishlist -->
                 <!-- Cart -->
                 <div class="dropdown">
-                  <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                  <a class="dropdown-toggle cart-nav" data-toggle="dropdown" aria-expanded="true">
                     <i class="fa fa-shopping-cart"></i>
                     <span>Your Cart</span>
                     <div class="qty" id="cart-qty"></div>
