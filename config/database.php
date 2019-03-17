@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'pgsql_prod'),
+    'default' => env('DB_CONNECTION', 'pgsql'),
 
     /*
     |--------------------------------------------------------------------------
@@ -65,11 +65,11 @@ return [
          */
         'pgsql_prod' => [
             'driver' => 'pgsql',
-            'host' => $dbopts["host"],
-            'port' => $dbopts["port"],
-            'database' => ltrim($dbopts["path"], "/"),
-            'username' => $dbopts["user"],
-            'password' => $dbopts["pass"],
+            // 'host' => $dbopts["host"],
+            // 'port' => $dbopts["port"],
+            // 'database' => ltrim($dbopts["path"], "/"),
+            // 'username' => $dbopts["user"],
+            // 'password' => $dbopts["pass"],
             'charset' => 'utf8',
             'prefix' => '',
             'prefix_indexes' => true,
