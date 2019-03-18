@@ -139,13 +139,13 @@ class CheckoutController extends Controller
                     ->charges()
                         ->create(['source' => $request->stripeToken,
                             'currency' => 'PGK',
-                            'amount' => $product_subtotal * 100,
+                            'amount' => $product_subtotal,
                             'description' => 'Add in wallet', ]);
 
                 if ($charge['status'] == 'succeeded') {
 
                     $order->payment_status = 'done';
-                    $order->payment_date = Carbon\Carbon::now();
+                    $order->payment_date = Carbon::now();
                     $order->save();
 
 

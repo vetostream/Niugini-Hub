@@ -64,7 +64,7 @@ class UserController extends Controller
                 'gender' => ['required', 'string'],
                 'date_of_birth' => ['required', 'date'],
                 'address' => ['required', 'string'],
-                'phone_number' => ['required', 'numeric']
+                'phone_number' => ['required', 'regex:/(7)[0-9]{7}/']
             ]);
 
             $user->name = request('name');
@@ -79,7 +79,7 @@ class UserController extends Controller
                 'gender' => ['required', 'string'],
                 'date_of_birth' => ['required', 'date'],
                 'address' => ['required', 'string'],
-                'phone_number' => ['required', 'numeric']
+                'phone_number' => ['required', 'regex:/(7)[0-9]{7}/']
             ]);
 
             $user->name = request('name');

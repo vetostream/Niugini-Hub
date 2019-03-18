@@ -159,7 +159,7 @@
                         <input id="phone_number" class="form-control{{ $errors->has('phone_number') ? ' is-invalid' : '' }}" type="number" name="phone_number" value="{{ $user->phone_number }}">
                         @if ($errors->has('phone_number'))
                             <span class="invalid-feedback text-danger" role="alert">
-                                <strong>{{ $errors->first('phone_numberW') }}</strong>
+                                <strong>{{ $errors->first('phone_number') }}</strong>
                             </span>
                         @endif
                     </div>
