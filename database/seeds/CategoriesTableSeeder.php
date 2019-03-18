@@ -19,7 +19,8 @@ class CategoriesTableSeeder extends Seeder
             foreach($results as $row) {
                 DB::table('categories')->insert([
                     'name' => $row->name,
-                    'desc' => $row->desc
+                    'desc' => $row->desc,
+					'filename' => $row->filename
                 ]);
             }
         });

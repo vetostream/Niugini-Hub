@@ -68,6 +68,9 @@
           </tbody>
         </table>
 
+        <br>
+        <br>
+        <br>
         <!-- Next and Previous links -->
         <div class="row text-center">
           {{ $products->links() }}

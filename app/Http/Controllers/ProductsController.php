@@ -25,7 +25,7 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        $products = Products::paginate(10);
+        $products = Products::paginate(12);
 
         return view('products.list', ['products' => $products]);
     }
@@ -61,13 +61,13 @@ class ProductsController extends Controller
         if (($name == null) && ($address == null)) {
             $product_result = null;
         } else if (($name == null) && ($address != null)) {
-            $product_result = Products::where('location', 'ilike', '%'. $address .'%')->paginate(10);
+            $product_result = Products::where('location', 'ilike', '%'. $address .'%')->paginate(12);
         } else if (($name != null) && ($address == null)) {
-            $product_result = Products::where('name', 'ilike', '%'. $name .'%')->paginate(10);
+            $product_result = Products::where('name', 'ilike', '%'. $name .'%')->paginate(12);
         } else {
             $product_result = Products::where('name', 'ilike', '%'. $name .'%')
             ->where('location', 'ilike', '%'. $address .'%')
-            ->paginate(10);
+            ->paginate(12);
         }
 
         return view('products.results', ['product_result' => $product_result,
