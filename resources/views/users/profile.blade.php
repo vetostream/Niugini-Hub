@@ -107,6 +107,16 @@
                     </div>
 
                     <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" class="form-control{{ $errors->has('username') ? ' is-invalid' : '' }}" id="username" name="username" value="{{ $user->username}}">
+                        @if ($errors->has('username'))
+                            <span class="invalid-feedback text-danger" role="alert">
+                                <strong>{{ $errors->first('username') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+
+                    <div class="form-group">
                         <label for="name">Age</label>
                         <input type="text" class="form-control" id="age" name="age" value="{{ $age}}" disabled>
                     </div>

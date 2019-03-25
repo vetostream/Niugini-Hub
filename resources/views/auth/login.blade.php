@@ -3,12 +3,6 @@
 @section('content')
 <div class="section">
   <div class="container">
-    <div class="row justify-content-center">
-      @if(session()->has('message'))
-        <div class="alert alert-success" id="success-message">
-            {{ session()->get('message') }}
-        </div>
-      @endif
       <div class="col-sm-12">
         <div class="section-title">
           <h3 class="title">{{ __('Login') }}</h3>
@@ -18,14 +12,13 @@
       <div class="col-sm-12">
         <form method="POST" action="{{ route('login') }}">
           @csrf
-
           <div class="form-group row">
-            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+            <label for="username" class="col-md-4 col-form-label text-md-right">{{ __('Username') }}</label>
             <div class="col-md-6">
-              <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus>
-              @if ($errors->has('email'))
+              <input id="username" type="text" class="form-control{{ $errors->has('username') ? ' is-invalid' : '' }}" name="username" value="{{ old('username') }}" required autofocus>
+              @if ($errors->has('username'))
                 <span class="invalid-feedback" role="alert">
-                  <strong>{{ $errors->first('email') }}</strong>
+                  <strong>{{ $errors->first('username') }}</strong>
                 </span>
               @endif
             </div>
@@ -75,4 +68,42 @@
     </div>
   </div>
 </div>
+@endsection
+
+
+@section('modals')
+<div class="modal fade bd-example-modal-sm" id="popupmodal" tabindex="-1" role="dialog" aria-labelledby="checkoutLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <!-- Note: Flexbox used to align contents in modal header -->
+            <div class="modal-header" style="padding: 1rem; display: flex; align-items: flex-start; justify-content: space-between; ">
+                <h4 class="modal-title" id="checkoutLabel" style="font-weight: 500; font-size: 1.5rem;" >Registration success!</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin: -1rem -1rem -1rem auto; padding: 1rem;">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+
+        <div class="modal-body">
+            <p>
+                Registration success! Please Login now!
+            </p>
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+    </div>
+</div>
+
+@endsection
+
+@section('scripts')
+@if( Session::has('message'))
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#popupmodal').modal();
+        });
+    </script>
+@endif
 @endsection

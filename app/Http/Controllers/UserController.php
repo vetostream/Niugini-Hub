@@ -61,6 +61,7 @@ class UserController extends Controller
         if(Auth::user()->email == request('email')) {
             $this->validate(request(), [
                 'name' => ['required', 'string', 'max:255'],
+                'username' => ['required', 'string', 'max:255'],
                 'gender' => ['required', 'string'],
                 'date_of_birth' => ['required', 'date'],
                 'address' => ['required', 'string'],
@@ -76,6 +77,8 @@ class UserController extends Controller
         } else {
             $this->validate(request(), [
                 'name' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+                'username' => ['required', 'string', 'max:255', 'unique:users'],
                 'gender' => ['required', 'string'],
                 'date_of_birth' => ['required', 'date'],
                 'address' => ['required', 'string'],
