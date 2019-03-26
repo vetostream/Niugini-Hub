@@ -55,6 +55,14 @@
         <form method="POST" action="{{ route('storeSellersProducts') }}" enctype="multipart/form-data">
           @csrf
           <div class="form-group">
+            <label for="productCategory">Category</label>
+            <select class="form-control" id="productCategory" name="productCategory">
+            @foreach ($categories as $category)
+              <option value="{{ $category->id }}">{{ $category->name }}</option>
+            @endforeach
+            </select>
+          </div>
+          <div class="form-group">
             <label for="productName">Name</label>
             <input type="text" class="form-control" id="productName" name="productName" placeholder="" />
           </div>
@@ -65,14 +73,6 @@
           <div class="form-group">
             <label for="productPrice">Price</label>
             <input type="text" class="form-control" id="productPrice" name="productPrice" placeholder="" />
-          </div>
-          <div class="form-group">
-            <label for="productCategory">Category</label>
-            <select class="form-control" id="productCategory" name="productCategory">
-            @foreach ($categories as $category)
-              <option value="{{ $category->id }}">{{ $category->name }}</option>
-            @endforeach
-            </select>
           </div>
           <div class="form-group">
             <label for="productDescription">Description</label>
