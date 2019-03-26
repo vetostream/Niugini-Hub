@@ -51,7 +51,7 @@ Route::post('/cart/post', 'CartController@add');
 Route::get('/cart/count', 'CartController@count');
 Route::get('/cart/retrieve', 'CartController@retrieve');
 Route::post('/cart/delete', 'CartController@delete');
-Route::get('/cart', 'CartController@index');
+Route::get('/cart', 'CartController@index')->name('cart');
 Route::post('/cart/update', 'CartController@update');
 Route::post('/cart/qty', 'CartController@get_qty');
 

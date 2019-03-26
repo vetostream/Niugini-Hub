@@ -107,9 +107,9 @@
               <ul class="footer-links">
                 <li><a href="#">About Us</a></li>
                 <li><a href="#">Contact Us</a></li>
-                <li><a href="#">Privacy Policy</a></li>
+                <!-- <li><a href="#">Privacy Policy</a></li>
                 <li><a href="#">Orders and Returns</a></li>
-                <li><a href="#">Terms & Conditions</a></li>
+                <li><a href="#">Terms & Conditions</a></li> -->
               </ul>
             </div>
           </div>
@@ -118,11 +118,11 @@
             <div class="footer">
               <h3 class="footer-title">Service</h3>
               <ul class="footer-links">
-                <li><a href="#">My Account</a></li>
-                <li><a href="#">View Cart</a></li>
-                <li><a href="#">Wishlist</a></li>
+                <li><a href="{{ route('profile') }}">My Account</a></li>
+                <li><a href="{{ route('cart') }}">View Cart</a></li>
+                <!-- <li><a href="#">Wishlist</a></li>
                 <li><a href="#">Track My Order</a></li>
-                <li><a href="#">Help</a></li>
+                <li><a href="#">Help</a></li> -->
               </ul>
             </div>
           </div>
@@ -134,7 +134,7 @@
     <!-- /top footer -->
 
     <!-- bottom footer -->
-    <div id="bottom-footer" class="section">
+    <div id="bottom-footer" class="section navbar fixed-bottom">
       <div class="container">
         <!-- row -->
         <div class="row">
