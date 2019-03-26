@@ -116,7 +116,7 @@ class AdminController extends Controller
 
     public function sellersList()
     {
-        $sellers = Sellers::paginate(10);
+        $sellers = Sellers::orderBy('id', 'desc')->paginate(10);
 
         return view('admin.sellers.list', ['sellers' => $sellers]);
     }
@@ -142,7 +142,7 @@ class AdminController extends Controller
 
     public function productsList()
     {
-        $products = Products::paginate(10);
+        $products = Products::orderBy('id', 'desc')->paginate(10);
 
         return view('admin.products.list', ['products' => $products]);
     }

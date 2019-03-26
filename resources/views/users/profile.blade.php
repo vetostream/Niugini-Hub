@@ -22,7 +22,7 @@
 				<div class="aside">
                     <div class="card text-center">
                         <div class="card-header">
-                            <img src="{{ asset('img/blank.png') }}" class="rounded-circle img-fluid img-thumbnail" alt="pic" height="250" width="250" />
+                            {{-- <img src="{{ asset('img/blank.png') }}" class="rounded-circle img-fluid img-thumbnail" alt="pic" height="250" width="250" /> --}}
                         </div>
                     </div>
 				</div>

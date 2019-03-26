@@ -67,6 +67,10 @@
             <input type="text" class="form-control" id="productName" name="productName" placeholder="" />
           </div>
           <div class="form-group">
+            <label for="productDescription">QTY</label>
+            <input type="number" class="form-control" id="qty" name="qty" placeholder="" />
+          </div>
+          <div class="form-group">
             <label for="productImage">Image</label>
             <input type="file" class="form-control" id="productImage" name="productImage" />
           </div>
