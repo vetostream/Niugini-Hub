@@ -9,6 +9,7 @@ use App\Categories as Categories;
 use App\Sellers as Sellers;
 use App\Products as Products;
 use App\Orders;
+use Carbon\Carbon;
 
 class AdminController extends Controller
 {
@@ -195,5 +196,33 @@ class AdminController extends Controller
             'product_total' => $product_total,
             'cart_items' => $cart_items]);
 
+    }
+
+    public function updateOrdersStatus(Request $request)
+    {
+        $order = Orders::findOrFail($request->route('id'));
+
+        $order->delivery_status = $request->status;
+        $order->payment_status = 'done';
+        $order->payment_date = Carbon::now();
+        $order->save();
+        
+        $products = $order->products;
+        $product_subtotal = 0.00;
+        $product_total = [];
+        $cart_items = 0;
+
+        foreach($products as $product) {
+            $product_subtotal += $product->pivot->qty * $product->price;
+            $cart_items += $product->pivot->qty;
+            array_push($product_total,
+                ($product->pivot->qty * $product->price));
+        }
+
+        return view('admin.orders.details', ['order' => $order,
+            'products' => $products,
+            'product_subtotal' => $product_subtotal,
+            'product_total' => $product_total,
+            'cart_items' => $cart_items]);
     }
 }

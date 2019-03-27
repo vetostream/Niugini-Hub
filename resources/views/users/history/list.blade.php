@@ -56,9 +56,9 @@
               <td>K {{ $item->total }}</td>
                 @if ($item->delivery_status == 0)
                     <td>In Transit </td>
-                @elseif ($item->status == 1)
+                @elseif ($item->delivery_status == 1)
                     <td>Delivered</td>
-                @elseif ($item->status == -1)
+                @elseif ($item->delivery_status == 2)
                     <td>Cancelled</td>
                 @endif
               <td><a href="{{ route('userOrder', $item->id)  }}">Manage Order</a></td>
