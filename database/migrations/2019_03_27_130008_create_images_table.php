@@ -13,14 +13,19 @@ class CreateImagesTable extends Migration
      */
     public function up()
     {
-        Schema::table('images', function (Blueprint $table) {
-            $table->string('original_filename')->nullable();
-            $table->string('filename')->nullable();
-            $table->string('mime')->nullable();
+        Schema::create('images', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('original_filename');
+            $table->string('filename');
+            $table->string('mime');
+
             $table->unsignedInteger('product_id');
             $table->foreign('product_id')
                 ->references('id')
                 ->on('products');
+
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -31,10 +36,6 @@ class CreateImagesTable extends Migration
      */
     public function down()
     {
-        Schema::table('images', function (Blueprint $table) {
-            $table->string('original_filename')->nullable();
-            $table->string('filename')->nullable();
-            $table->string('mime')->nullable();
-        });
+        Schema::dropIfExists('products');
     }
 }
