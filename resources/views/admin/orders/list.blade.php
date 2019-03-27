@@ -10,7 +10,8 @@
     <div class="row">
       <div class="col-md-12">
         <ul class="breadcrumb-tree">
-          <li class="active">Seller History</li>
+          <li><a href="{{ route('admin') }}">Admin</a></li>
+          <li class="active">All Orders</li>
         </ul>
       </div>
     </div>
@@ -27,7 +28,7 @@
 
     <div class="row">
       <div class="col-sm">
-        <h3 class="title">Products</h3>
+        <h3 class="title">Orders</h3>
       </div>
     </div>
 
@@ -41,21 +42,27 @@
         <table class="table table-striped">
           <thead>
             <tr>
-              <th scope="col">Order Date</th>
-              <th scope="col">Product Name</th>
-              <th scope="col">QTY</th>
-              <th scope="col">Customer</th>
-              <th scope="col">Customer Contact</th>
+              <th scope="col">Order ID</th>
+              <th scope="col">Order date</th>
+              <th scope="col">Total</th>
+              <th scope="col">Status</th>
+              <th scope="col">Action</th>
             </tr>
           </thead>
           <tbody>
-          @foreach ($history as $item)
+          @foreach ($orders as $item)
             <tr>
-              <th scope="row">{{ $item->created_at }}</th>
-              <td>{{ $item->product_name }}</td>
-              <td>{{ $item->qty }}</td>
-              <td>{{ $item->customer }}</td>
-              <td>{{ $item->phone_number }}</td>
+              <th scope="row">{{ $item->id }}</th>
+              <td>{{ $item->order_date }}</td>
+              <td>K {{ $item->total }}</td>
+                @if ($item->delivery_status == 0)
+                    <td>In Transit </td>
+                @elseif ($item->status == 1)
+                    <td>Delivered</td>
+                @elseif ($item->status == -1)
+                    <td>Cancelled</td>
+                @endif
+              <td><a href="{{ route('adminOrdersDetails', $item->id)  }}">Manage Order</a></td>
             </tr>
           @endforeach
           </tbody>
@@ -66,7 +73,7 @@
         <br>
         <!-- Next and Previous links -->
         <div class="row text-center">
-          {{ $history->links() }}
+          {{ $orders->links() }}
         </div>
 
       </div>

@@ -27,7 +27,7 @@
 
     <div class="row">
       <div class="col-sm">
-        <h3 class="title">Products</h3>
+        <h3 class="title">Orders</h3>
       </div>
     </div>
 

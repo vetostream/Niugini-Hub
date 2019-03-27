@@ -43,12 +43,12 @@
               <div class="header-ctn">
                 @if (Auth::check())
                 <!-- Wishlist -->
-                <div>
+                <!-- <div>
                   <a href="{{ route('home') }}">
                   <i class="fa fa-heart-o"></i>
                   <span>Your Wishlist</span>
                   </a>
-                </div>
+                </div> -->
                 <!-- /Wishlist -->
                 <!-- Cart -->
                 <div class="dropdown">

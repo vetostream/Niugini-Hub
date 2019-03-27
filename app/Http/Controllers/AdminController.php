@@ -8,6 +8,7 @@ use Illuminate\Routing\Redirector;
 use App\Categories as Categories;
 use App\Sellers as Sellers;
 use App\Products as Products;
+use App\Orders;
 
 class AdminController extends Controller
 {
@@ -166,4 +167,33 @@ class AdminController extends Controller
         return redirect()->route('adminProductsDetails', array('id' => $product->id));
     }
 
+    public function ordersList()
+    {
+        $orders = Orders::orderBy('id', 'desc')->paginate(10);
+
+        return view('admin.orders.list', ['orders' => $orders]);
+    }
+
+    public function ordersDetails($id)
+    {
+        $order = Orders::find($id);
+        $products = $order->products;
+        $product_subtotal = 0.00;
+        $product_total = [];
+        $cart_items = 0;
+
+        foreach($products as $product) {
+            $product_subtotal += $product->pivot->qty * $product->price;
+            $cart_items += $product->pivot->qty;
+            array_push($product_total,
+                ($product->pivot->qty * $product->price));
+        }
+
+        return view('admin.orders.details', ['order' => $order,
+            'products' => $products,
+            'product_subtotal' => $product_subtotal,
+            'product_total' => $product_total,
+            'cart_items' => $cart_items]);
+
+    }
 }
