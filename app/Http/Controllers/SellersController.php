@@ -122,4 +122,18 @@ class SellersController extends Controller
         return redirect()->route('sellersProfile', array('id' => $seller->id));
     }
 
+    /**
+     * Return seller history.
+     *
+     * @param  Request  $request
+     */
+    public function history(Request $request)
+    {
+        $categories = Categories::all();
+        $id = Auth::user()->id;
+        $seller = Sellers::where('user_id', $id)->get()->first();
+
+        return view('sellers.history', ['history' => $seller->history()]);
+    }
+
 }

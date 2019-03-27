@@ -45,7 +45,7 @@ class Sellers extends Model
                             'users.phone_number')
                         ->where('products.sellers_id', $this->id)
                         ->orderBy('orders_products.id', 'desc')
-                        ->get();
+                        ->paginate(10);
     
         return $history;
     }

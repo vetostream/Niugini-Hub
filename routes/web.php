@@ -30,6 +30,7 @@ Route::get('/sellers/details/{id}', ['uses' => 'SellersController@details'])->na
 Route::get('/sellers/list/{id}/products', ['uses' => 'SellersController@productsList'])->middleware('is_approved_seller')->name('sellersProductsList');
 Route::get('/sellers/create/products', 'SellersController@productsCreateForm')->middleware('is_approved_seller')->name('productsCreateForm');
 Route::post('/sellers/create/products', 'SellersController@storeSellersProducts')->middleware('is_approved_seller')->name('storeSellersProducts');
+Route::get('/sellers/history', 'SellersController@history')->middleware('is_approved_seller')->name('sellerHistory');
 
 // Products
 Route::get('/products', 'ProductsController@index')->name('products');

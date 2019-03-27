@@ -10,7 +10,9 @@
               <li><a href="{{ route('categories') }}">Categories</a></li>
               <li><a href="{{ route('home') }}">Contact</a></li>
               @if(Auth::check())
+                <li><a href="{{ route('profile') }}">User Profile</a></li>
                 @if (Auth::user()->isSeller())
+                  <li><a href="{{ route('sellerHistory') }}">Seller History</a></li>
                   <li><a href="{{ route('sellersProfile', Auth::user()->seller->id)  }}">Seller Profile</a></li>
                   <li><a href="{{ route('productsCreateForm') }}">Sell an Item</a></li>
                 @endif
