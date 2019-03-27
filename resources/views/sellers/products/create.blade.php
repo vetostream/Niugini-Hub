@@ -59,8 +59,8 @@
             <input type="text" class="form-control" id="productName" name="productName" placeholder="" />
           </div>
           <div class="form-group">
-            <label for="productImage">Image</label>
-            <input type="file" class="form-control" id="productImage" name="productImage" />
+            <label for="productImages">Image</label>
+            <input type="file" class="form-control" id="productImages" name="productImages[]" multiple />
           </div>
           <div class="form-group">
             <label for="productPrice">Price</label>
