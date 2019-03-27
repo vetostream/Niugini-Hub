@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 use App\Orders;
 
 class Sellers extends Model
@@ -31,16 +32,22 @@ class Sellers extends Model
     }
 
     /**
-     * Get the products ordered associated with the seller.
+     * Get the history ordered associated with the seller.
      */
-    public function orders()
+    public function history()
     {
-        $product_ids = $this->products->pluck('id');
-
-        return Orders::whereHas('products', function($query) use($product_ids)
-        {
-            $query->whereIn('products_id', $product_ids);
-        })->get();
+        $history = DB::table('orders_products')
+                        ->join('products', 'orders_products.products_id', '=', 'products.id')
+                        ->join('orders', 'orders_products.orders_id', '=', 'orders.id')
+                        ->join('users', 'orders.user_id', '=', 'users.id')
+                        ->select('orders_products.qty', 'orders_products.created_at', 
+                            'products.name AS product_name', 'users.name AS customer', 
+                            'users.phone_number')
+                        ->where('products.sellers_id', $this->id)
+                        ->orderBy('orders_products.id', 'desc')
+                        ->get();
+    
+        return $history;
     }
 
 }
