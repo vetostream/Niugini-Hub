@@ -107,7 +107,6 @@ class CheckoutController extends Controller
     public function stripePost(Request $request)
     {
         $cod_bool = false;
-
         if ($request->payment_option == null) {
             $cod_bool = true;
         }
@@ -133,6 +132,10 @@ class CheckoutController extends Controller
         $order->user_id = Auth::user()->id;
 
         if (!$cod_bool) {
+            $this->validate(request(), [
+                'billing_address' => ['required', 'string', 'max:255'],
+            ]);
+
             $stripe = Stripe::make(env('STRIPE_SECRET'));
             try {
                 $charge = $stripe
@@ -146,6 +149,8 @@ class CheckoutController extends Controller
 
                     $order->payment_status = 'done';
                     $order->payment_date = Carbon::now();
+                    $order->payment_method = 1;
+                    $order->billing_address = $request->billing_address;
                     $order->save();
 
 
@@ -174,6 +179,7 @@ class CheckoutController extends Controller
             }
 
         } else {
+            $order->payment_method = 0;
             $order->save();
 
             foreach($products as $product) {

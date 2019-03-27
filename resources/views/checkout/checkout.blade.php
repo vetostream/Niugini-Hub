@@ -86,7 +86,18 @@
                                 </label>
 
 								<div class="caption">
-
+                                    <div class='form-row row'>
+                                        <div class='col-xs-12 form-group required'>
+                                            <label class='control-label'>Billing Adress</label>
+                                            <input class='form-control' size='4' type='text' name='billing_address'>
+                                            @if ($errors->has('billing_address'))
+                                                <span class="invalid-feedback text-danger" role="alert">
+                                                    <strong>{{ $errors->first('billing_address') }}</strong>
+                                                </span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    
                                     <div class='form-row row'>
                                         <div class='col-xs-12 form-group required'>
                                             <label class='control-label'>Name on Card</label>

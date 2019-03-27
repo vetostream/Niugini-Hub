@@ -9,6 +9,7 @@ use Iatstuti\Database\Support\CascadeSoftDeletes;
 
 use App\User as User;
 use App\Sellers as Sellers;
+use App\Orders;
 use DateTime;
 use Redirect;
 use Session;
@@ -193,4 +194,17 @@ class UserController extends Controller
         return back();
     }
 
+    /**
+     * Retrieve user order history.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function history(Request $request)
+    {
+        $id = Auth::user()->id;
+        $user = User::find($id);
+        $history = Orders::where('user_id', $id)->paginate(12);
+
+        return view('users.history.list', ['history' => $history]);
+    }
 }

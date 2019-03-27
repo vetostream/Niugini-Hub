@@ -57,6 +57,9 @@
                 <a class="dropdown-item" href="{{ route('profile') }}" style="padding-left: 1rem; padding-right: 1rem;">
                     Profile
                 </a>
+                <a class="dropdown-item" href="{{ route('userHistory') }}" style="padding-left: 1rem; padding-right: 1rem;">
+                    Order History
+                </a>
                 <a class="dropdown-item" href="{{ route('updatePasswordForm') }}" style="padding-left: 1rem; padding-right: 1rem;">
                     Update Password
                 </a>

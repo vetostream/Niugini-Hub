@@ -23,6 +23,7 @@ Route::post('/user/update/password', 'UserController@updatePassword')->name('upd
 Route::post('/user/update/address', 'UserController@updateAddress')->name('updateAddress');
 Route::get('/user/deactivate', 'UserController@deactivateForm')->name('deactivateForm');
 Route::POST('/user/deactivateAccount', 'UserController@deactivate')->name('deactivate');
+Route::get('/user/history', 'UserController@history')->name('userHistory');
 
 // Sellers
 Route::get('/sellers/apply/{id}', ['uses' => 'SellersController@apply']);
