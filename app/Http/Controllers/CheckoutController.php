@@ -180,6 +180,7 @@ class CheckoutController extends Controller
 
         } else {
             $order->payment_method = 0;
+            $order->payment_status = 'unpaid';
             $order->save();
 
             foreach($products as $product) {

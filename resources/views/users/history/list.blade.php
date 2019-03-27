@@ -23,7 +23,7 @@
 <!-- SECTION -->
 <div class="section">
   <!-- container -->
-  <div class="container">
+  <div class="container login-container">
 
     <div class="row">
       <div class="col-sm">
@@ -61,7 +61,7 @@
                 @elseif ($item->status == -1)
                     <td>Cancelled</td>
                 @endif
-              <td><a href="#">Manage Order</a></td>
+              <td><a href="{{ route('userOrder', $item->id)  }}">Manage Order</a></td>
             </tr>
           @endforeach
           </tbody>

@@ -207,4 +207,34 @@ class UserController extends Controller
 
         return view('users.history.list', ['history' => $history]);
     }
+
+    
+    /**
+     * Retrieve user specific order history.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function order($id)
+    {
+        $user_id = Auth::user()->id;
+        $user = User::find($user_id);
+        $order = Orders::find($id);
+        $products = $order->products;
+        $product_subtotal = 0.00;
+        $product_total = [];
+        $cart_items = 0;
+
+        foreach($products as $product) {
+            $product_subtotal += $product->pivot->qty * $product->price;
+            $cart_items += $product->pivot->qty;
+            array_push($product_total,
+                ($product->pivot->qty * $product->price));
+        }
+        return view('users.history.details', ['order' => $order,
+            'products' => $products,
+            'product_subtotal' => $product_subtotal,
+            'product_total' => $product_total,
+            'cart_items' => $cart_items]);
+    }
+
 }

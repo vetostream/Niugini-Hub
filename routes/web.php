@@ -24,6 +24,7 @@ Route::post('/user/update/address', 'UserController@updateAddress')->name('updat
 Route::get('/user/deactivate', 'UserController@deactivateForm')->name('deactivateForm');
 Route::POST('/user/deactivateAccount', 'UserController@deactivate')->name('deactivate');
 Route::get('/user/history', 'UserController@history')->name('userHistory');
+Route::get('/user/history/{id}', 'UserController@order')->name('userOrder');
 
 // Sellers
 Route::get('/sellers/apply/{id}', ['uses' => 'SellersController@apply']);
