@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddImageToProductsTable extends Migration
+class CreateImagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,14 @@ class AddImageToProductsTable extends Migration
      */
     public function up()
     {
-        Schema::table('products', function (Blueprint $table) {
+        Schema::table('images', function (Blueprint $table) {
             $table->string('original_filename')->nullable();
             $table->string('filename')->nullable();
             $table->string('mime')->nullable();
+            $table->unsignedInteger('product_id');
+            $table->foreign('product_id')
+                ->references('id')
+                ->on('products');
         });
     }
 
@@ -27,10 +31,10 @@ class AddImageToProductsTable extends Migration
      */
     public function down()
     {
-        Schema::table('products', function (Blueprint $table) {
-            $table->dropColumn('original_filename');
-            $table->dropColumn('filename');
-            $table->dropColumn('mime');
+        Schema::table('images', function (Blueprint $table) {
+            $table->string('original_filename')->nullable();
+            $table->string('filename')->nullable();
+            $table->string('mime')->nullable();
         });
     }
 }
