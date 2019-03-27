@@ -10,6 +10,7 @@ use App\Sellers as Sellers;
 use App\Products as Products;
 use App\Orders;
 use Carbon\Carbon;
+use App\User;
 
 class AdminController extends Controller
 {
@@ -224,5 +225,35 @@ class AdminController extends Controller
             'product_subtotal' => $product_subtotal,
             'product_total' => $product_total,
             'cart_items' => $cart_items]);
+    }
+
+    public function usersList()
+    {
+        $users = User::withTrashed()->orderBy('id', 'desc')->paginate(10);
+
+        return view('admin.users.list', ['users' => $users]);
+    }
+
+    public function usersDetails($id)
+    {
+        $user = User::withTrashed()->findOrFail($id);
+
+        return view('admin.users.details', [
+            'user' => $user
+        ]);
+    }
+
+    public function updateUsersStatus(Request $request)
+    {
+        $user = User::withTrashed()->findOrFail($request->route('id'));
+
+        if ($request->status == 1) {
+            $user->delete();
+        } else {
+            $user->restore();
+        }
+
+
+        return redirect()->route('adminUsersDetails', array('id' => $user->id));
     }
 }
