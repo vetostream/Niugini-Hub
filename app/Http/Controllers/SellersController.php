@@ -53,7 +53,7 @@ class SellersController extends Controller
     public function productsList($id)
     {
         // only retrieve approved products for the specific seller
-        $products = Products::where('seller_id', $id)->where('status', 1)->paginate(10);
+        $products = Products::where('seller_id', $id)->where('status', 1)->paginate(12);
         $seller = Sellers::findOrFail($id);
 
         return view('sellers.products.list', [
@@ -98,6 +98,8 @@ class SellersController extends Controller
         $product->name = $request->productName;
         $product->desc = $request->productDescription;
         $product->price = $request->productPrice;
+        $product->qty = $request->qty;
+        $product->location = $request->productLocation;
         $product->category_id = $request->productCategory;
 
         $id = Auth::user()->id;
@@ -118,6 +120,20 @@ class SellersController extends Controller
 
         $product->save();
         return redirect()->route('sellersProfile', array('id' => $seller->id));
+    }
+
+    /**
+     * Return seller history.
+     *
+     * @param  Request  $request
+     */
+    public function history(Request $request)
+    {
+        $categories = Categories::all();
+        $id = Auth::user()->id;
+        $seller = Sellers::where('user_id', $id)->get()->first();
+
+        return view('sellers.history', ['history' => $seller->history()]);
     }
 
 }

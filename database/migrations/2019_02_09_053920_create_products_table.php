@@ -26,8 +26,8 @@ class CreateProductsTable extends Migration
             $table->foreign('category_id')
                 ->references('id')
                 ->on('categories');
-            $table->unsignedInteger('seller_id');
-            $table->foreign('seller_id')
+            $table->unsignedInteger('sellers_id');
+            $table->foreign('sellers_id')
                         ->references('id')
                         ->on('sellers')
                         ->onDelete('cascade');

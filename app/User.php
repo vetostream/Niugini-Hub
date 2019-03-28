@@ -7,7 +7,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
-
+use App\Sellers;
 class User extends Authenticatable
 {
     use Notifiable;
@@ -54,4 +54,11 @@ class User extends Authenticatable
         return $this->is_admin === self::ADMIN_TYPE;
     }
 
+    public function isSeller() {
+        return Sellers::where('user_id', $this->id)->exists();
+    }
+
+    public function seller() {
+        return $this->hasOne('App\Sellers');
+    }
 }

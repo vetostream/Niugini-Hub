@@ -11,7 +11,7 @@
       <div class="col-md-12">
         <ul class="breadcrumb-tree">
           <li><a href="{{ route('admin') }}">Admin</a></li>
-          <li class="active">All Sellers</li>
+          <li class="active">All Orders</li>
         </ul>
       </div>
     </div>
@@ -28,7 +28,7 @@
 
     <div class="row">
       <div class="col-sm">
-        <h3 class="title">Sellers</h3>
+        <h3 class="title">Orders</h3>
       </div>
     </div>
 
@@ -38,43 +38,42 @@
       <!-- STORE -->
       <div id="store" class="col-sm">
 
-        <!-- sellers table -->
+        <!-- products table -->
         <table class="table table-striped">
           <thead>
             <tr>
-              <th scope="col">#</th>
-              <th scope="col">Name</th>
-              <th scope="col">Location</th>
-              <th scope="col">Products Sold</th>
-              <th scope="col">Stars</th>
+              <th scope="col">Order ID</th>
+              <th scope="col">Order date</th>
+              <th scope="col">Total</th>
               <th scope="col">Status</th>
+              <th scope="col">Action</th>
             </tr>
           </thead>
           <tbody>
-          @foreach ($sellers as $seller)
+          @foreach ($orders as $item)
             <tr>
-              <th scope="row">{{ $seller->id }}</th>
-              <td><a href="{{ route('adminSellersDetails', ['id' => $seller->id]) }}">{{ $seller->user->name }}</a></td>
-              <td>{{ $seller->location }}</td>
-              <td>{{ $seller->products_sold }}</td>
-              <td>{{ $seller->stars }}</td>
-            @if ($seller->status == 0)
-              <td>For Review</td>
-            @elseif ($seller->status == 1)
-              <td>Active</td>
-            @elseif ($seller->status == -1)
-              <td>Inactive</td>
-            @elseif ($seller->status == -2)
-              <td>Disapproved</td>
-            @endif
+              <th scope="row">{{ $item->id }}</th>
+              <td>{{ $item->order_date }}</td>
+              <td>K {{ $item->total }}</td>
+                @if ($item->delivery_status == 0)
+                    <td>In Transit </td>
+                @elseif ($item->delivery_status == 1)
+                    <td>Delivered</td>
+                @elseif ($item->delivery_status == 2)
+                    <td>Cancelled</td>
+                @endif
+              <td><a href="{{ route('adminOrdersDetails', $item->id)  }}">Manage Order</a></td>
             </tr>
           @endforeach
           </tbody>
         </table>
 
+        <br>
+        <br>
+        <br>
         <!-- Next and Previous links -->
         <div class="row text-center">
-          {{ $sellers->links() }}
+          {{ $orders->links() }}
         </div>
 
       </div>

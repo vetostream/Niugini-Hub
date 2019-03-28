@@ -11,7 +11,7 @@
       <div class="col-md-12">
         <ul class="breadcrumb-tree">
           <li><a href="{{ route('admin') }}">Admin</a></li>
-          <li class="active">All Sellers</li>
+          <li class="active">All Users</li>
         </ul>
       </div>
     </div>
@@ -24,11 +24,11 @@
 <!-- SECTION -->
 <div class="section">
   <!-- container -->
-  <div class="container login-container">
+  <div class="container">
 
     <div class="row">
       <div class="col-sm">
-        <h3 class="title">Sellers</h3>
+        <h3 class="title">Users</h3>
       </div>
     </div>
 
@@ -38,43 +38,38 @@
       <!-- STORE -->
       <div id="store" class="col-sm">
 
-        <!-- sellers table -->
+        <!-- products table -->
         <table class="table table-striped">
           <thead>
             <tr>
               <th scope="col">#</th>
               <th scope="col">Name</th>
-              <th scope="col">Location</th>
-              <th scope="col">Products Sold</th>
-              <th scope="col">Stars</th>
               <th scope="col">Status</th>
+              <th scope="col">Action</th>
             </tr>
           </thead>
           <tbody>
-          @foreach ($sellers as $seller)
+          @foreach ($users as $user)
             <tr>
-              <th scope="row">{{ $seller->id }}</th>
-              <td><a href="{{ route('adminSellersDetails', ['id' => $seller->id]) }}">{{ $seller->user->name }}</a></td>
-              <td>{{ $seller->location }}</td>
-              <td>{{ $seller->products_sold }}</td>
-              <td>{{ $seller->stars }}</td>
-            @if ($seller->status == 0)
-              <td>For Review</td>
-            @elseif ($seller->status == 1)
-              <td>Active</td>
-            @elseif ($seller->status == -1)
-              <td>Inactive</td>
-            @elseif ($seller->status == -2)
-              <td>Disapproved</td>
-            @endif
+                <th scope="row">{{ $user->id }}</th>
+                <td>{{ $user->name }}</td>
+                @if (empty($user->deleted_at))
+                    <td>Active</td>
+                @else
+                    <td>Deactivated</td>
+                @endif
+                <td><a href="{{ route('adminUsersDetails', ['id' => $user->id]) }}">Manage User</a></td>
             </tr>
           @endforeach
           </tbody>
         </table>
 
+        <br>
+        <br>
+        <br>
         <!-- Next and Previous links -->
         <div class="row text-center">
-          {{ $sellers->links() }}
+          {{ $users->links() }}
         </div>
 
       </div>
