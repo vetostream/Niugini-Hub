@@ -127,7 +127,8 @@ class AdminController extends Controller
     public function sellersDetails($id)
     {
         $seller = Sellers::findOrFail($id);
-
+        $seller->read_at = Carbon::now();
+        $seller->save();
         return view('admin.sellers.details', [
             'seller' => $seller
         ]);

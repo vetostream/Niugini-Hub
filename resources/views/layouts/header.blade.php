@@ -42,6 +42,15 @@
             <div class="col-md-3 clearfix">
               <div class="header-ctn">
                 @if (Auth::check())
+                  @if (Auth::user()->isAdmin())
+                  <div>
+                    <a href="{{ route('adminSellersList') }}">
+                      <i class="fa fa-users"></i>
+                      <span>Seller Requests</span>
+                      <div class="qty" id="seller-requests"></div>
+                    </a>
+                  </div>
+                  @endif
                 <!-- Wishlist -->
                 <!-- <div>
                   <a href="{{ route('home') }}">

@@ -33,7 +33,7 @@ Route::get('/sellers/list/{id}/products', ['uses' => 'SellersController@products
 Route::get('/sellers/create/products', 'SellersController@productsCreateForm')->middleware('is_approved_seller')->name('productsCreateForm');
 Route::post('/sellers/create/products', 'SellersController@storeSellersProducts')->middleware('is_approved_seller')->name('storeSellersProducts');
 Route::get('/sellers/history', 'SellersController@history')->middleware('is_approved_seller')->name('sellerHistory');
-
+Route::get('/sellers/retrieve', 'SellersController@retrieve');
 // Products
 Route::get('/products', 'ProductsController@index')->name('products');
 Route::get('/products/{id}', ['uses' => 'ProductsController@details'])->name('productsDetails');
