@@ -50,7 +50,7 @@ Route::get('/orders', 'OrdersController@index');
 Route::get('/profile', 'UserController@index');
 
 // Cart
-Route::post('/cart/post', 'CartController@add');
+Route::post('/cart/post', 'CartController@add')->name('addCart');
 Route::get('/cart/count', 'CartController@count');
 Route::get('/cart/retrieve', 'CartController@retrieve');
 Route::post('/cart/delete', 'CartController@delete');

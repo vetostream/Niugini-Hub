@@ -1,10 +1,17 @@
 function add_cart(id, qty) {
+    $("#addCartModal #product-id").val(id);
+    $("#addCartModal #product-qty").val(1);
+    $("#addCartModal").modal();
+}
+
+
+function add_cart_detail(id) {
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
         }
     });
-
+    var qty = $('#product-qty').val();
     $.ajax({
         url: '/cart/post',
         method: 'post',
@@ -22,13 +29,16 @@ function add_cart(id, qty) {
         }});
 }
 
-function add_cart_detail(id) {
+function add_cart_home() {
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
         }
     });
+
     var qty = $('#product-qty').val();
+    var id = $('#product-id').val();
+    
     $.ajax({
         url: '/cart/post',
         method: 'post',
