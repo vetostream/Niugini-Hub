@@ -109,3 +109,25 @@
 </div>
 <!-- /SECTION -->
 @endsection
+@section('modals')
+<div class="modal fade bd-example-modal-sm" id="addCartModal" tabindex="-1" role="dialog" aria-labelledby="addCartLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <!-- Note: Flexbox used to align contents in modal header -->
+      <div class="modal-header" style="padding: 1rem; display: flex; align-items: flex-start; justify-content: space-between; ">
+        <h4 class="modal-title" id="addCartLabel" style="font-weight: 500; font-size: 1.5rem;" >Add to cart?</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin: -1rem -1rem -1rem auto; padding: 1rem;">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+        <div class="modal-body">
+            <input type="hidden" name="product-id"  id="product-id" value="">
+            <input type="number" id="product-qty" min="1" value="1">
+        </div>
+      <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-default" data-dismiss="modal" onclick="add_cart_home()">Confirm</button>
+      </div>
+    </div>
+  </div>
+@endsection

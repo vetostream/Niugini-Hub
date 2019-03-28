@@ -11,8 +11,8 @@
       <div class="col-md-12">
         <ul class="breadcrumb-tree">
           <li><a href="{{ route('admin') }}">Admin</a></li>
-          <li><a href="{{ route('adminProductsList') }}">All Products</a></li>
-          <li class="active">{{ $product->name }}</li>
+          <li><a href="{{ route('adminUsersList') }}">All users</a></li>
+          <li class="active">{{ $user->name }}</li>
         </ul>
       </div>
     </div>
@@ -29,7 +29,7 @@
 
     <div class="row">
       <div class="col-sm">
-        <h3 class="title">Products</h3>
+        <h3 class="title">User Details</h3>
       </div>
     </div>
 
@@ -38,26 +38,21 @@
       <div class="col-md-8">
         <div class="product">
           <div class="product-body" style="text-align: left !important;">
-            <h3 class="product-name">Product ID: {{ $product->id }}</h3>
-            <h3 class="product-name">Name: {{ $product->name }}</h3>
-            <p class="product-category">Price: {{ $product->price }}</p>
-            <p class="product-category">Description: {{ $product->desc }}</p>
-            <p class="product-category">Location: {{ $product->location }}</p>
-            <p class="product-category">Category: {{ $product->category->name }}</p>
-            <p class="product-category">Seller: {{ $product->seller->user->name }}</p>
-          @if ($product->status == 1)
-            <p class="product-category">Status: Approved</p>
-          @elseif ($product->status == 0)
-            <p class="product-category">Status: For Review</p>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#approveProductModal">
-              Approve
-            </button>
-            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#disapproveProductModal">
-              Disapprove
-            </button>
-          @elseif ($product->status == -1)
-            <p class="product-category">Status: Disapproved</p>
-          @endif
+            <h3 class="user-name">User ID: {{ $user->id }}</h3>
+                <h3 class="user-name">Name: {{ $user->name }}</h3>
+                <p class="user-category">Username: {{ $user->username }}</p>
+                <p class="user-category">Email: {{ $user->email }}</p>
+                <p class="user-category">Address: {{ $user->address }}</p>
+                <p class="user-category">Phone Number: {{ $user->phone_number }}</p>
+                @if (empty($user->deleted_at))
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#reactivateUserModal">
+                        Deactivate
+                    </button>
+                @else 
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deactivateUserModal">
+                        Reactivate
+                    </button>
+                @endif
           </div>
         </div>
       </div>
@@ -69,23 +64,22 @@
   <!-- /container -->
 </div>
 <!-- /SECTION -->
-
 @endsection
 
 @section('modals')
-<!-- Approve Product Modal -->
-<div class="modal fade bd-example-modal-sm" id="approveProductModal" tabindex="-1" role="dialog" aria-labelledby="approveProductLabel" aria-hidden="true">
+<!-- Approve user Modal -->
+<div class="modal fade bd-example-modal-sm" id="reactivateUserModal" tabindex="-1" role="dialog" aria-labelledby="reactivateUserLabel" aria-hidden="true">
   <div class="modal-dialog modal-sm" role="document">
     <div class="modal-content">
       <!-- Note: Flexbox used to align contents in modal header -->
       <div class="modal-header" style="padding: 1rem; display: flex; align-items: flex-start; justify-content: space-between; ">
-        <h4 class="modal-title" id="approveProductLabel" style="font-weight: 500; font-size: 1.5rem;" >Approve Product?</h4>
+        <h4 class="modal-title" id="reactivateUserLabel" style="font-weight: 500; font-size: 1.5rem;" >Activate User?</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin: -1rem -1rem -1rem auto; padding: 1rem;">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-footer">
-        <form method="POST" action="{{ route('adminUpdateProductsStatus', ['id' => $product->id]) }}" >
+        <form method="POST" action="{{ route('adminUpdateUsersStatus', ['id' => $user->id]) }}" >
           @csrf
           <input type="text" name="status" value="1" hidden />
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
@@ -96,19 +90,19 @@
   </div>
 </div>
 
-<!-- Disapprove Product Modal -->
-<div class="modal fade bd-example-modal-sm" id="disapproveProductModal" tabindex="-1" role="dialog" aria-labelledby="disapproveProductLabel" aria-hidden="true">
+<!-- Disapprove user Modal -->
+<div class="modal fade bd-example-modal-sm" id="deactivateUserModal" tabindex="-1" role="dialog" aria-labelledby="deactivateUserLabel" aria-hidden="true">
   <div class="modal-dialog modal-sm" role="document">
     <div class="modal-content">
       <!-- Note: Flexbox used to align contents in modal header -->
       <div class="modal-header" style="padding: 1rem; display: flex; align-items: flex-start; justify-content: space-between; ">
-        <h4 class="modal-title" id="disapproveProductLabel" style="font-weight: 500; font-size: 1.5rem;" >Disapprove Product?</h4>
+        <h4 class="modal-title" id="deactivateUserLabel" style="font-weight: 500; font-size: 1.5rem;" >Deactivate user?</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin: -1rem -1rem -1rem auto; padding: 1rem;">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-footer">
-        <form method="POST" action="{{ route('adminUpdateProductsStatus', ['id' => $product->id]) }}" >
+        <form method="POST" action="{{ route('adminUpdateUsersStatus', ['id' => $user->id]) }}" >
           @csrf
           <input type="text" name="status" value="-1" hidden />
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
@@ -118,4 +112,3 @@
     </div>
   </div>
 </div>
-@endsection

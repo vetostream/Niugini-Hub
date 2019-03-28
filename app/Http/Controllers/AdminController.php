@@ -8,6 +8,9 @@ use Illuminate\Routing\Redirector;
 use App\Categories as Categories;
 use App\Sellers as Sellers;
 use App\Products as Products;
+use App\Orders;
+use Carbon\Carbon;
+use App\User;
 
 class AdminController extends Controller
 {
@@ -116,7 +119,7 @@ class AdminController extends Controller
 
     public function sellersList()
     {
-        $sellers = Sellers::paginate(10);
+        $sellers = Sellers::orderBy('id', 'desc')->paginate(10);
 
         return view('admin.sellers.list', ['sellers' => $sellers]);
     }
@@ -142,7 +145,7 @@ class AdminController extends Controller
 
     public function productsList()
     {
-        $products = Products::paginate(10);
+        $products = Products::orderBy('id', 'desc')->paginate(10);
 
         return view('admin.products.list', ['products' => $products]);
     }
@@ -166,4 +169,91 @@ class AdminController extends Controller
         return redirect()->route('adminProductsDetails', array('id' => $product->id));
     }
 
+    public function ordersList()
+    {
+        $orders = Orders::orderBy('id', 'desc')->paginate(10);
+
+        return view('admin.orders.list', ['orders' => $orders]);
+    }
+
+    public function ordersDetails($id)
+    {
+        $order = Orders::find($id);
+        $products = $order->products;
+        $product_subtotal = 0.00;
+        $product_total = [];
+        $cart_items = 0;
+
+        foreach($products as $product) {
+            $product_subtotal += $product->pivot->qty * $product->price;
+            $cart_items += $product->pivot->qty;
+            array_push($product_total,
+                ($product->pivot->qty * $product->price));
+        }
+
+        return view('admin.orders.details', ['order' => $order,
+            'products' => $products,
+            'product_subtotal' => $product_subtotal,
+            'product_total' => $product_total,
+            'cart_items' => $cart_items]);
+
+    }
+
+    public function updateOrdersStatus(Request $request)
+    {
+        $order = Orders::findOrFail($request->route('id'));
+
+        $order->delivery_status = $request->status;
+        $order->payment_status = 'done';
+        $order->payment_date = Carbon::now();
+        $order->save();
+        
+        $products = $order->products;
+        $product_subtotal = 0.00;
+        $product_total = [];
+        $cart_items = 0;
+
+        foreach($products as $product) {
+            $product_subtotal += $product->pivot->qty * $product->price;
+            $cart_items += $product->pivot->qty;
+            array_push($product_total,
+                ($product->pivot->qty * $product->price));
+        }
+
+        return view('admin.orders.details', ['order' => $order,
+            'products' => $products,
+            'product_subtotal' => $product_subtotal,
+            'product_total' => $product_total,
+            'cart_items' => $cart_items]);
+    }
+
+    public function usersList()
+    {
+        $users = User::withTrashed()->orderBy('id', 'desc')->paginate(10);
+
+        return view('admin.users.list', ['users' => $users]);
+    }
+
+    public function usersDetails($id)
+    {
+        $user = User::withTrashed()->findOrFail($id);
+
+        return view('admin.users.details', [
+            'user' => $user
+        ]);
+    }
+
+    public function updateUsersStatus(Request $request)
+    {
+        $user = User::withTrashed()->findOrFail($request->route('id'));
+
+        if ($request->status == 1) {
+            $user->delete();
+        } else {
+            $user->restore();
+        }
+
+
+        return redirect()->route('adminUsersDetails', array('id' => $user->id));
+    }
 }

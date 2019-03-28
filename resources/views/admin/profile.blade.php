@@ -5,7 +5,7 @@
 <!-- SECTION -->
 <div class="section">
   <!-- container -->
-  <div class="container">
+  <div class="container login-container">
     <!-- row -->
     <div class="row">
 
@@ -22,8 +22,10 @@
           <div class="col-md-4 col-xs-6">
             <div class="">
               <h4 class=""><a href="{{ route('adminCategoriesList') }}">Categories</a></h4>
+              <h4 class=""><a href="{{ route('adminUsersList') }}">Users</a></h4>
               <h4 class=""><a href="{{ route('adminSellersList') }}">Sellers</a></h4>
               <h4 class=""><a href="{{ route('adminProductsList') }}">Product Review</a></h4>
+              <h4 class=""><a href="{{ route('adminOrdersList') }}">Manage Orders</a></h4>
             </div>
           </div>
         </div>
