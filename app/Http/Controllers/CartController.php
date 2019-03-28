@@ -76,7 +76,12 @@ class CartController extends Controller
      */
     public function retrieve(Request $request) {
         try {
-
+            if (Auth::user()->isAdmin()) {
+                return response()->json(['success'=>'Successfully retrieved product count',
+                'product_html' => '',
+                'product_count' => 0,
+                'product_subtotal' => 0]);
+            }
             $cart = Auth::user()->cart;
             $products = $cart->products;
             $product_html = '';
