@@ -30,19 +30,39 @@
     <!-- row -->
     <div class="row">
       <!-- Product main img -->
-      <div class="col-md-5">
+      <div class="col-md-5 col-md-push-2">
         <div id="product-main-img">
-          @if ($product->filename)
-            <img src="{{ url('uploads/'.$product->filename) }}" alt="{{ $product->filename }}" />
-          @else
-            <img src="{{ asset('img/blank.png') }}" alt="blank" />
-          @endif
+          @forelse ($product->images as $image)
+            <div class="product-preview">
+              <img src="{{ url('uploads/'.$image->filename) }}" alt="{{ $image->filename }}" />
+            </div>
+          @empty
+            <div class="product-preview">
+              <img src="{{ asset('img/blank.png') }}" alt="blank" />
+            </div>
+          @endforelse
         </div>
       </div>
       <!-- /Product main img -->
 
+      <!-- Product thumb imgs -->
+      <div class="col-md-2 col-md-pull-5">
+        <div id="product-imgs">
+          @forelse ($product->images as $image)
+            <div class="product-preview">
+              <img src="{{ url('uploads/'.$image->filename) }}" alt="{{ $image->filename }}" />
+            </div>
+          @empty
+            <div class="product-preview">
+              <img src="{{ asset('img/blank.png') }}" alt="blank" />
+            </div>
+          @endforelse
+        </div>
+      </div>
+      <!-- /Product thumb imgs -->
+
       <!-- Product details -->
-      <div class="col-md-7">
+      <div class="col-md-5">
         <div class="product-details">
           <h2 class="product-name">{{ $product->name }}</h2>
           <div>

@@ -87,8 +87,8 @@
           <div class="col-md-4 col-xs-6">
             <div class="product">
               <div class="product-img">
-                @if ($product->filename)
-                  <img src="{{ url('uploads/'.$product->filename) }}" alt="{{ $product->filename }}" />
+                @if (!$product->images->isEmpty())
+                  <img src="{{ url('uploads/'.$product->images[0]->filename) }}" alt="{{ $product->images[0]->filename }}" />
                 @else
                   <img src="{{ asset('img/blank.png') }}" alt="blank" />
                 @endif

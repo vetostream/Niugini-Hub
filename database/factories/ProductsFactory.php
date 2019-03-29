@@ -14,6 +14,6 @@ $factory->define(Products::class, function (Faker $faker) {
         'category_id' => $faker->numberBetween($min = 1, $max = 13),
         'sellers_id' => $faker->numberBetween($min = 1, $max = 3),
         'location' => $faker->address,
-        'filename' => 'sample_product'.$faker->numberBetween($min = 1, $max = 9).'.png',
+        // 'filename' => 'sample_product'.$faker->numberBetween($min = 1, $max = 9).'.png',
     ];
 });
