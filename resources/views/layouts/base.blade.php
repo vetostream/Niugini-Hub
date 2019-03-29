@@ -38,7 +38,11 @@
     <div id="top-header">
       <div class="container">
         <ul class="header-links pull-left">
+        @guest
           <li><a href="/">Home</li>
+        @else
+          <li><a href="/home">Home</li>
+        @endguest
         </ul>
         <ul class="header-links pull-right">
         <!-- Authentication Links -->
