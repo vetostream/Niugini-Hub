@@ -91,9 +91,10 @@ class CartController extends Controller
                 $product_html .= '<div class="product-widget" id="cart-product-'. $product->id.'">';
                 $source = '/img/blank.png';
                 $alt = "blank";
-                
-                if ($product->filename) {
-                    $source = '/uploads/'.$product->filename;
+
+                if (!$product->images->isEmpty()) {
+                    // get first image
+                    $source = '/uploads/'.$product->images[0]->filename;
                     $alt = $product->name;
                 }
 

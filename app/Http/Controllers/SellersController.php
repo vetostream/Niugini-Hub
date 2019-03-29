@@ -12,6 +12,7 @@ use App\Categories as Categories;
 use App\Products as Products;
 use App\Events\SellerRequestsUpdate;
 use Carbon\Carbon;
+use App\Images as Images;
 
 class SellersController extends Controller
 {
@@ -137,12 +138,18 @@ class SellersController extends Controller
             $product->location = $seller->location;
         }
 
-        $file = $request->file('productImage');
-        if ($file) {
-            $this->setFileUpload($file, $product);
+        $product->save();
+
+        $files = $request->file('productImages');
+        if ($files) {
+            foreach($files as $file) {
+                $image = new Images;
+                $this->setFileUpload($file, $image);
+                $image->product_id = $product->id;
+                $image->save();
+            }
         }
 
-        $product->save();
         return redirect()->route('sellersProfile', array('id' => $seller->id));
     }
 
