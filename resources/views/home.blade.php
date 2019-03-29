@@ -136,6 +136,7 @@
       </div>
     </div>
   </div>
+  {{ env('PUSHER_APP_KEY') }}
 @endsection
 
 @section('scripts')
@@ -147,6 +148,16 @@
     </script>
 @endif
 
-
-
+@if (Auth::check())
+  @if (Auth::user()->isAdmin())
+    @include('layouts.pusher')
+    <script>
+      var channel = pusher.subscribe('sellerRequests');
+      channel.bind('sellerRequestsEvent', function(data) {
+        update_seller_requests();
+        $('#newRequest').modal();
+      });
+    </script>
+  @endif
+@endif
 @endsection

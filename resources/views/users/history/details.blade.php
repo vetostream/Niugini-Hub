@@ -10,8 +10,8 @@
     <div class="row">
       <div class="col-md-12">
         <ul class="breadcrumb-tree">
-          <li><a href="{{ route('admin') }}">Admin</a></li>
-          <li><a href="{{ route('adminOrdersList') }}">All Orders</a></li>
+          <li><a href="{{ route('home') }}">Home</a></li>
+          <li><a href="{{ route('userHistory') }}">All Orders</a></li>
           <li class="active">Order History</li>
         </ul>
       </div>
@@ -51,7 +51,7 @@
             <h3 class="product-name">Products:</h3>
             <ul>
               @foreach ($products as  $indexKey => $product)
-              <li>{{ $product->pivot->qty }} x {{ $product->name }} - K {{$product_total[$indexKey]}}</li>
+              <li>{{ $product->pivot->qty }} x {{ $product->name }} - K {{$product_total[$indexKey]}} (sold by: {{$product_username[$indexKey]}})</li>
               @endforeach
             </ul>
             <br/>

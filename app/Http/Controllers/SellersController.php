@@ -78,7 +78,7 @@ class SellersController extends Controller
     public function productsList($id)
     {
         // only retrieve approved products for the specific seller
-        $products = Products::where('seller_id', $id)->where('status', 1)->paginate(12);
+        $products = Products::where('sellers_id', $id)->where('status', 1)->paginate(12);
         $seller = Sellers::findOrFail($id);
 
         return view('sellers.products.list', [
@@ -129,7 +129,7 @@ class SellersController extends Controller
 
         $id = Auth::user()->id;
         $seller = Sellers::where('user_id', $id)->get()->first();
-        $product->seller_id = $seller->id;
+        $product->sellers_id = $seller->id;
 
         if($request->productLocation != null) {
             $product->location = $request->productLocation;

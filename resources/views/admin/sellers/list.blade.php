@@ -94,14 +94,17 @@
 <!-- /SECTION -->
 
 @endsection
-@if (Auth::check())
-  @if (Auth::user()->isAdmin())
-    @include('layouts.pusher')
-    <script>
-      var channel = pusher.subscribe('sellerRequests');
-      channel.bind('sellerRequestsEvent', function(data) {
-        location.reload();
-      });
-    </script>
+
+@section('scripts')
+  @if (Auth::check())
+    @if (Auth::user()->isAdmin())
+      @include('layouts.pusher')
+      <script>
+        var channel = pusher.subscribe('sellerRequests');
+        channel.bind('sellerRequestsEvent', function(data) {
+          location.reload();
+        });
+      </script>
+    @endif
   @endif
-@endif
+@endsection
