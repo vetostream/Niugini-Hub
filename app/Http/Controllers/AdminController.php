@@ -127,7 +127,8 @@ class AdminController extends Controller
     public function sellersDetails($id)
     {
         $seller = Sellers::findOrFail($id);
-
+        $seller->read_at = Carbon::now();
+        $seller->save();
         return view('admin.sellers.details', [
             'seller' => $seller
         ]);
@@ -153,7 +154,6 @@ class AdminController extends Controller
     public function productsDetails($id)
     {
         $product = Products::findOrFail($id);
-
         return view('admin.products.details', [
             'product' => $product
         ]);
@@ -183,20 +183,21 @@ class AdminController extends Controller
         $product_subtotal = 0.00;
         $product_total = [];
         $cart_items = 0;
-
+        $product_seller_username = [];
+        
         foreach($products as $product) {
             $product_subtotal += $product->pivot->qty * $product->price;
             $cart_items += $product->pivot->qty;
             array_push($product_total,
                 ($product->pivot->qty * $product->price));
+            array_push($product_seller_username, $product->seller->user->username);
         }
-
         return view('admin.orders.details', ['order' => $order,
             'products' => $products,
             'product_subtotal' => $product_subtotal,
             'product_total' => $product_total,
-            'cart_items' => $cart_items]);
-
+            'cart_items' => $cart_items,
+            'product_username' => $product_seller_username]);
     }
 
     public function updateOrdersStatus(Request $request)
@@ -212,19 +213,22 @@ class AdminController extends Controller
         $product_subtotal = 0.00;
         $product_total = [];
         $cart_items = 0;
-
+        $product_seller_username = [];
+        
         foreach($products as $product) {
             $product_subtotal += $product->pivot->qty * $product->price;
             $cart_items += $product->pivot->qty;
             array_push($product_total,
                 ($product->pivot->qty * $product->price));
+            array_push($product_seller_username, $product->seller->user->username);
         }
 
         return view('admin.orders.details', ['order' => $order,
             'products' => $products,
             'product_subtotal' => $product_subtotal,
             'product_total' => $product_total,
-            'cart_items' => $cart_items]);
+            'cart_items' => $cart_items,
+            'product_username' => $product_seller_username]);
     }
 
     public function usersList()

@@ -36,7 +36,7 @@ class Products extends Model
 
     public function seller()
     {
-        return $this->belongsTo('App\Sellers');
+        return $this->belongsTo('App\Sellers', 'sellers_id');
     }
 
     public function cart()

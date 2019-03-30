@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Products as Products;
 use App\Categories;
+use App\Events\SellerRequestsUpdate;
 
 class HomeController extends Controller
 {
@@ -25,6 +26,7 @@ class HomeController extends Controller
      */
     public function index()
     {
+        // SellerRequestsUpdate::dispatch(1);
         $products = Products::where('status', 1)->paginate(12);
         return view('home', ['products' => $products]);
     }

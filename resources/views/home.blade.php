@@ -72,6 +72,28 @@
 @endsection
 
 @section('modals')
+<div class="modal fade bd-example-modal-sm" id="newRequest" tabindex="-1" role="dialog" aria-labelledby="checkoutLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <!-- Note: Flexbox used to align contents in modal header -->
+      <div class="modal-header" style="padding: 1rem; display: flex; align-items: flex-start; justify-content: space-between; ">
+        <h4 class="modal-title" id="checkoutLabel" style="font-weight: 500; font-size: 1.5rem;" >New Sellers Request!</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin: -1rem -1rem -1rem auto; padding: 1rem;">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+            <p>
+                You have new seller request.
+            </p>
+        </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="modal fade bd-example-modal-sm" id="popupmodal" tabindex="-1" role="dialog" aria-labelledby="checkoutLabel" aria-hidden="true">
   <div class="modal-dialog modal-sm" role="document">
     <div class="modal-content">
@@ -114,6 +136,7 @@
       </div>
     </div>
   </div>
+  {{ env('PUSHER_APP_KEY') }}
 @endsection
 
 @section('scripts')
@@ -123,5 +146,18 @@
             $('#popupmodal').modal();
         });
     </script>
+@endif
+
+@if (Auth::check())
+  @if (Auth::user()->isAdmin())
+    @include('layouts.pusher')
+    <script>
+      var channel = pusher.subscribe('sellerRequests');
+      channel.bind('sellerRequestsEvent', function(data) {
+        update_seller_requests();
+        $('#newRequest').modal();
+      });
+    </script>
+  @endif
 @endif
 @endsection

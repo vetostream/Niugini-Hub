@@ -5,10 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 use App\Sellers as Sellers;
 use App\Categories as Categories;
 use App\Products as Products;
+use App\Events\SellerRequestsUpdate;
+use Carbon\Carbon;
 use App\Images as Images;
 
 class SellersController extends Controller
@@ -39,13 +42,34 @@ class SellersController extends Controller
             $sellers->save();
         }
 
+        $requests = DB::table('sellers')->whereNull('read_at')->count();
+        SellerRequestsUpdate::dispatch($requests);
+
 		return redirect()->action('UserController@index');
     }
 
+    /**
+     * Retrieve number of seller requests.
+     *
+     * @return json response
+     */
+    public function retrieve(Request $request) {
+        try {
+
+            $requests = DB::table('sellers')->whereNull('read_at')->count();
+
+            return response()->json(['success'=>'Successfully retrieved sellers requests count',
+            'requests' => $requests]);
+
+        } catch(Exception $exception) {
+            return response()->json(['error'=>$exception->getMessage()], 404);
+        }
+    }
+
+    
     public function details($id)
     {
         $seller = Sellers::findOrFail($id);
-
         return view('sellers.details', [
             'seller' => $seller
         ]);
@@ -54,7 +78,7 @@ class SellersController extends Controller
     public function productsList($id)
     {
         // only retrieve approved products for the specific seller
-        $products = Products::where('seller_id', $id)->where('status', 1)->paginate(12);
+        $products = Products::where('sellers_id', $id)->where('status', 1)->paginate(12);
         $seller = Sellers::findOrFail($id);
 
         return view('sellers.products.list', [
@@ -105,7 +129,7 @@ class SellersController extends Controller
 
         $id = Auth::user()->id;
         $seller = Sellers::where('user_id', $id)->get()->first();
-        $product->seller_id = $seller->id;
+        $product->sellers_id = $seller->id;
 
         if($request->productLocation != null) {
             $product->location = $request->productLocation;

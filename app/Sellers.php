@@ -14,7 +14,6 @@ class Sellers extends Model
      * @var string
      */
     protected $table = 'sellers';
-
     /**
      * Get the foreign key
      */

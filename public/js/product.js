@@ -103,7 +103,24 @@ function update_cart() {
 
 }
 
+function update_seller_requests() {
+    $.ajax({
+        type:'get',
+        url:'/sellers/retrieve',
+        success:function(result) {
+        //document.getElementById("total_items").value=response;
+           $("#seller-requests").text(result["requests"]);
+        },
+        error: function (data) {
+            console.log("Error: ", data);
+            console.log("Errors->", data.errors);
+        }
+    });
+
+}
+
 $(document).ready(function() {
     update_cart();
+    update_seller_requests();
 });
 

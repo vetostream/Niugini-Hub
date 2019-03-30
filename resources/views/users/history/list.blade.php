@@ -10,6 +10,7 @@
     <div class="row">
       <div class="col-md-12">
         <ul class="breadcrumb-tree">
+          <li><a href="{{ route('home') }}">Home</a></li>
           <li class="active">User Order History</li>
         </ul>
       </div>

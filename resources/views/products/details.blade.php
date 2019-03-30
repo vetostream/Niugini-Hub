@@ -66,6 +66,9 @@
         <div class="product-details">
           <h2 class="product-name">{{ $product->name }}</h2>
           <div>
+            <h3 class="product-price">Seller Username: {{ $product->seller->user->username }}</h3>
+          </div>
+          <div>
             <h3 class="product-price">K {{ $product->price }}</h3>
           </div>
           <p>{{ $product->desc }}</p>
@@ -97,7 +100,6 @@
             <li>Location:</li>
             <li>{{ $product->location  }}</li>
           </ul>
-
         </div>
       </div>
       <!-- /Product details -->

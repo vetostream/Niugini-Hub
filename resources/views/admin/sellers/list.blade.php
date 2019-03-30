@@ -54,7 +54,14 @@
           @foreach ($sellers as $seller)
             <tr>
               <th scope="row">{{ $seller->id }}</th>
-              <td><a href="{{ route('adminSellersDetails', ['id' => $seller->id]) }}">{{ $seller->user->name }}</a></td>
+              <td>
+                <a href="{{ route('adminSellersDetails', ['id' => $seller->id]) }}">
+                  {{ $seller->user->name }}
+                </a>
+                @if (empty($seller->read_at))
+                  <span class="badge badge-secondary">New</span>
+                @endif
+              </td>
               <td>{{ $seller->location }}</td>
               <td>{{ $seller->products_sold }}</td>
               <td>{{ $seller->stars }}</td>
@@ -86,4 +93,18 @@
 </div>
 <!-- /SECTION -->
 
+@endsection
+
+@section('scripts')
+  @if (Auth::check())
+    @if (Auth::user()->isAdmin())
+      @include('layouts.pusher')
+      <script>
+        var channel = pusher.subscribe('sellerRequests');
+        channel.bind('sellerRequestsEvent', function(data) {
+          location.reload();
+        });
+      </script>
+    @endif
+  @endif
 @endsection
