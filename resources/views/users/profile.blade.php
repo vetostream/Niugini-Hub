@@ -22,7 +22,7 @@
 				<div class="aside">
                     <div class="card text-center">
                         <div class="card-header">
-                            <img src="{{ asset('img/blank.png') }}" class="rounded-circle img-fluid img-thumbnail" alt="pic" height="250" width="250" />
+                            {{-- <img src="{{ asset('img/blank.png') }}" class="rounded-circle img-fluid img-thumbnail" alt="pic" height="250" width="250" /> --}}
                         </div>
                     </div>
 				</div>
@@ -107,6 +107,16 @@
                     </div>
 
                     <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" class="form-control{{ $errors->has('username') ? ' is-invalid' : '' }}" id="username" name="username" value="{{ $user->username}}">
+                        @if ($errors->has('username'))
+                            <span class="invalid-feedback text-danger" role="alert">
+                                <strong>{{ $errors->first('username') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+
+                    <div class="form-group">
                         <label for="name">Age</label>
                         <input type="text" class="form-control" id="age" name="age" value="{{ $age}}" disabled>
                     </div>
@@ -159,7 +169,7 @@
                         <input id="phone_number" class="form-control{{ $errors->has('phone_number') ? ' is-invalid' : '' }}" type="number" name="phone_number" value="{{ $user->phone_number }}">
                         @if ($errors->has('phone_number'))
                             <span class="invalid-feedback text-danger" role="alert">
-                                <strong>{{ $errors->first('phone_numberW') }}</strong>
+                                <strong>{{ $errors->first('phone_number') }}</strong>
                             </span>
                         @endif
                     </div>

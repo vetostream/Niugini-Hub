@@ -9,6 +9,7 @@ use Iatstuti\Database\Support\CascadeSoftDeletes;
 
 use App\User as User;
 use App\Sellers as Sellers;
+use App\Orders;
 use DateTime;
 use Redirect;
 use Session;
@@ -61,10 +62,11 @@ class UserController extends Controller
         if(Auth::user()->email == request('email')) {
             $this->validate(request(), [
                 'name' => ['required', 'string', 'max:255'],
+                'username' => ['required', 'string', 'max:255'],
                 'gender' => ['required', 'string'],
                 'date_of_birth' => ['required', 'date'],
                 'address' => ['required', 'string'],
-                'phone_number' => ['required', 'numeric']
+                'phone_number' => ['required', 'regex:/(7)[0-9]{7}/']
             ]);
 
             $user->name = request('name');
@@ -76,10 +78,12 @@ class UserController extends Controller
         } else {
             $this->validate(request(), [
                 'name' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+                'username' => ['required', 'string', 'max:255', 'unique:users'],
                 'gender' => ['required', 'string'],
                 'date_of_birth' => ['required', 'date'],
                 'address' => ['required', 'string'],
-                'phone_number' => ['required', 'numeric']
+                'phone_number' => ['required', 'regex:/(7)[0-9]{7}/']
             ]);
 
             $user->name = request('name');
@@ -188,6 +192,52 @@ class UserController extends Controller
 
         Session::flash('success', 'Address updated!');
         return back();
+    }
+
+    /**
+     * Retrieve user order history.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function history(Request $request)
+    {
+        $id = Auth::user()->id;
+        $user = User::find($id);
+        $history = Orders::where('user_id', $id)->paginate(12);
+
+        return view('users.history.list', ['history' => $history]);
+    }
+
+    
+    /**
+     * Retrieve user specific order history.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function order($id)
+    {
+        $user_id = Auth::user()->id;
+        $user = User::find($user_id);
+        $order = Orders::find($id);
+        $products = $order->products;
+        $product_subtotal = 0.00;
+        $product_total = [];
+        $cart_items = 0;
+        $product_seller_username = [];
+        
+        foreach($products as $product) {
+            $product_subtotal += $product->pivot->qty * $product->price;
+            $cart_items += $product->pivot->qty;
+            array_push($product_total,
+                ($product->pivot->qty * $product->price));
+            array_push($product_seller_username, $product->seller->user->username);
+        }
+        return view('users.history.details', ['order' => $order,
+            'products' => $products,
+            'product_subtotal' => $product_subtotal,
+            'product_total' => $product_total,
+            'cart_items' => $cart_items,
+            'product_username' => $product_seller_username]);
     }
 
 }

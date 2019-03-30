@@ -36,7 +36,7 @@ class Products extends Model
 
     public function seller()
     {
-        return $this->belongsTo('App\Sellers');
+        return $this->belongsTo('App\Sellers', 'sellers_id');
     }
 
     public function cart()
@@ -47,6 +47,14 @@ class Products extends Model
     public function orders()
     {
         return $this->belongsToMany('App\Orders');
+    }
+
+    /**
+     * Get the images for the product.
+     */
+    public function images()
+    {
+        return $this->hasMany('App\Images', 'product_id');
     }
 
 }

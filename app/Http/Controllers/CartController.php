@@ -76,7 +76,12 @@ class CartController extends Controller
      */
     public function retrieve(Request $request) {
         try {
-
+            if (Auth::user()->isAdmin()) {
+                return response()->json(['success'=>'Successfully retrieved product count',
+                'product_html' => '',
+                'product_count' => 0,
+                'product_subtotal' => 0]);
+            }
             $cart = Auth::user()->cart;
             $products = $cart->products;
             $product_html = '';
@@ -86,9 +91,10 @@ class CartController extends Controller
                 $product_html .= '<div class="product-widget" id="cart-product-'. $product->id.'">';
                 $source = '/img/blank.png';
                 $alt = "blank";
-                
-                if ($product->filename) {
-                    $source = '/uploads/'.$product->filename;
+
+                if (!$product->images->isEmpty()) {
+                    // get first image
+                    $source = '/uploads/'.$product->images[0]->filename;
                     $alt = $product->name;
                 }
 

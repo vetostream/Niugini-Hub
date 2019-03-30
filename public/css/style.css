@@ -2249,3 +2249,7 @@ textarea.input {
 }
 
 .cart-nav {cursor: pointer}
+
+.login-container {
+  height: 500px;
+}
