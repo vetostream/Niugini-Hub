@@ -30,21 +30,44 @@
     <!-- row -->
     <div class="row">
       <!-- Product main img -->
-      <div class="col-md-5">
+      <div class="col-md-5 col-md-push-2">
         <div id="product-main-img">
-          @if ($product->filename)
-            <img src="{{ url('uploads/'.$product->filename) }}" alt="{{ $product->filename }}" />
-          @else
-            <img src="{{ asset('img/blank.png') }}" alt="blank" />
-          @endif
+          @forelse ($product->images as $image)
+            <div class="product-preview">
+              <img src="{{ url('uploads/'.$image->filename) }}" alt="{{ $image->filename }}" />
+            </div>
+          @empty
+            <div class="product-preview">
+              <img src="{{ asset('img/blank.png') }}" alt="blank" />
+            </div>
+          @endforelse
         </div>
       </div>
       <!-- /Product main img -->
 
+      <!-- Product thumb imgs -->
+      <div class="col-md-2 col-md-pull-5">
+        <div id="product-imgs">
+          @forelse ($product->images as $image)
+            <div class="product-preview">
+              <img src="{{ url('uploads/'.$image->filename) }}" alt="{{ $image->filename }}" />
+            </div>
+          @empty
+            <div class="product-preview">
+              <img src="{{ asset('img/blank.png') }}" alt="blank" />
+            </div>
+          @endforelse
+        </div>
+      </div>
+      <!-- /Product thumb imgs -->
+
       <!-- Product details -->
-      <div class="col-md-7">
+      <div class="col-md-5">
         <div class="product-details">
           <h2 class="product-name">{{ $product->name }}</h2>
+          <div>
+            <h3 class="product-price">Seller Username: {{ $product->seller->user->username }}</h3>
+          </div>
           <div>
             <h3 class="product-price">K {{ $product->price }}</h3>
           </div>
@@ -77,7 +100,6 @@
             <li>Location:</li>
             <li>{{ $product->location  }}</li>
           </ul>
-
         </div>
       </div>
       <!-- /Product details -->
@@ -88,4 +110,26 @@
   <!-- /container -->
 </div>
 <!-- /SECTION -->
+@endsection
+@section('modals')
+<div class="modal fade bd-example-modal-sm" id="addCartModal" tabindex="-1" role="dialog" aria-labelledby="addCartLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <!-- Note: Flexbox used to align contents in modal header -->
+      <div class="modal-header" style="padding: 1rem; display: flex; align-items: flex-start; justify-content: space-between; ">
+        <h4 class="modal-title" id="addCartLabel" style="font-weight: 500; font-size: 1.5rem;" >Add to cart?</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin: -1rem -1rem -1rem auto; padding: 1rem;">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+        <div class="modal-body">
+            <input type="hidden" name="product-id"  id="product-id" value="">
+            <input type="number" id="product-qty" min="1" value="1">
+        </div>
+      <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-default" data-dismiss="modal" onclick="add_cart_home()">Confirm</button>
+      </div>
+    </div>
+  </div>
 @endsection

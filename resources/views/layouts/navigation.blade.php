@@ -6,10 +6,20 @@
           <div id="responsive-nav">
             <!-- NAV -->
             <ul class="main-nav nav navbar-nav">
-              <li><a href="{{ route('home') }}">About Us</a></li>
-              <li><a href="{{ route('home') }}">Contact</a></li>
-              <li><a href="{{ route('home') }}">Profile</a></li>
-              <li><a href="{{ route('home') }}">Sell an Item</a></li>
+              <!-- <li><a href="{{ route('home') }}">About Us</a></li> -->
+              <li><a href="{{ route('categories') }}">Categories</a></li>
+              <!-- <li><a href="{{ route('home') }}">Contact</a></li> -->
+              @if(Auth::check())
+                @if (Auth::user()->isSeller())
+                  <li><a href="{{ route('admin') }}">Admin</a></li>
+                @endif
+                  <li><a href="{{ route('profile') }}">User Profile</a></li>
+                @if (Auth::user()->isSeller())
+                  <li><a href="{{ route('sellerHistory') }}">Seller History</a></li>
+                  <li><a href="{{ route('sellersProfile', Auth::user()->seller->id)  }}">Seller Profile</a></li>
+                  <li><a href="{{ route('productsCreateForm') }}">Sell an Item</a></li>
+                @endif
+              @endif 
             </ul>
             <!-- /NAV -->
           </div>
