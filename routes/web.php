@@ -14,6 +14,8 @@
 Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
+Route::get('/contact', 'HomeController@contactUs')->name('contact');
+Route::get('/about', 'HomeController@aboutUs')->name('about');
 
 // User
 Route::get('/user', 'UserController@index')->name('profile');
@@ -86,3 +88,4 @@ Route::post('/admin/update/orders/status/{id}', ['uses' => 'AdminController@upda
 Route::get('/admin/users', 'AdminController@usersList')->middleware('is_admin')->name('adminUsersList');
 Route::get('/admin/users/{id}', ['uses' => 'AdminController@usersDetails'])->middleware('is_admin')->name('adminUsersDetails');
 Route::post('/admin/update/users/status/{id}', ['uses' => 'AdminController@updateUsersStatus'])->middleware('is_admin')->name('adminUpdateUsersStatus');
+

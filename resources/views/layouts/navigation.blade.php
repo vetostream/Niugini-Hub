@@ -6,9 +6,9 @@
           <div id="responsive-nav">
             <!-- NAV -->
             <ul class="main-nav nav navbar-nav">
-              <!-- <li><a href="{{ route('home') }}">About Us</a></li> -->
+              <li><a href="{{ route('about') }}">About Us</a></li>
+              <li><a href="{{ route('contact') }}">Contact</a></li>
               <li><a href="{{ route('categories') }}">Categories</a></li>
-              <!-- <li><a href="{{ route('home') }}">Contact</a></li> -->
               @if(Auth::check())
                 @if (Auth::user()->isSeller())
                   <li><a href="{{ route('admin') }}">Admin</a></li>
