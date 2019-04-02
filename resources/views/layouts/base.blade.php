@@ -86,74 +86,96 @@
   <!-- /HEADER -->
 
   @yield('content')
+  
 
-  <!-- FOOTER -->
-  <footer id="footer">
-    <!-- top footer -->
-    <div class="section">
-      <!-- container -->
-      <div class="container">
-        <!-- row -->
-        <div class="row">
-          <div class="col-md-3 col-xs-6">
-            <div class="footer">
-              <h3 class="footer-title">About Us</h3>
-              <p>Online Ordering System called Niugini Hub for the people of Port Moresby in Papua New Guinea.</p>
-            </div>
-          </div>
+		<!-- NEWSLETTER -->
+		<div id="newsletter" class="section">
+			<!-- container -->
+			<div class="container">
 
-          <div class="clearfix visible-xs"></div>
+			</div>
+			<!-- /container -->
+		</div>
+		<!-- /NEWSLETTER -->
 
-          <div class="col-md-3 col-xs-6">
-            <div class="footer">
-              <h3 class="footer-title">Information</h3>
-              <ul class="footer-links">
-                <li><a href="#">About Us</a></li>
-                <li><a href="#">Contact Us</a></li>
-                <!-- <li><a href="#">Privacy Policy</a></li>
-                <li><a href="#">Orders and Returns</a></li>
-                <li><a href="#">Terms & Conditions</a></li> -->
-              </ul>
-            </div>
-          </div>
+		<!-- FOOTER -->
+		<footer id="footer">
+			<!-- top footer -->
+			<div class="section">
+				<!-- container -->
+				<div class="container">
+					<!-- row -->
+					<div class="row">
+						<div class="col-md-3 col-xs-6">
+							<div class="footer">
+								<h3 class="footer-title">About Us</h3>
+								<p>Online Ordering System called Niugini Hub for the people of Port Moresby in Papua New Guinea.<p>
+								<ul class="footer-links">
+									<li><a href="#"><i class="fa fa-map-marker"></i>Port Moresby in Papua New Guinea.</a></li>
+									<li><a href="#"><i class="fa fa-phone"></i>325 6163</a></li>
+									<li><a href="#"><i class="fa fa-envelope-o"></i>niuginihub@gmail.com </a></li>
+								</ul>
+							</div>
+						</div>
 
-          <div class="col-md-3 col-xs-6">
-            <div class="footer">
-              <h3 class="footer-title">Service</h3>
-              <ul class="footer-links">
-                <li><a href="{{ route('profile') }}">My Account</a></li>
-                <li><a href="{{ route('cart') }}">View Cart</a></li>
-                <!-- <li><a href="#">Wishlist</a></li>
-                <li><a href="#">Track My Order</a></li>
-                <li><a href="#">Help</a></li> -->
-              </ul>
-            </div>
-          </div>
-        </div>
-        <!-- /row -->
-      </div>
-      <!-- /container -->
-    </div>
-    <!-- /top footer -->
 
-    <!-- bottom footer -->
-    <div id="bottom-footer" class="section navbar fixed-bottom">
-      <div class="container">
-        <!-- row -->
-        <div class="row">
-          <div class="col-md-12 text-center">
-            <span class="copyright">
-              Niugini-hub &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved
-            </span>
-          </div>
-        </div>
-          <!-- /row -->
-      </div>
-      <!-- /container -->
-    </div>
-    <!-- /bottom footer -->
-  </footer>
-  <!-- /FOOTER -->
+						<div class="col-md-3 col-xs-6">
+							<div class="footer">
+								<h3 class="footer-title">Information</h3>
+								<ul class="footer-links">
+									<li><a href="#">About Us</a></li>
+									<li><a href="#">Contact Us</a></li>
+								</ul>
+							</div>
+						</div>
+							
+							
+						<div class="col-md-3 col-xs-6">
+							<div class="footer">
+								<h3 class="footer-title">Service</h3>
+								<ul class="footer-links">
+									<li><a href="{{ route('profile') }}">My Account</a></li>
+									<li><a href="{{ route('cart') }}">View Cart</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<!-- /row -->
+				</div>
+				<!-- /container -->
+			</div>
+			<!-- /top footer -->
+
+			<!-- bottom footer -->
+			<div id="bottom-footer" class="section">
+				<div class="container">
+					<!-- row -->
+					<div class="row">
+						<div class="col-md-12 text-center">
+							<ul class="footer-payments">
+								<li><a href="#"><i class="fa fa-cc-visa"></i></a></li>
+								<li><a href="#"><i class="fa fa-credit-card"></i></a></li>
+								<li><a href="#"><i class="fa fa-cc-paypal"></i></a></li>
+								<li><a href="#"><i class="fa fa-cc-mastercard"></i></a></li>
+								<li><a href="#"><i class="fa fa-cc-discover"></i></a></li>
+								<li><a href="#"><i class="fa fa-cc-amex"></i></a></li>
+							</ul>
+							<span class="copyright">
+								<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+								Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | Niugini 
+							<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+							</span>
+
+
+						</div>
+					</div>
+						<!-- /row -->
+				</div>
+				<!-- /container -->
+			</div>
+			<!-- /bottom footer -->
+		</footer>
+		<!-- /FOOTER -->
 
   @yield('modals')
 
