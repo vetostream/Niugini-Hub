@@ -11,7 +11,7 @@
       <div class="col-md-12">
         <ul class="breadcrumb-tree">
           <li><a href="{{ route('admin') }}">Admin</a></li>
-          <li class="active">All Orders</li>
+          <li class="active">Manage Orders</li>
         </ul>
       </div>
     </div>
@@ -24,7 +24,7 @@
 <!-- SECTION -->
 <div class="section">
   <!-- container -->
-  <div class="container login-container">
+  <div class="container">
 
     <div class="row">
       <div class="col-sm">

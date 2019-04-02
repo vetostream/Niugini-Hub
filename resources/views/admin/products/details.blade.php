@@ -25,8 +25,7 @@
 <!-- SECTION -->
 <div class="section">
   <!-- container -->
-  <div class="container login-container">
-
+  <div class="container">
     <div class="row">
       <div class="col-sm">
         <h3 class="title">Products</h3>

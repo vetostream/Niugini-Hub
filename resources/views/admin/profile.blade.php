@@ -5,7 +5,7 @@
 <!-- SECTION -->
 <div class="section">
   <!-- container -->
-  <div class="container login-container">
+  <div class="container">
     <!-- row -->
     <div class="row">
 
