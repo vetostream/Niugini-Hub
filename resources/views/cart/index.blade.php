@@ -40,9 +40,9 @@
                     <div class="row cart-row" id="cart-page-row-{{$item->id}}">
                         <div class="col-md-6">
                             <div class="row">
-                                @if ($item->filename)
-                                    <img src="{{ url('uploads/'.$item->filename) }}"
-                                        alt="{{ $item->filename }}"
+                                @if (!$item->images->isEmpty())
+                                    <<img src="{{ url('uploads/'.$item->images[0]->filename) }}" 
+										alt="{{ $item->images[0]->filename }}"
                                 @else
                                     <img src="{{ asset('img/blank.png') }}"
                                         alt="blank"

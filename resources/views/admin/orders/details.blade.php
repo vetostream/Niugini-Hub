@@ -10,7 +10,8 @@
     <div class="row">
       <div class="col-md-12">
         <ul class="breadcrumb-tree">
-          <li class="active"><a href="{{ route('adminOrdersList') }}">Manage Orders</a></li>
+          <li><a href="{{ route('admin') }}">Admin</a></li>
+          <li><a href="{{ route('adminOrdersList') }}">Manage Orders</a></li>
           <li class="active">Order History</li>
         </ul>
       </div>
@@ -24,7 +25,7 @@
 <!-- SECTION -->
 <div class="section">
   <!-- container -->
-  <div class="container login-container">
+  <div class="container">
 
     <div class="row">
       <div class="col-sm">

@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="section">
-  <div class="container login-container">
+  <div class="container">
       <div class="col-sm-12">
         <div class="section-title">
           <h3 class="title">{{ __('Login') }}</h3>
